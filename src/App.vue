@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import PHNavBar from "./components/PHNavBar.vue";
 </script>
 
 <template>
+  <PHNavBar />
   <RouterView />
 </template>
 
