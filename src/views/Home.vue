@@ -4,7 +4,7 @@
             <img class="h-12 w-12" src="../assets/vue.svg" alt="ChitChat Logo">
         </div>
         <div>
-            <div class="text-xl font-medium text-black">ChitChat</div>
+            <div class="text-xl font-medium text-green">ChitChat</div>
             <p class="text-gray-500">You have a new message!</p>
         </div>
     </div>
