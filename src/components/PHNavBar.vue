@@ -1,11 +1,11 @@
 <template>
-  <header class="sticky h-16 w-full">
+  <header class="sticky top-0 h-16 w-full">
     <div class="max-w-screen-2xl mx-auto p-4 flex justify-between">
       <RouterLink to="/" class="text-2xl font-bold">PHSZ</RouterLink>
       <nav>
         <ul class="flex space-x-8">
           <li v-for="link in links" :key="link.text">
-            <RouterLink :to="link.path" class="text-gray-500">{{
+            <RouterLink :to="link.path" class="text-gray-500 hover:text-gray-900">{{
               link.text
             }}</RouterLink>
           </li>
