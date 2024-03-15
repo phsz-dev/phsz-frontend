@@ -3,19 +3,23 @@
     <div
       v-for="feature in features"
       :key="feature.id"
-      class="flex-1 p-4 rounded-lg"
-      :style="{ backgroundColor: feature.bg_color }"
+      class="flex-1 p-4 rounded-lg dark:bg-slate-800"
+      :style="{ backgroundColor: isDark ? '#202127' : feature.bg_color }"
     >
       <div class="h-12 w-12 text-4xl">{{ feature.icon }}</div>
       <div class="h-2"></div>
-      <h2 class="text-2xl font-bold text-gray-700">{{ feature.title }}</h2>
+      <h2 class="text-2xl font-bold text-gray-700 dark:text-gray-200">{{ feature.title }}</h2>
       <div class="h-2"></div>
-      <p class="text-gray-600">{{ feature.description }}</p>
+      <p class="text-gray-600 dark:text-gray-400">{{ feature.description }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useDark } from '@vueuse/core';
+
+const isDark = useDark();
+
 const features = [
   {
     id: 1,

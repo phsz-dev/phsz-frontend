@@ -1,14 +1,25 @@
 <template>
   <header class="sticky top-0 h-16 w-full">
     <div class="max-w-screen-2xl mx-auto p-4 flex justify-between">
-      <RouterLink to="/" class="text-2xl font-bold">PHSZ</RouterLink>
-      <nav>
-        <ul class="flex space-x-8">
-          <li v-for="link in links" :key="link.text">
-            <RouterLink :to="link.path" class="text-gray-500 hover:text-gray-900">{{
-              link.text
-            }}</RouterLink>
+      <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
+        >PHSZ</RouterLink
+      >
+      <nav class="flex">
+        <ul class="flex space-x-8 items-center">
+          <li v-for="link in links" :key="link.text" class="h-fit">
+            <RouterLink
+              :to="link.path"
+              class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+              activeClass="text-gray-900 dark:text-gray-100"
+            >
+              {{ link.text }}</RouterLink
+            >
           </li>
+          <PHSwitchAppearance />
+          <PHSocialLink href="github.com">
+            <span class="phi-social-github"></span>
+          </PHSocialLink>
+
         </ul>
       </nav>
     </div>
@@ -16,6 +27,9 @@
 </template>
 
 <script setup lang="ts">
+import PHSwitchAppearance from "./PHSwitchAppearance.vue";
+import PHSocialLink from "./PHSocialLink.vue";
+
 const links = [
   { path: "/", text: "主页" },
   { path: "/roleplay", text: "角色扮演" },
