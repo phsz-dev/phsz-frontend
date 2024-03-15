@@ -4,7 +4,7 @@
       <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
         >PHSZ</RouterLink
       >
-      <nav class="flex">
+      <nav class="flex shrink-0">
         <ul class="flex space-x-8 items-center">
           <li v-for="link in links" :key="link.text" class="h-fit">
             <RouterLink
@@ -16,7 +16,7 @@
             >
           </li>
           <PHSwitchAppearance />
-          <PHSocialLink href="github.com">
+          <PHSocialLink href="https://github.com/phsz-dev/" class="dark:text-gray-100">
             <span class="phi-social-github"></span>
           </PHSocialLink>
 
