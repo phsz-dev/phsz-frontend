@@ -32,7 +32,7 @@ import PHSocialLink from "./PHSocialLink.vue";
 
 const links = [
   { path: "/", text: "主页" },
-  { path: "/roleplay", text: "角色扮演" },
+  { path: "/role", text: "角色扮演" },
   { path: "/cases", text: "病例" },
   { path: "/me", text: "我的" },
   { path: "/admin", text: "管理" },
