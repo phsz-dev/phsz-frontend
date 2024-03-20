@@ -16,10 +16,12 @@
             >
           </li>
           <PHSwitchAppearance />
-          <PHSocialLink href="https://github.com/phsz-dev/" class="dark:text-gray-100">
+          <PHSocialLink
+            href="https://github.com/phsz-dev/"
+            class="dark:text-gray-100"
+          >
             <span class="phi-social-github"></span>
           </PHSocialLink>
-
         </ul>
       </nav>
     </div>
@@ -27,14 +29,14 @@
 </template>
 
 <script setup lang="ts">
-import PHSwitchAppearance from "./PHSwitchAppearance.vue";
-import PHSocialLink from "./PHSocialLink.vue";
+import PHSwitchAppearance from './PHSwitchAppearance.vue'
+import PHSocialLink from './PHSocialLink.vue'
 
 const links = [
-  { path: "/", text: "主页" },
-  { path: "/role", text: "角色扮演" },
-  { path: "/cases", text: "病例" },
-  { path: "/me", text: "我的" },
-  { path: "/admin", text: "管理" },
-];
+  { path: '/', text: '主页' },
+  { path: '/role', text: '角色扮演' },
+  { path: '/cases', text: '病例' },
+  { path: '/me', text: '我的' },
+  { path: '/admin', text: '管理' }
+]
 </script>

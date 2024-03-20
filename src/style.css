@@ -5,7 +5,7 @@
 
   /* color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87); */
-  background-color: #F4F8FF;
+  background-color: #f4f8ff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,7 +15,7 @@
 
 :root.dark {
   /* color: rgba(0, 0, 0, 0.87); */
-  background-color: #1F1B1B;
+  background-color: #1f1b1b;
 }
 
 /* a {
