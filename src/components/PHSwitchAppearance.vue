@@ -1,7 +1,7 @@
 <template>
   <button
-    @click="toogleDark()"
     class="pl-[1px] border-[1px] border-gray-700 dark:border-gray-400 rounded-full w-10 h-6"
+    @click="toogleDark()"
   >
     <span
       id="toogleDark"
