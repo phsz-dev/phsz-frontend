@@ -34,10 +34,10 @@ import PHSwitchAppearance from './PHSwitchAppearance.vue'
 import PHSocialLink from './PHSocialLink.vue'
 
 const links = [
-  { path: "/home", text: "主页" },
-  { path: "/role", text: "角色扮演" },
-  { path: "/cases", text: "病例" },
-  { path: "/me", text: "我的" },
-  { path: "/admin", text: "管理" },
-];
+  { path: '/home', text: '主页' },
+  { path: '/role', text: '角色扮演' },
+  { path: '/cases', text: '病例' },
+  { path: '/me', text: '我的' },
+  { path: '/admin', text: '管理' }
+]
 </script>

@@ -1,34 +1,38 @@
 <template>
-    <div class="w-screen h-screen fixed flex flex-row top-0 items-center">
-        <div class="flex-1 h-full" v-for="(item, index) in roleItemList" :key="index">
-            <PHItemSelect :roleItem="item" :itemStatus="index % 2" />
-        </div>
+  <div class="w-screen h-screen fixed flex flex-row top-0 items-center">
+    <div
+      class="flex-1 h-full"
+      v-for="(item, index) in roleItemList"
+      :key="index"
+    >
+      <PHItemSelect :roleItem="item" :itemStatus="index % 2" />
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import PHItemSelect from '../components/PHRoleItemSelector.vue'
 const roleItemList = [
-    {
-        id: 0,
-        name: "前台",
-        imageURI: "/src/assets/role/reception.png",
-        darkImageURI: "/src/assets/role/reception-dark.png",
-        bg_color: "#FFC8C8"
-    },
-    {
-        id: 1,
-        name: "医助",
-        imageURI: "/src/assets/role/assistant.png",
-        darkImageURI: "/src/assets/role/assistant-dark.png",
-        bg_color: "#FFE2C8"
-    },
-    {
-        id: 2,
-        name: "兽医师",
-        imageURI: "/src/assets/role/doctor.png",
-        darkImageURI: "/src/assets/role/doctor-dark.png",
-        bg_color: "#FFF8C8"
-    }
+  {
+    id: 0,
+    name: '前台',
+    imageURI: '/src/assets/role/reception.png',
+    darkImageURI: '/src/assets/role/reception-dark.png',
+    bg_color: '#FFC8C8'
+  },
+  {
+    id: 1,
+    name: '医助',
+    imageURI: '/src/assets/role/assistant.png',
+    darkImageURI: '/src/assets/role/assistant-dark.png',
+    bg_color: '#FFE2C8'
+  },
+  {
+    id: 2,
+    name: '兽医师',
+    imageURI: '/src/assets/role/doctor.png',
+    darkImageURI: '/src/assets/role/doctor-dark.png',
+    bg_color: '#FFF8C8'
+  }
 ]
 </script>
