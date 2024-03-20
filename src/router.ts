@@ -6,14 +6,15 @@ const routes = [
   {
     path: '/',
     component: RouterView,
+    redirect: '/home',
     children: [
       {
-        path: '',
+        path: 'home',
         name: 'Home',
         component: Home
       },
       {
-        path: '/role',
+        path: 'role',
         name: 'RoleSelect',
         component: RoleSelect
       }
