@@ -1,11 +1,11 @@
 <template>
-  <header class="sticky top-0 h-16 w-full z-50">
-    <div class="max-w-screen-2xl mx-auto p-4 flex justify-between">
+  <header class="sticky top-0 z-50 h-16 w-full">
+    <div class="mx-auto flex max-w-screen-2xl justify-between p-4">
       <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
         >PHSZ</RouterLink
       >
       <nav class="flex shrink-0">
-        <ul class="flex space-x-8 items-center">
+        <ul class="flex items-center space-x-8">
           <li v-for="link in links" :key="link.text" class="h-fit">
             <RouterLink
               :to="link.path"

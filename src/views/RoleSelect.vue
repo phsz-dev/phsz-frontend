@@ -1,9 +1,9 @@
 <template>
-  <div class="w-screen h-screen fixed flex flex-row top-0 items-center">
+  <div class="fixed top-0 flex h-screen w-screen flex-row items-center">
     <div
       v-for="(item, index) in roleItemList"
       :key="index"
-      class="flex-1 h-full"
+      class="h-full flex-1"
     >
       <PHItemSelect :role-item="item" :item-status="index % 2" />
     </div>

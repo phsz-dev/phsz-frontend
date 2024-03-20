@@ -1,11 +1,11 @@
 <template>
   <button
-    class="pl-[1px] border-[1px] border-gray-700 dark:border-gray-400 rounded-full w-10 h-6"
+    class="h-6 w-10 rounded-full border-[1px] border-gray-700 pl-[1px] dark:border-gray-400"
     @click="toogleDark()"
   >
     <span
       id="toogleDark"
-      class="dark:translate-x-4 block size-5 bg-gray-700 dark:bg-gray-400 rounded-full !transform !transition-transform"
+      class="block size-5 !transform rounded-full bg-gray-700 !transition-transform dark:translate-x-4 dark:bg-gray-400"
     ></span>
   </button>
 </template>

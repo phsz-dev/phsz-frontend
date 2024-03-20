@@ -3,7 +3,7 @@
     <div
       v-for="feature in features"
       :key="feature.id"
-      class="flex-1 p-4 rounded-lg dark:bg-slate-800"
+      class="flex-1 rounded-lg p-4 dark:bg-slate-800"
       :style="{ backgroundColor: isDark ? '#202127' : feature.bg_color }"
     >
       <div class="h-12 w-12 text-4xl">{{ feature.icon }}</div>

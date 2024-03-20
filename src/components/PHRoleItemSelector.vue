@@ -1,12 +1,12 @@
 <template>
-  <div class="items-center h-full flex">
+  <div class="flex h-full items-center">
     <img
       :src="isDark ? roleItem.darkImageURI : roleItem.imageURI"
       alt="role image"
-      class="w-full transition-transform z-20 hover:scale-125 hover:z-10"
+      class="z-20 w-full transition-transform hover:z-10 hover:scale-125"
     />
     <div
-      class="z-20 absolute w-1/3 p-4 text-center"
+      class="absolute z-20 w-1/3 p-4 text-center"
       :class="itemStatus == 0 ? 'top-28' : 'bottom-24'"
     >
       <!-- <div>{{roleItem.name}}</div> -->

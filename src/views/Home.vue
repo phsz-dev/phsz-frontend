@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto">
+  <div class="mx-auto max-w-7xl">
     <PHHomeHero />
     <PHHomeFeatures />
     <PHFooter />

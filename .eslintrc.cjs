@@ -7,7 +7,7 @@ module.exports = {
     // 'plugin:vue/recommended' // Use this if you are using Vue.js 2.x.
   ],
   parserOptions: {
-    parser: "@typescript-eslint/parser"
+    parser: '@typescript-eslint/parser'
   },
   rules: {
     // override/add rules settings here, such as:
