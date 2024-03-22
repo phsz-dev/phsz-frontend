@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router'
 import Home from './views/Home.vue'
 import RoleSelect from './views/RoleSelect.vue'
+import CaseStudy from './views/CaseStudy.vue'
 
 const routes = [
   {
@@ -14,9 +15,14 @@ const routes = [
         component: Home
       },
       {
-        path: 'role',
+        path: 'role-select',
         name: 'RoleSelect',
         component: RoleSelect
+      },
+      {
+        path: 'case-study',
+        name: 'CaseStudy',
+        component: CaseStudy
       }
     ]
   }
