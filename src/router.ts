@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router'
-import Home from './views/Home.vue'
-import RoleSelect from './views/RoleSelect.vue'
-import CaseStudy from './views/CaseStudy.vue'
 
 const routes = [
   {
@@ -12,17 +9,22 @@ const routes = [
       {
         path: 'home',
         name: 'Home',
-        component: Home
+        component: () => import('./views/Home.vue')
       },
       {
         path: 'role-select',
         name: 'RoleSelect',
-        component: RoleSelect
+        component: () => import('./views/RoleSelect.vue')
       },
       {
         path: 'case-study',
         name: 'CaseStudy',
-        component: CaseStudy
+        component: () => import('./views/CaseStudy.vue')
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('./views/Login.vue')
       }
     ]
   }

@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { useDark } from '@vueuse/core'
 const isDark = useDark()
 const props = defineProps({

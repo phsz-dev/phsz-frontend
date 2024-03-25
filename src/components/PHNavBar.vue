@@ -30,14 +30,30 @@
 </template>
 
 <script setup lang="ts">
+
+import { computed } from 'vue'
+
 import PHSwitchAppearance from './PHSwitchAppearance.vue'
 import PHSocialLink from './PHSocialLink.vue'
 
-const links = [
-  { path: '/home', text: '主页' },
-  { path: '/role-select', text: '角色扮演' },
-  { path: '/case-study', text: '病例' },
-  { path: '/me', text: '我的' },
-  { path: '/admin', text: '管理' }
-]
+import { useUserStore } from '../stores/user';
+
+const userStore = useUserStore();
+
+const links = computed(() => {
+  const links = [
+    { path: '/home', text: '主页' },
+    { path: '/role-select', text: '角色扮演' },
+    { path: '/case-study', text: '病例' },
+  ]
+
+  if (userStore.logged) {
+    links.push({ path: '/profile', text: '个人资料' })
+  } else {
+    links.push({ path: '/login', text: '登录 | 注册' })
+  }
+
+  return links
+})
+
 </script>
