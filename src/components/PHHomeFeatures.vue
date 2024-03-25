@@ -3,8 +3,8 @@
     <div
       v-for="feature in features"
       :key="feature.id"
-      class="flex-1 rounded-lg p-4 dark:bg-slate-800"
-      :style="{ backgroundColor: isDark ? '#202127' : feature.bg_color }"
+      class="flex-1 rounded-lg p-4 dark:!bg-dark-block-600"
+      :style="{ backgroundColor: feature.bg_color }"
     >
       <div class="h-12 w-12 text-4xl">{{ feature.icon }}</div>
       <div class="h-2"></div>
@@ -18,10 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { useDark } from '@vueuse/core'
-
-const isDark = useDark()
-
 const features = [
   {
     id: 1,

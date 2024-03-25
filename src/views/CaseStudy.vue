@@ -1,9 +1,9 @@
 <template>
-    <div class="mx-auto max-w-7xl flex flex-row px-4">
-        <div class="w-56 h-full">
+    <div class="mx-auto max-w-screen-2xl flex flex-row px-4">
+        <div class="w-80 h-full">
             <PHCaseStudyLeftCatalog v-model="currentIndex" />
         </div>
-        <div class="w-1/2 h-full px-2">
+        <div class="w-full h-full px-2">
             <PHCaseStudyRightContent :currentIndex="currentIndex" />
         </div>
     </div>
