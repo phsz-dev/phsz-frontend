@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full items-center cursor-pointer">
+  <div class="flex h-full cursor-pointer items-center">
     <img
       :src="isDark ? roleItem.darkImageURI : roleItem.imageURI"
       alt="role image"

@@ -1,8 +1,5 @@
 <template>
-    heihei
-    
+  <div>heihei</div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>

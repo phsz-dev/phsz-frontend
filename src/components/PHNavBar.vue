@@ -30,21 +30,20 @@
 </template>
 
 <script setup lang="ts">
-
 import { computed } from 'vue'
 
 import PHSwitchAppearance from './PHSwitchAppearance.vue'
 import PHSocialLink from './PHSocialLink.vue'
 
-import { useUserStore } from '../stores/user';
+import { useUserStore } from '../stores/user'
 
-const userStore = useUserStore();
+const userStore = useUserStore()
 
 const links = computed(() => {
   const links = [
     { path: '/home', text: '主页' },
     { path: '/role-select', text: '角色扮演' },
-    { path: '/case-study', text: '病例' },
+    { path: '/case-study', text: '病例' }
   ]
 
   if (userStore.logged) {
@@ -55,5 +54,4 @@ const links = computed(() => {
 
   return links
 })
-
 </script>

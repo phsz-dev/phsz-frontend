@@ -5,32 +5,29 @@ export default {
     extend: {
       colors: {
         primary: {
-          500:'#ffb6b9',
-          600:'#ffb6b9cd'
-
+          500: '#ffb6b9',
+          600: '#ffb6b9cd'
         },
-        'primary-light':'#fae3d9',
+        'primary-light': '#fae3d9',
         secondary: {
-          50:'#e5f9f6',
-          100:'#e0f2f1',
-          200:'#d5f5f2',
-          300:'#b0f0e6',
-          400:'#8ce7e0',
-          500:'#61c0bf',
-          600:'#3aafa9',
-          700:'#2e8989',
-          800:'#1f5f5f',
-          900:'#0f3535'
-
+          50: '#e5f9f6',
+          100: '#e0f2f1',
+          200: '#d5f5f2',
+          300: '#b0f0e6',
+          400: '#8ce7e0',
+          500: '#61c0bf',
+          600: '#3aafa9',
+          700: '#2e8989',
+          800: '#1f5f5f',
+          900: '#0f3535'
         },
-        'secondary-light':'#bbded6',
-        'dark-block':{
-          400:'#3c414c',
-          500:'#32363f',
-          600:'#2b2f37',
-          700:'#25292f',
+        'secondary-light': '#bbded6',
+        'dark-block': {
+          400: '#3c414c',
+          500: '#32363f',
+          600: '#2b2f37',
+          700: '#25292f'
         }
-
       },
       backgroundImage: {
         'role-play-assistant': "url('/src/assets/role/assistant.webp')",

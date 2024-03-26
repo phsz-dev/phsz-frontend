@@ -31,7 +31,9 @@ import PHFooter from './components/PHFooter.vue'
 
 .slide-enter-active,
 .slide-leave-active {
-  transition: opacity 1s, transform 1s;
+  transition:
+    opacity 1s,
+    transform 1s;
 }
 
 .slide-enter-from,
@@ -39,6 +41,4 @@ import PHFooter from './components/PHFooter.vue'
   opacity: 0;
   transform: translateX(-30%);
 }
-
-
 </style>

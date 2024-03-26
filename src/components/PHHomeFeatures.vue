@@ -6,15 +6,17 @@
       class="flex-1 rounded-lg p-4 dark:!bg-dark-block-600"
       :style="{ backgroundColor: feature.bg_color }"
     >
-    <RouterLink :to="feature.url">
-      <div class="h-12 w-12 text-4xl">{{ feature.icon }}</div>
-      <div class="h-2"></div>
-      <h2 class="text-2xl font-bold text-gray-700 dark:text-gray-200">
-        {{ feature.title }}
-      </h2>
-      <div class="h-2"></div>
-      <p class="text-gray-600 dark:text-gray-400">{{ feature.description }}</p>
-    </RouterLink>
+      <RouterLink :to="feature.url">
+        <div class="h-12 w-12 text-4xl">{{ feature.icon }}</div>
+        <div class="h-2"></div>
+        <h2 class="text-2xl font-bold text-gray-700 dark:text-gray-200">
+          {{ feature.title }}
+        </h2>
+        <div class="h-2"></div>
+        <p class="text-gray-600 dark:text-gray-400">
+          {{ feature.description }}
+        </p>
+      </RouterLink>
     </div>
   </div>
 </template>
