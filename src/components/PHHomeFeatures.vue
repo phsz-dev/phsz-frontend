@@ -24,8 +24,16 @@
 <script setup lang="ts">
 const features = [
   {
+    id: 0,
+    bg_color: '#a8d8ea', 
+    icon: '🏫',
+    title: '医院导览',
+    url: '/navigation',
+    description: '医院导览，浏览各个区域的设施、人员、设备等信息'
+  },
+  {
     id: 1,
-    bg_color: '#FFE6E6',
+    bg_color: '#eaffd0',
     icon: '🧙',
     title: '角色扮演',
     url: '/role-select',
@@ -34,7 +42,7 @@ const features = [
   },
   {
     id: 2,
-    bg_color: '#FFF1E6',
+    bg_color: '#95e1d3',
     icon: '🏥',
     title: '病例',
     url: '/case-study',
@@ -42,7 +50,7 @@ const features = [
   },
   {
     id: 3,
-    bg_color: '#FFFAE6',
+    bg_color: '#ffffd2',
     icon: '📚',
     title: '我的',
     url: '/profile',

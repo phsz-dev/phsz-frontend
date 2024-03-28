@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PHNavBar from './components/PHNavBar.vue'
-import PHFooter from './components/PHFooter.vue'
+
 </script>
 
 <template>
@@ -10,7 +10,6 @@ import PHFooter from './components/PHFooter.vue'
       <Component :is="Component" :key="$route.path" />
     </Transition>
   </RouterView>
-  <PHFooter />
 </template>
 
 <style scoped>

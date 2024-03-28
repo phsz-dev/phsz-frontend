@@ -7,8 +7,8 @@
         v-model="menu_id"
       />
     </div>
-    <div class="ml-2.5 h-fit w-64 flex-[3_3_auto] rounded-sm bg-white">
-      <div>{{ left_menu[menu_id] }}</div>
+    <div class="ml-2.5 h-fit w-64 flex-[3_3_auto] rounded-sm bg-white dark:bg-dark-block-500 ">
+      <div class="mx-4 border-b-2 border-gray-300 py-3 text-lg text-black dark:border-zinc-500 dark:text-gray-200">{{ left_menu[menu_id] }}</div>
     </div>
   </div>
 </template>
