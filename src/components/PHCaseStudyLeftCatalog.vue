@@ -1,10 +1,10 @@
 <template>
   <div
-    class="flex flex-col space-y-4 rounded-md bg-white px-4 py-4 dark:!bg-dark-block-600"
+    class="rounded-m flex flex-col space-y-4 border-r-2 border-secondary-100 bg-white px-4 py-4 dark:border-gray-200 dark:!bg-dark-block-600"
   >
     <div class="flex flex-col space-y-2">
       <h2 class="space-y-2 text-lg font-bold dark:text-gray-200">疾病分类</h2>
-      <div class="h-0.5 space-y-2 bg-gray-200"></div>
+      <div class="h-0.5 space-y-2 bg-secondary-100 dark:bg-gray-200"></div>
       <ul class="flex flex-col space-y-2">
         <li
           v-for="(item, index) in diseaseCatalog.map((item) => item.name)"
@@ -14,10 +14,10 @@
           <div
             :class="{
               'bg-secondary-50 text-secondary-500 dark:bg-dark-block-400':
-                currenIndex === index
+                currentIndex === index
             }"
-            class="text-md rounded-md px-2 py-3 font-medium text-black transition-colors duration-300 ease-in-out hover:text-secondary-500 dark:text-gray-200"
-            @click="updateCurrentIndex(index)"
+            class="text-md rounded-sm px-2 py-3 font-medium text-black transition-colors duration-300 ease-in-out hover:text-secondary-500 dark:text-gray-200"
+            @click="currentIndex = index"
           >
             {{ item }}
           </div>
@@ -29,11 +29,7 @@
 
 <script setup lang="ts">
 import { useCaseStore } from '../stores/case'
-const currenIndex = defineModel<number>()
+const currentIndex = defineModel<number>()
 
 const { diseaseCatalog } = useCaseStore()
-
-function updateCurrentIndex(index: number) {
-  currenIndex.value = index
-}
 </script>

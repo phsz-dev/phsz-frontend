@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-full flex-col rounded-md bg-white px-3 py-3 dark:!bg-dark-block-600"
+    class="flex h-full flex-col rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500"
   >
     <div class="flex flex-row items-center align-middle">
       <div class="h-3 w-3"></div>

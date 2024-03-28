@@ -5,10 +5,10 @@ export default {
     extend: {
       colors: {
         primary: {
-          500: '#ffb6b9',
-          600: '#ffb6b9cd'
+          500: '#42d392',
+          600: '#3ac17f'
         },
-        'primary-light': '#fae3d9',
+        'primary-light': '#008B8B',
         secondary: {
           50: '#e5f9f6',
           100: '#e0f2f1',
@@ -22,6 +22,9 @@ export default {
           900: '#0f3535'
         },
         'secondary-light': '#bbded6',
+        tertiary: {
+          500: '#647eff'
+        },
         'dark-block': {
           400: '#3c414c',
           500: '#32363f',
