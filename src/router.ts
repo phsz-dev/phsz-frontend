@@ -27,6 +27,11 @@ const routes = [
         component: () => import('./views/RoleSelect.vue')
       },
       {
+        path: 'role-select-learn/:id',
+        name: 'RoleDetail',
+        component: () => import('./views/RoleSelectLearn.vue')
+      },
+      {
         path: 'case-study',
         name: 'CaseStudy',
         component: () => import('./views/CaseStudy.vue')
