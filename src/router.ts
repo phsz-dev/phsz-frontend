@@ -17,6 +17,11 @@ const routes = [
         component: () => import('./views/HospitalNavigation.vue')
       },
       {
+        path: '3d-navigation',
+        name: '3DNavigation',
+        component: () => import('./views/3DNavigation.vue')
+      },
+      {
         path: 'role-select',
         name: 'RoleSelect',
         component: () => import('./views/RoleSelect.vue')
