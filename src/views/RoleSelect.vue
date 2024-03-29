@@ -1,12 +1,13 @@
 <template>
   <div class="fixed top-0 flex h-screen w-screen flex-row items-center">
-    <div
-      v-for="(item, index) in roleItemList"
-      :key="index"
+    <RouterLink
+      v-for="item in roleItemList"
+      :key="item.id"
+      :to="{ path: '/role-select-learn/' + item.id }"
       class="h-full flex-1"
     >
-      <PHItemSelect :role-item="item" :item-status="index % 2" />
-    </div>
+      <PHItemSelect :role-item="item" :item-status="item.id % 2" />
+    </RouterLink>
   </div>
 </template>
 
