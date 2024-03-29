@@ -1,16 +1,24 @@
 <template>
     <div class="mx-auto max-w-7xl flex flex-row">
-        <div class="flex-1 h-fit">
+        <div class="flex-[2_2_0] h-fit">
             <PHTwoLayerLeftMenu :title="titleArr[titleId]" :left_menu="convertToMenuLayers(leftMenu)" />
         </div>
         
-        <div class="flex-[2_2_auto] h-fit"></div>
+        <div class="flex-[6_6_0] h-96 mx-3 bg-white">
+            <PHRoleSelectLearnMiddleContent />
+        </div>
+
+        <div class="flex-1 h-96 mx-3 bg-white">
+            <PHRoleSelectLearnRightProcessor />
+        </div>
         
     </div>
 </template>
 
 <script setup lang="ts">
 import PHTwoLayerLeftMenu from '../components/PHTwoLayerLeftMenu.vue'
+import PHRoleSelectLearnMiddleContent from '../components/PHRoleSelectLearnMiddleContent.vue'
+import PHRoleSelectLearnRightProcessor from '../components/PHRoleSelectLearnRightProcessor.vue'
 import { useRoleStore } from '../stores/role';
 import { useRoute } from 'vue-router';
 import MenuLayer from '../types/MenuLayer';
@@ -21,10 +29,10 @@ const titleId = parseInt(useRoute().params.id as string)
 
 function convertToMenuLayers(data: RoleResponsibility[]): MenuLayer[] {
   return data.map((item, index) => {
-    const subMenu: MenuLayer[] = item.content ? item.content.map((subItem, subIndex) => {
-      return {name: subItem.name, id: subIndex, subMenu: []}
+    const subMenu: MenuLayer[] = item.content ? item.content.map((subItem) => {
+      return {name: subItem.name, id: subItem.id, subMenu: [], status: false}
     }) : [];
-    return {name: item.name, id: index, subMenu}
+    return {id:index,name: item.name , subMenu, status: false}
   });
 }
 
