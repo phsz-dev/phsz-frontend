@@ -8,10 +8,6 @@
     <div
       v-for="(item, index) in left_menu_list"
       :key="index"
-      @click="menu_id = index"
-      :class="{
-        '!text-secondary-500': menu_id == index
-      }"
       class="mx-4 my-1 cursor-pointer select-none rounded-md px-2 py-3 transition-colors duration-300 ease-in-out"
     >
       <div
@@ -40,6 +36,10 @@
         >
           <div
             class="text-md font-medium text-black hover:text-secondary-500 dark:text-gray-200 pt-2"
+            @click="menu_id = subItem.id"
+            :class="{
+              '!text-secondary-500': menu_id == subItem.id
+            }"
           >
             {{ subItem.name }}
           </div>
