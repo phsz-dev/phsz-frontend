@@ -38,13 +38,13 @@ import PHNavBar from './components/PHNavBar.vue'
 .slide-enter-active,
 .slide-leave-active {
   transition:
-    opacity 1s,
-    transform 1s;
+    opacity 0.5s,
+    transform 0.5s;
 }
 
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
-  transform: translateX(-30%);
+  transform: translateX(-1%);
 }
 </style>

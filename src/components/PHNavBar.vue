@@ -1,9 +1,20 @@
 <template>
-  <header class="sticky top-0 z-50 h-16 w-full select-none ">
+  <header class="sticky top-0 z-50 h-16 w-full select-none">
     <div class="mx-auto flex max-w-screen-2xl justify-between p-4">
-      <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
-        >PHSZ</RouterLink
-      >
+      <div class="flex h-8 align-middle">
+        <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
+          >PHSZ</RouterLink
+        >
+        <div
+          class="mx-5 h-full rounded-md bg-gray-100 px-2 leading-8 text-gray-500 dark:bg-zinc-900 dark:text-gray-300 flex hover:cursor-pointer"
+        >
+          <div class="h-8">
+            <div class="phi-search h-4 w-4 my-2 bg-gray-500"></div>
+          </div>
+          <div class="text-sm leading-8 px-4 text-nowrap">搜索</div>
+        </div>
+      </div>
+
       <nav class="flex shrink-0">
         <ul class="flex items-center space-x-8">
           <li v-for="link in links" :key="link.text" class="h-fit">
