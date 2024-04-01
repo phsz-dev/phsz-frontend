@@ -1,5 +1,5 @@
 <template>
-    <div class="w-screen-7xl mx-auto">
+    <div class="max-w-5xl mx-auto h-full">
         <PHCaseStudyDetail :disease_id="disease_id" />
     </div>
 </template>

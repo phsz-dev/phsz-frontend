@@ -32,6 +32,16 @@ h2{
   margin: 0;
 }
 
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 5px; 
+}
+
+
 /* a {
   font-weight: 500;
   color: #646cff;

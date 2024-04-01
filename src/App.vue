@@ -4,12 +4,19 @@ import PHNavBar from './components/PHNavBar.vue'
 </script>
 
 <template>
-  <PHNavBar />
-  <RouterView v-slot="{ Component }">
-    <Transition name="slide" mode="out-in">
-      <Component :is="Component" :key="$route.path" />
-    </Transition>
-  </RouterView>
+  <div class="h-screen w-screen flex flex-col overflow-x-hidden">
+    <PHNavBar />
+   
+    <div class="grow h-0">
+      <RouterView v-slot="{ Component }">
+        <Transition name="slide" mode="out-in" >
+          <Component :is="Component" :key="$route.path" />
+        </Transition>
+      </RouterView>
+    </div>
+    
+  </div>
+  
 </template>
 
 <style scoped>

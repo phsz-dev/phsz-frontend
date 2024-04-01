@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-50 h-16 w-full select-none">
+  <header class="sticky top-0 z-50 h-16 w-full select-none ">
     <div class="mx-auto flex max-w-screen-2xl justify-between p-4">
       <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
         >PHSZ</RouterLink
