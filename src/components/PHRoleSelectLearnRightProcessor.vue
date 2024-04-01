@@ -1,5 +1,5 @@
 <template>
-    <div class="px-1 py-2 h-fit bg-white dark:bg-dark-block-600">
+    <div class="px-1 py-2 h-fit bg-white dark:bg-dark-block-600 rounded-sm">
         <div v-for="(item,index) in processProcedure" :key="index" class="select-none py-1">
             <div class="flex flex-row" @click="currentIndex=item.rank-1">
                 <div class="border-2 border-black w-8 h-8 rounded-full text-black dark:border-gray-200 dark:text-gray-200 text-center leading-7 mx-auto" :class="{
