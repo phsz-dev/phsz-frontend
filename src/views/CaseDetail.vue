@@ -10,29 +10,29 @@ import { useRoute } from 'vue-router'
 import {reactive} from 'vue'
 const case_id = parseInt(useRoute().params.id as string);
 const case_info = reactive({
-    caseId: case_id,
-    caseName: '12岁小狗的犬瘟热',
+    id: case_id,
+    name: '12岁小狗的犬瘟热',
     caseDescription: '<p>12岁小狗的犬瘟热描述</p><p>12岁小狗的犬瘟热描述</p><p>12岁小狗的犬瘟热描述</p>',
     diseaseList:[{
         id: 0,
         name: '犬瘟热',
+        description: '犬瘟热描述',
+        kindId:0
     },{
         id: 1,
         name: '犬细小病毒',
+        description: '犬细小病毒描述',
+        kindId: 2
     }],
     submitTime: 1711952152437,
     assays: [{
-        assayId: 0,
+        id: 0,
         name: '犬瘟热检测',
         result: '阳性',
-        type: '犬瘟热检测描述',
-        date: 1711952152437,
     },{
         id: 1,
-        name: '犬细小病毒检测',
+        assayName: '犬细小病毒检测',
         result: '阴性',
-        type: '犬细小病毒检测描述',
-        date: 1711952152437,
     }],
     medicines: [{
         medicineId: 0,
