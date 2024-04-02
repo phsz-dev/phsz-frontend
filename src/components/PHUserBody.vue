@@ -2,9 +2,9 @@
   <div class="flex w-full flex-row py-5">
     <div class="mr-2.5 w-32 flex-auto">
       <PHLeftMenu
-        :title="left_title"
-        :left_menu="left_menu"
         v-model="menu_id"
+        :title="left_title"
+        :left-menu="left_menu"
       />
     </div>
     <div class="ml-2.5 h-fit w-64 flex-[3_3_auto] rounded-sm bg-white dark:bg-dark-block-500 ">

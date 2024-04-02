@@ -20,11 +20,11 @@
           {{ item.name }}
         </div>
         <span
+          v-if="item.subMenu"
           class="phi-right-arrow h-6 w-6 bg-zinc-700 dark:bg-gray-200 group-hover:bg-secondary-500 dark:group-hover:bg-secondary-500 rounded-full"
           :class="{
             'rotate-90 transform': item.status
           }"
-          v-if="item.subMenu"
         ></span>
       </div>
 
@@ -36,10 +36,10 @@
         >
           <div
             class="text-md font-medium text-black hover:text-secondary-500 dark:text-gray-200 pt-2"
-            @click="menu_id = subItem.id"
             :class="{
               '!text-secondary-500': menu_id == subItem.id
             }"
+            @click="menu_id = subItem.id"
           >
             {{ subItem.name }}
           </div>
@@ -56,10 +56,10 @@ import { reactive } from 'vue'
 
 const props = defineProps<{
   title: string
-  left_menu: MenuLayer[]
+  leftMenu: MenuLayer[]
 }>()
 
-const left_menu_list = reactive(props.left_menu)
+const left_menu_list = reactive(props.leftMenu)
 
 const menu_id = defineModel<number>()
 </script>

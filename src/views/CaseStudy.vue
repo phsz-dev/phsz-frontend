@@ -2,9 +2,9 @@
   <div class="mx-auto flex max-w-screen-2xl flex-row px-4">
     <div class="h-full w-80">
       <PHLeftMenu
-        :title="left_title"
-        :left_menu="left_menu"
         v-model="currentIndex"
+        :title="left_title"
+        :left-menu="left_menu"
       />
     </div>
     <div class="h-full w-full px-2">

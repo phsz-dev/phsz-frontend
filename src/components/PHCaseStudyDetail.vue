@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 defineProps<{
-  disease_id: number
+  diseaseId: number
 }>()
 
 const disease_case_list = reactive([

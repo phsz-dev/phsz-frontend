@@ -28,7 +28,7 @@ const features = [
     bg_color: '#a8d8ea', 
     icon: '🏫',
     title: '医院导览',
-    url: '/navigation',
+    url: '/3d-navigation',
     description: '医院导览，浏览各个区域的设施、人员、设备等信息'
   },
   {
