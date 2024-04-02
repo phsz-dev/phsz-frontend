@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-fit bg-white dark:bg-dark-block-600 px-3 py-3 rounded-sm">
-        <div v-html="processContent" class="text-black dark:text-gray-200"></div>
+        <div class="text-black dark:text-gray-200" v-html="processContent"></div>
     </div>
 
 </template>

@@ -1,11 +1,11 @@
 <template>
     <div class="mx-auto max-w-7xl flex flex-row">
         <div class="flex-[2_2_0] h-fit">
-            <PHTwoLayerLeftMenu :title="titleArr[titleId]" :left_menu="convertToMenuLayers(leftMenu)" v-model="menu_id"/>
+            <PHTwoLayerLeftMenu v-model="menu_id" :title="titleArr[titleId]" :left-menu="convertToMenuLayers(leftMenu)"/>
         </div>
         
         <div class="flex-[6_6_0] h-96 mx-3">
-            <PHRoleSelectLearnMiddleContent :currentIndex="currentIndex"/>
+            <PHRoleSelectLearnMiddleContent :current-index="currentIndex"/>
         </div>
 
         <div class="flex-1 h-96">

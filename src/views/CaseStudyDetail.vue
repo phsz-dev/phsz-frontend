@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-5xl mx-auto h-full">
-        <PHCaseStudyDetail :disease_id="disease_id" />
+        <PHCaseStudyDetail :disease-id="disease_id" />
     </div>
 </template>
 

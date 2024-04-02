@@ -6,13 +6,13 @@
       {{ title }}
     </div>
     <div
-      v-for="(item, index) in left_menu"
+      v-for="(item, index) in leftMenu"
       :key="index"
-      @click="menu_id = index"
       :class="{
         '!text-secondary-500': menu_id == index
       }"
       class="text-md mx-4 my-2 cursor-pointer rounded-md px-2 py-4 font-medium text-black transition-colors duration-300 ease-in-out hover:text-secondary-500 dark:text-gray-200"
+      @click="menu_id = index"
     >
       {{ item }}
     </div>
@@ -23,7 +23,7 @@
 <script setup lang="ts">
 defineProps<{
   title: String
-  left_menu: String[]
+  leftMenu: String[]
 }>()
 
 const menu_id = defineModel<number>()

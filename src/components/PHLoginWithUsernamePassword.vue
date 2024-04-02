@@ -41,7 +41,7 @@
               >密码</label
             > -->
           </div>
-          <div class="relative my-2" v-if="loginPageStatus">
+          <div v-if="loginPageStatus" class="relative my-2">
             <input
               type="password"
               class="h-30 w-full rounded-md border border-zinc-500 border-b-gray-400 bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 dark:text-gray-200 placeholder:dark:text-gray-200"
