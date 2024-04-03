@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import router from '../router'
 import ApiService from '../http'
-import HTTPError from '../types/error'
 
 const apiService = new ApiService('')
 
@@ -14,15 +13,7 @@ export const useUserStore = defineStore('user', () => {
       password
     }
 
-    const res = await apiService.post('/api/auth/register', data)
-    if (res) {
-      router.push({
-        path: '/login',
-        query: {
-          "username": username
-        }
-      })
-    }
+    return await apiService.post('/api/auth/register', data)
   }
 
   const login = async (username: string, password: string) => {

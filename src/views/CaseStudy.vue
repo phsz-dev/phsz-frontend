@@ -3,13 +3,13 @@
     <div class="h-full w-80">
       <PHLeftMenu
         
+        v-model="currentIndex"
         :title="left_title"
         :left-menu="diseaseCatalog.map((item) => item.diseaseType.name)"
-        v-model="currentIndex"
         
       />
     </div>
-    <div class="h-full w-full px-2" v-if="diseaseCatalog.length>0">
+    <div v-if="diseaseCatalog.length>0" class="h-full w-full px-2">
       <PHCaseStudyRightContent :current-index="currentIndex" />
     </div>
   </div>

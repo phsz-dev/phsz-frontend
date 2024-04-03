@@ -1,9 +1,9 @@
 <template>
   <div>
     <input
-      id="username"
+      :id="id"
       v-model="modelValue"
-      type="text"
+      :type="type"
       class="h-30 w-full rounded-md border bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 focus:ring-0 dark:text-gray-200 placeholder:dark:text-gray-200"
       :class="errorCondition ? 'border-red-500' : 'border-zinc-500'"
       :placeholder="placeholder"
@@ -15,11 +15,24 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  placeholder: string
-  errorCondition: boolean
-  errorMessage: string
-}>()
+type InputType = 'text' | 'email' | 'password' | 'number'
+
+withDefaults(
+  defineProps<{
+    id?: string
+    type?: InputType
+    placeholder?: string
+    errorCondition?: boolean
+    errorMessage?: string
+  }>(),
+  {
+    id: undefined,
+    type: 'text',
+    placeholder: '',
+    errorCondition: false,
+    errorMessage: ''
+  }
+)
 
 const modelValue = defineModel<string>()
 </script>
