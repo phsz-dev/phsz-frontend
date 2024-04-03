@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import ApiService from '../http'
+
+const apiService = new ApiService('')
 
 export const useCaseStore = defineStore('case', () => {
   const diseaseCatalog = ref<any[]>([])
   const getDiseaseCatalog = async () => {
-    // fetch发起请求
-    const res = await fetch('/api/diseases')
-    const t = await res.json()
-    if (t.code) {
-      diseaseCatalog.value = t.data
-    }
+    const res = await apiService.get('/api/diseases')
+    diseaseCatalog.value = res
   }
   return {
     diseaseCatalog,

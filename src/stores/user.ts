@@ -3,7 +3,6 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import router from '../router'
 import ApiService from '../http'
-import HTTPError from '../types/error'
 
 const apiService = new ApiService('')
 
@@ -52,16 +51,11 @@ export const useUserStore = defineStore('user', () => {
     }
     try {
       const res = await apiService.get('/api/users/me', token.value)
-      console.log(res)
       username.value = res.username
+      email.value = res.email
+      roles.value = res.roles
     } catch (e) {
-      if (e instanceof HTTPError) {
-        // token 失效
-        logout()
-      } else {
-        // 服务器内部错误
-        console.error(e)
-      }
+      // do nothing
     }
   }
 

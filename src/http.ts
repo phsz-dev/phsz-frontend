@@ -1,5 +1,7 @@
 import HTTPError from './types/error'
 
+import { useUserStore } from './stores/user'
+
 class ApiService {
   baseUrl: string
   constructor(baseUrl: string) {
@@ -34,6 +36,11 @@ class ApiService {
 
   async _handleResponse(res: Response) {
     if (!res.ok) {
+      if (res.status === 401) {
+        // 401 Unauthorized
+        const userStore = useUserStore()
+        userStore.logout()
+      }
       throw new Error(`response error ${res.status}`)
     }
     const t = await res.json()
