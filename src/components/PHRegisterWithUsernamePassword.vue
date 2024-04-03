@@ -9,6 +9,7 @@
             placeholder="请输入用户名"
             :error-condition="err_situation == 1 || err_situation == 5"
             :error-message="err_message"
+            @input="err_situation = 0"
           />
           <!-- <label
                 for="username"
@@ -23,6 +24,7 @@
             placeholder="请输入密码"
             :error-condition="err_situation == 2"
             :error-message="err_message"
+            @input="err_situation = 0"
           />
           <!-- <label
                 class="absolute left-6 top-4 text-gray-400 dark:text-gray-200"
@@ -38,6 +40,7 @@
               err_situation == 3 || err_situation == 4 || err_situation == 6
             "
             :error-message="err_message"
+            @input="err_situation = 0"
           />
           <!-- <label
               class="absolute left-6 top-4 text-gray-400 dark:text-gray-200"

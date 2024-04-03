@@ -8,6 +8,7 @@
             placeholder="请输入用户名/邮箱"
             :error-condition="err_situation == 1 || err_situation == 3"
             :error-message="err_situation == 1 ? '用户名不能为空' : ''"
+            @input="err_situation = 0"
           />
           <!-- <label
               for="username"
@@ -24,6 +25,7 @@
             :error-message="
               err_situation == 2 ? '密码不能为空' : '用户名或密码错误'
             "
+            @input="err_situation = 0"
           />
           <!-- <label
               class="absolute left-6 top-4 text-gray-400 dark:text-gray-200"
