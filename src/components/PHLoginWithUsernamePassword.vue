@@ -9,10 +9,13 @@
             class="h-30 w-full rounded-md border bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 focus:ring-0 dark:text-gray-200 placeholder:dark:text-gray-200"
             placeholder="请输入用户名/邮箱"
             v-model="username"
-            :class="err_situation == 1 ? 'border-red-500' : 'border-zinc-500'"
+            :class="err_situation == 1||err_situation == 3 ? 'border-red-500' : 'border-zinc-500'"
           />
           <div class="ml-2 mt-1 text-sm text-red-500" v-if="err_situation == 1">
             用户名不能为空
+          </div>
+          <div class="ml-2 mt-1 text-sm text-red-500" v-if="err_situation == 3">
+            用户名或密码错误
           </div>
           <!-- <label
               for="username"
@@ -26,7 +29,7 @@
             class="h-30 w-full rounded-md border bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 dark:text-gray-200 placeholder:dark:text-gray-200"
             placeholder="请输入密码"
             v-model="password"
-            :class="err_situation == 2 ? 'border-red-500' : 'border-zinc-500'"
+            :class="err_situation == 2||err_situation == 3 ? 'border-red-500' : 'border-zinc-500'"
           />
           <div class="ml-2 mt-1 text-sm text-red-500" v-if="err_situation == 2">
             密码不能为空
@@ -60,6 +63,7 @@ import PHAuthPanel from './PHAuthPanel.vue'
 import { useUserStore } from '../stores/user'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import HTTPError from '../types/error';
 const route = useRoute()
 const err_situation = ref(0)
 const username = ref('')
@@ -68,7 +72,7 @@ if(route.query.username){
   username.value = route.query.username as string
 }
 const userStore = useUserStore()
-const login = () => {
+const login = async () => {
     if (username.value == '') {
       err_situation.value = 1
       return
@@ -78,7 +82,15 @@ const login = () => {
       return
     }
     // 模拟登录
-    userStore.login(username.value, password.value)
+    try{
+      await userStore.login(username.value, password.value)
+    }catch(e){
+      console.log(e)
+      if(e instanceof HTTPError){
+        err_situation.value = 3
+      }
+    }
+    
   // } else {
   //   // 模拟注册
   //   if (username.value == '') {
