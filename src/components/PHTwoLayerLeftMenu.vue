@@ -21,7 +21,7 @@
         </div>
         <span
           v-if="item.subMenu"
-          class="phi-right-arrow h-6 w-6 bg-zinc-700 dark:bg-gray-200 group-hover:bg-secondary-500 dark:group-hover:bg-secondary-500 rounded-full"
+          class="phi-right-arrow h-6 w-6 rounded-full bg-zinc-700 group-hover:bg-secondary-500 dark:bg-gray-200 dark:group-hover:bg-secondary-500"
           :class="{
             'rotate-90 transform': item.status
           }"
@@ -35,7 +35,7 @@
           class="mx-4 cursor-pointer rounded-md px-2 pt-4 transition-colors duration-300 ease-in-out"
         >
           <div
-            class="text-md font-medium text-black hover:text-secondary-500 dark:text-gray-200 pt-2"
+            class="text-md pt-2 font-medium text-black hover:text-secondary-500 dark:text-gray-200"
             :class="{
               '!text-secondary-500': menu_id == subItem.id
             }"

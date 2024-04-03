@@ -1,6 +1,6 @@
-export default interface vaccine{
-    id: number,
-    name: string,
-    manufacturer: string,
-    expiryDate: String
+export default interface vaccine {
+  id: number
+  name: string
+  manufacturer: string
+  expiryDate: String
 }

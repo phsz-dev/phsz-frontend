@@ -10,12 +10,12 @@ class ApiService {
     const header = new Headers()
     header.append('Content-Type', 'application/json')
     if (token) {
-    header.append('Authorization', `Bearer ${token}`)
+      header.append('Authorization', `Bearer ${token}`)
     }
     const res = await fetch(this.baseUrl + url, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: header
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: header
     })
     return await this._handleResponse(res)
   }
@@ -23,11 +23,11 @@ class ApiService {
   async get(url: string, token?: string) {
     const header = new Headers()
     if (token) {
-    header.append('Authorization', `Bearer ${token}`)
+      header.append('Authorization', `Bearer ${token}`)
     }
     const res = await fetch(this.baseUrl + url, {
-    method: 'GET',
-    headers: header
+      method: 'GET',
+      headers: header
     })
     return await this._handleResponse(res)
   }

@@ -104,7 +104,6 @@ const onCanvasClick = (e: MouseEvent) => {
 </script>
 
 <style scoped>
-
 .slide-enter-from,
 .slide-enter-to,
 .slide-leave-to,

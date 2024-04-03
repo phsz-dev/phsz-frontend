@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div>{{case_info.caseName}}</div>
-    </div>
+  <div>
+    <div>{{ case_info.caseName }}</div>
+  </div>
 </template>
 
 <script setup lang="ts">

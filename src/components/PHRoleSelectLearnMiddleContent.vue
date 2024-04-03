@@ -1,21 +1,20 @@
 <template>
-    <div class="w-full h-fit bg-white dark:bg-dark-block-600 px-3 py-3 rounded-sm">
-        <div class="text-black dark:text-gray-200" v-html="processContent"></div>
-    </div>
-
+  <div
+    class="h-fit w-full rounded-sm bg-white px-3 py-3 dark:bg-dark-block-600"
+  >
+    <div class="text-black dark:text-gray-200" v-html="processContent"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useRoleStore } from '../stores/role';
-import { computed } from 'vue';
+import { useRoleStore } from '../stores/role'
+import { computed } from 'vue'
 
 const props = defineProps<{
-    currentIndex: number
+  currentIndex: number
 }>()
 
 const processContent = computed(() => {
-    return useRoleStore().processProcedure[props.currentIndex].content
+  return useRoleStore().processProcedure[props.currentIndex].content
 })
-
-
 </script>

@@ -25,7 +25,7 @@
 const features = [
   {
     id: 0,
-    bg_color: '#a8d8ea', 
+    bg_color: '#a8d8ea',
     icon: '🏫',
     title: '医院导览',
     url: '/3d-navigation',

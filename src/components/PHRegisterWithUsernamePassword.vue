@@ -34,7 +34,9 @@
             v-model="confirm_password"
             type="password"
             placeholder="确认密码"
-            :error-condition="err_situation == 3 || err_situation == 4 || err_situation == 6"
+            :error-condition="
+              err_situation == 3 || err_situation == 4 || err_situation == 6
+            "
             :error-message="err_message"
           />
           <!-- <label

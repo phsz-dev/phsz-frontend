@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import router from '../router'
 import ApiService from '../http'
+import { useStorage } from '@vueuse/core'
 
 const apiService = new ApiService('')
 
 export const useUserStore = defineStore('user', () => {
-  const logging = ref(false)
+  const token = useStorage('token', undefined)
   const register = async (username: string, password: string) => {
     let data = {
       username,
@@ -44,6 +44,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
+    token,
     login,
     logout() {
       localStorage.removeItem('token')

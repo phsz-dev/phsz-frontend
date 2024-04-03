@@ -6,12 +6,12 @@
           >PHSZ</RouterLink
         >
         <div
-          class="mx-5 h-full rounded-md bg-gray-100 px-2 leading-8 text-gray-500 dark:bg-zinc-900 dark:text-gray-300 flex hover:cursor-pointer"
+          class="mx-5 flex h-full rounded-md bg-gray-100 px-2 leading-8 text-gray-500 hover:cursor-pointer dark:bg-zinc-900 dark:text-gray-300"
         >
           <div class="h-8">
-            <div class="phi-search h-4 w-4 my-2 bg-gray-500"></div>
+            <div class="phi-search my-2 h-4 w-4 bg-gray-500"></div>
           </div>
-          <div class="text-sm leading-8 px-4 text-nowrap">搜索</div>
+          <div class="text-nowrap px-4 text-sm leading-8">搜索</div>
         </div>
       </div>
 
@@ -45,6 +45,9 @@ import { computed } from 'vue'
 
 import PHSwitchAppearance from './PHSwitchAppearance.vue'
 import PHSocialLink from './PHSocialLink.vue'
+import { useUserStore } from '../stores/user'
+
+const userStore = useUserStore()
 
 const links = computed(() => {
   const links = [
@@ -54,7 +57,7 @@ const links = computed(() => {
     { path: '/hospital-navigation', text: '医院导览' }
   ]
 
-  if (localStorage.getItem('token')) {
+  if (userStore.token) {
     links.push({ path: '/profile', text: '个人资料' })
   } else {
     links.push({ path: '/login', text: '登录 | 注册' })

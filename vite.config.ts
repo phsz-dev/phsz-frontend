@@ -4,10 +4,11 @@ import { templateCompilerOptions } from '@tresjs/core'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue({
-    ...templateCompilerOptions
-  }
-  )],
+  plugins: [
+    vue({
+      ...templateCompilerOptions
+    })
+  ],
   server: {
     port: 5173,
     open: true,
@@ -17,6 +18,6 @@ export default defineConfig({
         ws: true,
         changeOrigin: true
       }
-    },
+    }
   }
 })

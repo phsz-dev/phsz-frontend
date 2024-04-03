@@ -7,7 +7,7 @@ export const useCaseStore = defineStore('case', () => {
     // fetch发起请求
     const res = await fetch('/api/diseases')
     const t = await res.json()
-    if(t.code) {
+    if (t.code) {
       diseaseCatalog.value = t.data
     }
   }
