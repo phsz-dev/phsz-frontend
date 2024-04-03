@@ -22,6 +22,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import PHLeftMenu from './PHLeftMenu.vue'
+import { watch } from 'vue'
+
+import { useUserStore } from '../stores/user'
+import router from '../router'
+
+const userStore = useUserStore()
+
 const left_title = '用户中心'
 const left_menu = [
   '我的课程',
@@ -33,6 +40,12 @@ const left_menu = [
   '我的设置',
   '退出登录'
 ]
-
 const menu_id = ref(0)
+
+watch(menu_id, (newVal) => {
+  if (newVal == 7) {
+    userStore.logout()
+    router.push('/login')
+  }
+})
 </script>

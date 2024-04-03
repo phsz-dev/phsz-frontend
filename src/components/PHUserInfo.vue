@@ -7,7 +7,9 @@
       class="h-32 w-32 rounded-full border border-gray-300 dark:border-zinc-600"
     />
     <div class="mx-4 h-32 flex-1 text-black dark:text-gray-200">
-      <div class="h-10 text-2xl font-bold leading-10">墨枫逸尘</div>
+      <div class="h-10 text-2xl font-bold leading-10">
+        {{ userStore.username }}
+      </div>
       <div class="py-4">🔖大家一起加油哦!</div>
       <div class="">⌚10天11小时</div>
     </div>
@@ -19,4 +21,8 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '../stores/user'
+
+const userStore = useUserStore()
+</script>
