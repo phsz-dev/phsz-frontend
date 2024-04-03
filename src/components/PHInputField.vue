@@ -4,7 +4,7 @@
       :id="id"
       v-model="modelValue"
       :type="type"
-      class="h-14 box-border w-full rounded-md border bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 focus:ring-0 dark:text-gray-200 placeholder:dark:text-gray-200"
+      class="h-14 box-border w-full rounded-md border bg-transparent pl-4 focus:pl-[15px] text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 focus:ring-0 dark:text-gray-200 placeholder:dark:text-gray-200"
       :class="errorCondition ? 'border-red-500' : 'border-zinc-500'"
       :placeholder="placeholder"
     />

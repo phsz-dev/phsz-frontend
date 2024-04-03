@@ -15,13 +15,13 @@
       <div
         v-for="paper in papers"
         :key="paper.id"
-        class="rounded-lg border p-4 shadow hover:shadow-md"
+        class="rounded-lg border dark:border-none bg-white p-4 shadow hover:shadow-md dark:bg-dark-block-600"
       >
-        <h2 class="text-lg font-bold">{{ paper.name }}</h2>
-        <p>{{ paper.description }}</p>
+        <h2 class="text-lg font-bold dark:text-gray-200">{{ paper.name }}</h2>
+        <p class="dark:text-gray-200">{{ paper.description }}</p>
         <div class="mt-2">
           <button
-            class="rounded-lg bg-primary-500 px-4 py-2 text-white hover:bg-primary-600"
+            class="rounded-lg bg-primary-600 px-4 py-2 text-white hover:shadow"
           >
             选择
           </button>
