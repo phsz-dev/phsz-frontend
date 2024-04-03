@@ -54,7 +54,8 @@ const links = computed(() => {
     { path: '/home', text: '主页' },
     { path: '/role-select', text: '角色扮演' },
     { path: '/case-study', text: '病例' },
-    { path: '/hospital-navigation', text: '医院导览' }
+    { path: '/hospital-navigation', text: '医院导览' },
+    { path: '/test-selection', text: '测试' }
   ]
 
   if (userStore.token) {

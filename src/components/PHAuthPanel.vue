@@ -1,10 +1,10 @@
 <template>
   <div
-    class="relative mx-auto flex h-full w-full flex-col rounded-3xl p-8 sm:h-[32rem] sm:max-w-5xl sm:flex-none sm:bg-white md:w-[40rem] xl:w-[50rem] 2xl:w-[72rem] dark:bg-dark-block-600"
+    class="relative mx-auto flex h-full w-full max-w-5xl flex-col rounded-3xl p-8 sm:h-[32rem] sm:w-[40rem] sm:flex-none sm:bg-white xl:w-[50rem] 2xl:w-[72rem] dark:bg-dark-block-600"
   >
     <div class="py-8 text-4xl"><PHLogo /></div>
     <div class="h-full sm:flex sm:flex-row">
-      <div class="flex-auto">
+      <div class="flex-1">
         <div class="text-4xl text-black dark:text-gray-200">
           {{ title }}
         </div>
@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <div class="relative flex-auto">
+      <div class="flex-1">
         <slot></slot>
       </div>
       <div class="absolute bottom-0 right-10 flex flex-row">
