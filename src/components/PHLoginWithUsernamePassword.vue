@@ -3,20 +3,12 @@
     <template #default>
       <div class="mx-auto flex w-full flex-col">
         <div class="relative my-2">
-          <input
-            id="username"
-            type="text"
-            class="h-30 w-full rounded-md border bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 focus:ring-0 dark:text-gray-200 placeholder:dark:text-gray-200"
-            placeholder="请输入用户名/邮箱"
+          <PHInputField
             v-model="username"
-            :class="err_situation == 1||err_situation == 3 ? 'border-red-500' : 'border-zinc-500'"
+            placeholder="请输入用户名/邮箱"
+            :error-condition="err_situation == 1||err_situation == 3"
+            error-message="用户名不能为空"
           />
-          <div class="ml-2 mt-1 text-sm text-red-500" v-if="err_situation == 1">
-            用户名不能为空
-          </div>
-          <div class="ml-2 mt-1 text-sm text-red-500" v-if="err_situation == 3">
-            用户名或密码错误
-          </div>
           <!-- <label
               for="username"
               class="input-focus-label absolute left-6 top-4 cursor-text text-gray-400 transition-all duration-300 ease-in-out dark:text-gray-200"
@@ -24,16 +16,12 @@
             > -->
         </div>
         <div class="relative my-1">
-          <input
-            type="password"
-            class="h-30 w-full rounded-md border bg-transparent px-4 py-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:border-primary-600 dark:text-gray-200 placeholder:dark:text-gray-200"
-            placeholder="请输入密码"
+          <PHInputField
             v-model="password"
-            :class="err_situation == 2||err_situation == 3 ? 'border-red-500' : 'border-zinc-500'"
+            placeholder="请输入密码"
+            :error-condition="err_situation == 2||err_situation == 3"
+            error-message="密码不能为空"
           />
-          <div class="ml-2 mt-1 text-sm text-red-500" v-if="err_situation == 2">
-            密码不能为空
-          </div>
           <!-- <label
               class="absolute left-6 top-4 text-gray-400 dark:text-gray-200"
               >密码</label
@@ -60,6 +48,7 @@
 
 <script setup lang="ts">
 import PHAuthPanel from './PHAuthPanel.vue'
+import PHInputField from './PHInputField.vue'
 import { useUserStore } from '../stores/user'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
