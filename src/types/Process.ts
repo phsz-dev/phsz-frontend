@@ -1,9 +1,8 @@
-export default class Process {
+import RoleLearnProcedure from './RoleLearnProcedure'
+export default interface Process {
   id: number
-  name: string
+  name: string,
+  processProcedure: RoleLearnProcedure[]
 
-  constructor(name: string, id: number) {
-    this.name = name
-    this.id = id
-  }
+  
 }

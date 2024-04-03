@@ -1,11 +1,8 @@
 import Process from './Process'
 
-export default class RoleResponsibility {
+export default interface RoleResponsibility {
   name: string
-  content: Process[]
+  content: Process[],
 
-  constructor(name: string, content: Process[]) {
-    this.name = name
-    this.content = content
-  }
+
 }

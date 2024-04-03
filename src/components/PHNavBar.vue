@@ -46,10 +46,6 @@ import { computed } from 'vue'
 import PHSwitchAppearance from './PHSwitchAppearance.vue'
 import PHSocialLink from './PHSocialLink.vue'
 
-import { useUserStore } from '../stores/user'
-
-const userStore = useUserStore()
-
 const links = computed(() => {
   const links = [
     { path: '/home', text: '主页' },
@@ -58,7 +54,7 @@ const links = computed(() => {
     { path: '/hospital-navigation', text: '医院导览' }
   ]
 
-  if (userStore.logged) {
+  if (localStorage.getItem('token')) {
     links.push({ path: '/profile', text: '个人资料' })
   } else {
     links.push({ path: '/login', text: '登录 | 注册' })
