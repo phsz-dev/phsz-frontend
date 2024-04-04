@@ -1,6 +1,7 @@
-import Process from './Process'
+import RoleSubResponsibility from './RoleSubResponsibility'
 
 export default interface RoleResponsibility {
+  id:number
   name: string
-  content: Process[]
+  subResponsibilities: RoleSubResponsibility[]
 }

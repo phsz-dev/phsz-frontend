@@ -11,10 +11,10 @@ import { useRoleStore } from '../stores/role'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  currentIndex: number
+  currentIndex: number[]
 }>()
 
 const processContent = computed(() => {
-  return useRoleStore().processProcedure[props.currentIndex].content
+  return useRoleStore().roleResponsibility[props.currentIndex[0]].subResponsibilities[props.currentIndex[1]].procedures[props.currentIndex[2]].content
 })
 </script>
