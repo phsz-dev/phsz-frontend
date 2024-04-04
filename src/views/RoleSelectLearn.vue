@@ -1,19 +1,19 @@
 <template>
   <div class="mx-auto flex max-w-7xl flex-row">
-    <div class="h-fit flex-[2_2_0]">
+    <div class="h-fit flex-[2_2_0]" v-if="computedLeftMenu.length > 0">
       <PHTwoLayerLeftMenu
         v-model="id_arr"
         :title="titleArr[titleId]"
         :left-menu="computedLeftMenu"
-        v-if="computedLeftMenu.length > 0"
+        
       />
     </div>
 
-    <div class="mx-3 h-96 flex-[6_6_0]">
-      <PHRoleSelectLearnMiddleContent :current-index="id_arr" v-if="computedLeftMenu.length > 0"/>
+    <div class="mx-3 h-96 flex-[6_6_0]" v-if="computedLeftMenu.length > 0">
+      <PHRoleSelectLearnMiddleContent :current-index="id_arr" />
     </div>
 
-    <div class="h-96 flex-1">
+    <div class="h-96 flex-1" v-if="computedLeftMenu.length > 0">
       <PHRoleSelectLearnRightProcessor v-model="id_arr" v-if="computedLeftMenu.length > 0"/>
     </div>
   </div>
@@ -25,17 +25,21 @@ import PHRoleSelectLearnMiddleContent from '../components/PHRoleSelectLearnMiddl
 import PHRoleSelectLearnRightProcessor from '../components/PHRoleSelectLearnRightProcessor.vue'
 import { useRoleStore } from '../stores/role'
 import { useRoute } from 'vue-router'
-import { ref,computed,onMounted } from 'vue'
+import { ref,watch,onMounted,onDeactivated } from 'vue'
 import RoleResponsibility from '../types/RoleResponsibility'
 import MenuLayer from '../types/MenuLayer'
 const store = useRoleStore()
 const titleId = parseInt(useRoute().params.id as string)
-onMounted(async () => {
+onMounted(() => {
   try {
     store.getRoleResponsibility(titleId)
   } catch (error) {
     console.log(error)
   }
+})
+
+onDeactivated(() => {
+  store.clearRoleResponsibility()
 })
 
 
@@ -68,8 +72,10 @@ const convertToMenuLayers = (menu: RoleResponsibility[]):MenuLayer[] => {
   return result
 }
 
-const computedLeftMenu = computed(() => {
-  return convertToMenuLayers(store.roleResponsibility)
+const computedLeftMenu = ref(convertToMenuLayers(store.roleResponsibility))
+
+watch(() => store.roleResponsibility, (newVal) => {
+  computedLeftMenu.value = convertToMenuLayers(newVal)
 })
 
 

@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import MenuLayer from '../types/MenuLayer'
-import { ref } from 'vue'
+import { ref,watch } from 'vue'
 
 const props = defineProps<{
   title: string
@@ -70,6 +70,10 @@ const setId = (index: number, subIndex: number) => {
 }
 
 const left_menu_list = ref(props.leftMenu)
+
+watch(() => props.leftMenu, (newVal) => {
+  left_menu_list.value = newVal
+})
 
 
 const menu_id = defineModel<number[]>()

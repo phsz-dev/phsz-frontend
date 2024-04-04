@@ -321,8 +321,13 @@ export const useRoleStore = defineStore('role', () => {
     }
     
   }
+
+  const clearRoleResponsibility = () => {
+    roleResponsibility.value = []
+  }
   return {
     roleResponsibility,
-    getRoleResponsibility
+    getRoleResponsibility,
+    clearRoleResponsibility
   }
 })
