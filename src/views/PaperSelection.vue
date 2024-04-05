@@ -21,7 +21,7 @@
     </div> -->
     <div class="container mx-auto">
       <div v-for="(category, categoryName) in categories" :key="categoryName">
-        <h1 class="text-2xl font-bold my-4">{{ categoryName }}</h1>
+        <h1 class="my-4 text-2xl font-bold">{{ categoryName }}</h1>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <PHPaperItem
             v-for="paper in category"

@@ -1,7 +1,5 @@
 <template>
-    <div>PHCaseDetailIntro</div>
+  <div>PHCaseDetailIntro</div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>

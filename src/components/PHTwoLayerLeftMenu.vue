@@ -37,7 +37,9 @@
           <div
             class="text-md pt-2 font-medium text-black hover:text-secondary-500 dark:text-gray-200"
             :class="{
-              '!text-secondary-500': (menu_id==undefined?[0,0,0]:menu_id)[1] == subIndex&&(menu_id==undefined?[0,0,0]:menu_id)[0] == index
+              '!text-secondary-500':
+                (menu_id == undefined ? [0, 0, 0] : menu_id)[1] == subIndex &&
+                (menu_id == undefined ? [0, 0, 0] : menu_id)[0] == index
             }"
             @click="setId(index, subIndex)"
           >
@@ -52,7 +54,7 @@
 
 <script setup lang="ts">
 import MenuLayer from '../types/MenuLayer'
-import { ref,watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
   title: string
@@ -62,7 +64,7 @@ const props = defineProps<{
 console.log(props.leftMenu)
 
 const setId = (index: number, subIndex: number) => {
-  if(menu_id.value){
+  if (menu_id.value) {
     menu_id.value[0] = index
     menu_id.value[1] = subIndex
     menu_id.value[2] = 0
@@ -71,10 +73,12 @@ const setId = (index: number, subIndex: number) => {
 
 const left_menu_list = ref(props.leftMenu)
 
-watch(() => props.leftMenu, (newVal) => {
-  left_menu_list.value = newVal
-})
-
+watch(
+  () => props.leftMenu,
+  (newVal) => {
+    left_menu_list.value = newVal
+  }
+)
 
 const menu_id = defineModel<number[]>()
 console.log(menu_id.value)
