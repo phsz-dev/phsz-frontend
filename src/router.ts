@@ -43,7 +43,14 @@ const routes = [
       {
         path: 'case-detail/:id',
         name: 'CaseDetail',
-        component: () => import('./views/CaseDetail.vue')
+        component: () => import('./views/CaseDetail.vue'),
+        children: [
+          {
+            path: '/',
+            name: 'CaseDetailIntro',
+            component: () => import('./components/PHCaseDetailIntro.vue')
+          }
+        ]
       },
       {
         path: 'login',
