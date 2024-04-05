@@ -17,5 +17,3 @@ import { useCaseStore } from '../stores/case';
 const store = useCaseStore();
 
 
-
-</script>

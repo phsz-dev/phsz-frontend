@@ -314,12 +314,14 @@ export const useRoleStore = defineStore('role', () => {
   // ]
   const roleResponsibility = ref<RoleResponsibility[]>([])
   const getRoleResponsibility = async (role: number) => {
-    const res = await apiService.get(`/api/plays/responsibilities/full/${role}`, localStorage.getItem('token')??undefined)
+    const res = await apiService.get(
+      `/api/plays/responsibilities/full/${role}`,
+      localStorage.getItem('token') ?? undefined
+    )
     console.log(res)
-    if(res){
+    if (res) {
       roleResponsibility.value = res
     }
-    
   }
 
   const clearRoleResponsibility = () => {

@@ -13,7 +13,10 @@
       :placeholder="placeholder"
       @input="$emit('input', $event)"
     />
-    <div v-if="errorCondition && errorMessage" class="ml-2 mt-1 text-sm text-red-500">
+    <div
+      v-if="errorCondition && errorMessage"
+      class="ml-2 mt-1 text-sm text-red-500"
+    >
       {{ errorMessage }}
     </div>
   </div>

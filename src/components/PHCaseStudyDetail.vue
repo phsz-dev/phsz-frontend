@@ -33,13 +33,17 @@
         >
           上一页
         </div>
-        <div class="text-gray-600 dark:text-gray-200">{{currentPage+1 + "/" + store.roughCases.totalPages}}</div>
+        <div class="text-gray-600 dark:text-gray-200">
+          {{ currentPage + 1 + '/' + store.roughCases.totalPages }}
+        </div>
         <div
           class="ml-2 flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
         >
           下一页
         </div>
-        <div class="text-gray-600 dark:text-gray-200">共{{store.roughCases.totalElements}}条</div>
+        <div class="text-gray-600 dark:text-gray-200">
+          共{{ store.roughCases.totalElements }}条
+        </div>
       </div>
     </div>
     <div class="h-3"></div>
@@ -47,8 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted,ref } from 'vue'
-import { useCaseStore } from '../stores/case';
+import { onMounted, ref } from 'vue'
+import { useCaseStore } from '../stores/case'
 const props = defineProps<{
   diseaseId: number
 }>()
@@ -56,16 +60,15 @@ const currentPage = ref(0)
 
 const store = useCaseStore()
 
-onMounted(()=>{
-  try{
-    getRoughCases(currentPage.value,10)
-  }catch(e){
+onMounted(() => {
+  try {
+    getRoughCases(currentPage.value, 10)
+  } catch (e) {
     console.log(e)
   }
 })
 
-const getRoughCases = (currentPage:number ,pageSize:number ) => {
-  store.getRoughCaseByDisease(props.diseaseId,currentPage,pageSize)
+const getRoughCases = (currentPage: number, pageSize: number) => {
+  store.getRoughCaseByDisease(props.diseaseId, currentPage, pageSize)
 }
-
 </script>

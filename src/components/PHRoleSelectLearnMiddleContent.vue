@@ -15,12 +15,21 @@ const props = defineProps<{
 }>()
 
 const processContent = computed(() => {
-  if( useRoleStore().roleResponsibility[props.currentIndex[0]].subResponsibilities.length == 0) {
+  if (
+    useRoleStore().roleResponsibility[props.currentIndex[0]].subResponsibilities
+      .length == 0
+  ) {
     return ''
   }
-  if( useRoleStore().roleResponsibility[props.currentIndex[0]].subResponsibilities[props.currentIndex[1]].procedures.length == 0) {
+  if (
+    useRoleStore().roleResponsibility[props.currentIndex[0]]
+      .subResponsibilities[props.currentIndex[1]].procedures.length == 0
+  ) {
     return ''
   }
-  return useRoleStore().roleResponsibility[props.currentIndex[0]].subResponsibilities[props.currentIndex[1]].procedures[props.currentIndex[2]].content
+  return useRoleStore().roleResponsibility[props.currentIndex[0]]
+    .subResponsibilities[props.currentIndex[1]].procedures[
+    props.currentIndex[2]
+  ].content
 })
 </script>
