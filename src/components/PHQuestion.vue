@@ -1,0 +1,49 @@
+<template>
+  <div class="container mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
+    <h2 class="text-lg font-semibold">问题 {{ questionId }}</h2>
+    <p class="my-2 text-sm text-gray-800">{{ text }}</p>
+    <!-- Multiple choice example -->
+    <div v-if="type === 'mcq'">
+      <div v-for="option in options" :key="option.id">
+        <label :for="`option-${option.id}`" class="flex items-center">
+          <input
+            :id="`option-${option.id}`"
+            v-model="selectedOption"
+            class="mr-2"
+            type="radio"
+            :value="option.id"
+          />
+          {{ option.text }}
+        </label>
+      </div>
+    </div>
+    <!-- Free text example -->
+    <div v-else-if="type === 'text'">
+      <textarea
+        v-model="textAnswer"
+        rows="4"
+        class="w-full rounded border p-2 focus:outline-none focus:ring focus:ring-primary-500"
+      ></textarea>
+    </div>
+    <!-- <button
+      class="hover:bg-primary-700 mt-4 rounded bg-primary-600 px-4 py-2 text-white"
+      @click="$emit('submitAnswer', selectedOption, textAnswer)"
+    >
+      提交答案
+    </button> -->
+  </div>
+</template>
+
+<script setup lang="ts">
+defineProps<{
+  questionId: number
+  text: string
+  type: string
+  options: { id: number; text: string }[]
+}>()
+
+const selectedOption = defineModel<number>('selectedOption')
+const textAnswer = defineModel<string>('textAnswer')
+
+defineEmits(['submitAnswer'])
+</script>
