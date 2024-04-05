@@ -7,9 +7,10 @@ import PHNavBar from './components/PHNavBar.vue'
     <PHNavBar />
 
     <div class="h-0 grow">
-      <RouterView v-slot="{ Component, route }">
+      <RouterView v-slot="{ Component }">
         <Transition name="slide" mode="out-in">
-          <Component :is="Component" :key="route.path" />
+          <!-- <Component :is="Component" :key="route.path" /> -->
+          <Component :is="Component" />
         </Transition>
       </RouterView>
     </div>

@@ -1,11 +1,27 @@
 <template>
-  <div>
-    <div>{{ case_info?.name }}</div>
-    <div>{{case_info?.submitTime?new Date(case_info?.submitTime).toLocaleString():new Date().toLocaleString() }}</div>
-    <div>{{case_info?.brief}}</div>
+  <div class="p-4">
+    <div class="text-xl font-bold dark:text-gray-200">
+      {{ store.detailedCase?.name }}
+    </div>
+    <div class="mt-1 text-gray-400 dark:text-gray-300">
+      {{
+        store.detailedCase?.submitTime
+          ? new Date(store.detailedCase?.submitTime).toLocaleString()
+          : new Date().toLocaleString()
+      }}
+    </div>
+    <div class="mb-2 mt-1 break-all dark:text-gray-200">
+      {{ store.detailedCase?.brief }}
+    </div>
+    <div class="h-[0.105rem] bg-gray-200"></div>
     <div>
       <div>
-        <PHChoiceList :choices="choices" />
+        <PHChoiceList
+          :choices="choices"
+          :routes="routes"
+          v-model="currentIndex"
+        />
+        <div class="h-[0.1rem] bg-gray-200"></div>
       </div>
       <div>
         <RouterView />
@@ -15,13 +31,46 @@
 </template>
 
 <script setup lang="ts">
-import Case from '../types/Case';
-import {ref} from 'vue'
+import { ref,onMounted } from 'vue'
+import PHChoiceList from './PHChoiceList.vue'
+import { useCaseStore } from '../stores/case';
+const store = useCaseStore()
 
-defineProps<{
-  case_info?: Case
+const props = defineProps<{
+  case_id: number
 }>()
 
-const choices = ref(['基本介绍','处方药品','处方疫苗','检查项目','收费详情'])
+onMounted(async ()=>{
+  try{
+    await store.getDetailedCase(props.case_id)
+  }catch(e){
+    console.log(e)
+  }
+})
 
+const choices = ref([
+  '基本介绍',
+  '处方药品',
+  '处方疫苗',
+  '检查项目',
+  '收费详情'
+])
+const routes = ref([
+  {
+    path: `/case-detail/${props.case_id}/intro`,
+  },
+  {
+    path: `/case-detail/${props.case_id}/medicine`,
+  },
+  {
+    path: `/case-detail/${props.case_id}/vaccine`,
+  },
+  {
+    path: `/case-detail/${props.case_id}/assay`,
+  },
+  {
+    path: `/case-detail/${props.case_id}/charge`,
+  }
+])
+const currentIndex = ref(0)
 </script>

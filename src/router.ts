@@ -45,11 +45,32 @@ const routes = [
         name: 'CaseDetail',
         component: () => import('./views/CaseDetail.vue'),
         children: [
+          // 传入/就是跳转到intro页面
           {
-            path: '/',
+            path: 'intro',
             name: 'CaseDetailIntro',
             component: () => import('./components/PHCaseDetailIntro.vue')
-          }
+          },
+          {
+            path: 'medicine',
+            name: 'CaseDetailMedicine',
+            component: () => import('./components/PHCaseDetailMedicine.vue')
+          },
+          {
+            path: 'vaccine',
+            name: 'CaseDetailVaccine',
+            component: () => import('./components/PHCaseDetailVaccine.vue')
+          },
+          {
+            path: 'charge',
+            name: 'CaseDetailCharge',
+            component: () => import('./components/PHCaseDetailCharge.vue')
+          },
+          {
+            path: 'assay',
+            name: 'CaseDetailAssay',
+            component: () => import('./components/PHCaseDetailAssay.vue')
+          },
         ]
       },
       {
