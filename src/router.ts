@@ -61,9 +61,14 @@ const routes = [
         component: () => import('./views/Profile.vue')
       },
       {
-        path: 'test-selection',
-        name: 'TestSelection',
-        component: () => import('./views/TestSelection.vue')
+        path: 'paper-selection',
+        name: 'PaperSelection',
+        component: () => import('./views/PaperSelection.vue')
+      },
+      {
+        path: 'paper-details/:id',
+        name: 'PaperDetails',
+        component: () => import('./views/PaperDetails.vue')
       }
     ]
   }
