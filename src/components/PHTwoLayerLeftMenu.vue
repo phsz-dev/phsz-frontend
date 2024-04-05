@@ -20,7 +20,7 @@
           {{ item.name }}
         </div>
         <span
-          v-if="item.subMenu"
+          v-if="item.subResponsibilities"
           class="phi-right-arrow h-6 w-6 rounded-full bg-zinc-700 group-hover:bg-secondary-500 dark:bg-gray-200 dark:group-hover:bg-secondary-500"
           :class="{
             'rotate-90 transform': item.status
@@ -28,18 +28,18 @@
         ></span>
       </div>
 
-      <template v-if="item.subMenu && item.status">
+      <template v-if="item.subResponsibilities && item.status">
         <div
-          v-for="(subItem, subIndex) in item.subMenu"
+          v-for="(subItem, subIndex) in item.subResponsibilities"
           :key="subIndex"
           class="mx-4 cursor-pointer rounded-md px-2 pt-4 transition-colors duration-300 ease-in-out"
         >
           <div
             class="text-md pt-2 font-medium text-black hover:text-secondary-500 dark:text-gray-200"
             :class="{
-              '!text-secondary-500': menu_id == subItem.id
+              '!text-secondary-500': (menu_id==undefined?[0,0,0]:menu_id)[1] == subIndex&&(menu_id==undefined?[0,0,0]:menu_id)[0] == index
             }"
-            @click="menu_id = subItem.id"
+            @click="setId(index, subIndex)"
           >
             {{ subItem.name }}
           </div>
@@ -52,14 +52,30 @@
 
 <script setup lang="ts">
 import MenuLayer from '../types/MenuLayer'
-import { reactive } from 'vue'
+import { ref,watch } from 'vue'
 
 const props = defineProps<{
   title: string
   leftMenu: MenuLayer[]
 }>()
 
-const left_menu_list = reactive(props.leftMenu)
+console.log(props.leftMenu)
 
-const menu_id = defineModel<number>()
+const setId = (index: number, subIndex: number) => {
+  if(menu_id.value){
+    menu_id.value[0] = index
+    menu_id.value[1] = subIndex
+    menu_id.value[2] = 0
+  }
+}
+
+const left_menu_list = ref(props.leftMenu)
+
+watch(() => props.leftMenu, (newVal) => {
+  left_menu_list.value = newVal
+})
+
+
+const menu_id = defineModel<number[]>()
+console.log(menu_id.value)
 </script>

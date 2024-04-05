@@ -1,93 +1,27 @@
 <template>
   <div>
-    <div>{{ case_info.caseName }}</div>
+    <div>{{ case_info?.name }}</div>
+    <div>{{case_info?.submitTime?new Date(case_info?.submitTime).toLocaleString():new Date().toLocaleString() }}</div>
+    <div>{{case_info?.brief}}</div>
+    <div>
+      <div>
+        <PHChoiceList :choices="choices" />
+      </div>
+      <div>
+        <RouterView />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import Case from '../types/Case';
+import {ref} from 'vue'
+
 defineProps<{
-  case_info: Object
+  case_info?: Case
 }>()
-// const case_info = reactive({
-//     caseId: case_id,
-//     caseName: '12岁小狗的犬瘟热',
-//     caseDescription: '<p>12岁小狗的犬瘟热描述</p><p>12岁小狗的犬瘟热描述</p><p>12岁小狗的犬瘟热描述</p>',
-//     diseaseList:[{
-//         id: 0,
-//         name: '犬瘟热',
-//     },{
-//         id: 1,
-//         name: '犬细小病毒',
-//     }],
-//     submitTime: 1711952152437,
-//     assays: [{
-//         assayId: 0,
-//         name: '犬瘟热检测',
-//         result: '阳性',
-//         type: '犬瘟热检测描述',
-//         date: 1711952152437,
-//     },{
-//         id: 1,
-//         name: '犬细小病毒检测',
-//         result: '阴性',
-//         type: '犬细小病毒检测描述',
-//         date: 1711952152437,
-//     }],
-//     medicines: [{
-//         medicineId: 0,
-//         medicineName: '犬瘟热药物',
-//         type: '犬瘟热药物描述',
-//         batchNumber: '2021-12-12',
-//         validity: 1711952152437,
-//         usage: '口服',
-//         price: 100,
-//     },{
-//         medicineId: 1,
-//         medicineName: '犬细小病毒药物',
-//         type: '犬细小病毒药物描述',
-//         batchNumber: '2021-12-12',
-//         validity: 1711952152437,
-//         usage: '口服',
-//         price: 100,
-//     }],
-//     vaccines: [{
-//         vaccineId: 0,
-//         name: '犬瘟热疫苗',
-//         manufacturer: '犬瘟热疫苗生产商',
-//         expiryDate: 1711952152437
-//     },{
-//         vaccineId: 1,
-//         name: '犬细小病毒疫苗',
-//         manufacturer: '犬细小病毒疫苗生产商',
-//         expiryDate: 1711952152437
-//     }],
-//     charge:{
-//         total: 1000,
-//         items: [{
-//             name: '犬瘟热检测',
-//             num:1,
-//             price: 100
-//         },{
-//             name: '犬瘟热药物',
-//             num:1,
-//             price: 100
-//         },{
-//             name: '犬瘟热疫苗',
-//             num:1,
-//             price: 100
-//         },{
-//             name: '犬细小病毒检测',
-//             num:1,
-//             price: 100
-//         },{
-//             name: '犬细小病毒药物',
-//             num:1,
-//             price: 100
-//         },{
-//             name: '犬细小病毒疫苗',
-//             num:1,
-//             price: 100
-//         }]
-//     }
-// })
+
+const choices = ref(['基本介绍','处方药品','处方疫苗','检查项目','收费详情'])
+
 </script>

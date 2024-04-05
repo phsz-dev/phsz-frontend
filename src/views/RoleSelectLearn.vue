@@ -1,19 +1,20 @@
 <template>
   <div class="mx-auto flex max-w-7xl flex-row">
-    <div class="h-fit flex-[2_2_0]">
+    <div class="h-fit flex-[2_2_0]" v-if="computedLeftMenu.length > 0">
       <PHTwoLayerLeftMenu
-        v-model="menu_id"
+        v-model="id_arr"
         :title="titleArr[titleId]"
-        :left-menu="convertToMenuLayers(leftMenu)"
+        :left-menu="computedLeftMenu"
+        
       />
     </div>
 
-    <div class="mx-3 h-96 flex-[6_6_0]">
-      <PHRoleSelectLearnMiddleContent :current-index="currentIndex" />
+    <div class="mx-3 h-96 flex-[6_6_0]" v-if="computedLeftMenu.length > 0">
+      <PHRoleSelectLearnMiddleContent :current-index="id_arr" />
     </div>
 
-    <div class="h-96 flex-1">
-      <PHRoleSelectLearnRightProcessor v-model="currentIndex" />
+    <div class="h-96 flex-1" v-if="computedLeftMenu.length > 0">
+      <PHRoleSelectLearnRightProcessor v-model="id_arr" v-if="computedLeftMenu.length > 0"/>
     </div>
   </div>
 </template>
@@ -24,31 +25,60 @@ import PHRoleSelectLearnMiddleContent from '../components/PHRoleSelectLearnMiddl
 import PHRoleSelectLearnRightProcessor from '../components/PHRoleSelectLearnRightProcessor.vue'
 import { useRoleStore } from '../stores/role'
 import { useRoute } from 'vue-router'
-import { ref } from 'vue'
-import MenuLayer from '../types/MenuLayer'
+import { ref,watch,onMounted,onDeactivated } from 'vue'
 import RoleResponsibility from '../types/RoleResponsibility'
-const leftMenu = useRoleStore().roleResponsibility
-const titleArr = ['前台', '医助', '兽医师']
+import MenuLayer from '../types/MenuLayer'
+const store = useRoleStore()
 const titleId = parseInt(useRoute().params.id as string)
+onMounted(() => {
+  try {
+    store.getRoleResponsibility(titleId)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
-function convertToMenuLayers(data: RoleResponsibility[]): MenuLayer[] {
-  const result = data.map((item, index) => {
-    const subMenu: MenuLayer[] = item.content
-      ? item.content.map((subItem) => {
-          return {
-            name: subItem.name,
-            id: subItem.id,
-            subMenu: [],
-            status: false
-          }
-        })
-      : []
-    return { id: index, name: item.name, subMenu, status: false }
+onDeactivated(() => {
+  store.clearRoleResponsibility()
+})
+
+
+const titleArr = ['前台', '医助', '兽医师']
+
+
+const convertToMenuLayers = (menu: RoleResponsibility[]):MenuLayer[] => {
+  if(menu.length == 0) return []
+  const result = menu.map((item) => {
+    let obj: MenuLayer = {
+      id: item.id,
+      name: item.name,
+      status: false,
+      subResponsibilities: []
+    };
+
+    for (let it of item.subResponsibilities) {
+      obj.subResponsibilities.push({
+        id: it.id,
+        name: it.name,
+        status: false,
+        subResponsibilities: []
+      });
+    }
+
+    return obj;
   })
-  result[0].status = true
+  console.log(result)
+  result[0].subResponsibilities[0].status = true
   return result
 }
 
-const currentIndex = ref(0)
-const menu_id = ref(leftMenu[0].content[0].id)
+const computedLeftMenu = ref(convertToMenuLayers(store.roleResponsibility))
+
+watch(() => store.roleResponsibility, (newVal) => {
+  computedLeftMenu.value = convertToMenuLayers(newVal)
+})
+
+
+
+const id_arr = ref([0,0,0])
 </script>
