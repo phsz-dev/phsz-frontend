@@ -2,7 +2,7 @@
   <div class="fixed top-0 flex size-full items-center">
     <!-- Question progress -->
     <div class="absolute top-20 w-full">
-      <div class="container mx-auto h-2 rounded-full bg-gray-200">
+      <div class="container mx-auto h-2 rounded-full bg-gray-200 dark:bg-dark-block-400">
         <div
           v-if="questions.length"
           class="h-2 rounded-full bg-primary-500 transition-all"
@@ -15,13 +15,13 @@
     <div class="container mx-auto flex h-2/3 items-center">
       <!-- Question jump navigation -->
       <div
-        class="grid h-full flex-none grid-cols-5 content-start gap-2 border-r-2 p-4"
+        class="grid h-full flex-none grid-cols-5 content-start gap-2 border-r-2 p-4  dark:border-dark-block-600"
       >
         <button
           v-for="(question, index) in questions"
           :key="question.id"
-          class="w-8 overflow-hidden rounded border border-gray-200 p-2 text-gray-600"
-          :class="{ 'text-primary-500': index === questionIndex }"
+          class="w-8 overflow-hidden rounded border border-gray-200 p-2 text-gray-600 dark:border-dark-block-600 dark:text-gray-200"
+          :class="{ 'text-primary-500 dark:text-primary-600': index === questionIndex }"
           @click="jumpToQuestion(index)"
         >
           {{ index + 1 }}
@@ -46,16 +46,16 @@
       </Transition>
     </div>
     <!-- Question navigation -->
-    <div class="absolute bottom-0 w-full bg-white p-4">
+    <div class="absolute bottom-0 w-full bg-white p-4 dark:bg-dark-block-600">
       <div class="container mx-auto flex justify-between">
         <button
-          class="px-4 py-2 text-gray-600 hover:text-gray-800"
+          class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-50"
           @click="prevQuestion"
         >
           上一题
         </button>
         <button
-          class="px-4 py-2 text-gray-600 hover:text-gray-800"
+          class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-50"
           @click="nextQuestion"
         >
           下一题

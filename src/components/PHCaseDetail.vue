@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div v-else class="w-full h-full">
+  <div v-else class="h-full w-full">
     <PHLoadingIcon />
   </div>
 </template>

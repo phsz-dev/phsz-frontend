@@ -1,7 +1,7 @@
 <template>
   <RouterLink
     :to="{ path: `/paper-details/${paperId}` }"
-    class="min-h-28 rounded-lg border bg-white p-4 shadow hover:cursor-pointer hover:bg-gray-50 hover:shadow-md active:bg-gray-100 dark:border-none dark:bg-dark-block-600"
+    class="min-h-28 rounded-lg border bg-white p-4 shadow hover:cursor-pointer hover:bg-gray-50 dark:hover:bg-dark-block-700 hover:shadow-md active:bg-gray-100 dark:border-none dark:bg-dark-block-600"
   >
     <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200">
       {{ name }}

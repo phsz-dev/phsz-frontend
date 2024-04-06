@@ -1,13 +1,19 @@
 <template>
-  <div class="mx-auto w-full max-w-2xl rounded-lg bg-white p-6 shadow-md">
-    <h2 class="text-lg font-semibold">问题 {{ question.id }}</h2>
-    <p class="my-6 mt-2 text-sm text-gray-800">{{ question.text }}</p>
+  <div
+    class="mx-auto w-full max-w-2xl rounded-lg bg-white p-6 shadow-md dark:bg-dark-block-600"
+  >
+    <h2 class="text-lg font-semibold dark:text-gray-100">
+      问题 {{ question.id }}
+    </h2>
+    <p class="my-6 mt-2 text-sm text-gray-800 dark:text-gray-200">
+      {{ question.text }}
+    </p>
     <!-- Multiple choice example -->
     <div v-if="question.type === 'mcq'">
       <div v-for="option in question.options" :key="option.id">
         <label
           :for="`option-${option.id}`"
-          class="my-2 flex items-center rounded border p-4 hover:bg-gray-50 has-[:checked]:border-primary-600"
+          class="my-2 flex items-center rounded border p-4 hover:bg-gray-50 has-[:checked]:border-primary-600 dark:border-dark-block-400 dark:text-gray-200 dark:hover:bg-dark-block-500"
         >
           <input
             :id="`option-${option.id}`"
