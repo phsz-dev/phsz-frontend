@@ -21,9 +21,15 @@
             v-model="password"
             type="password"
             placeholder="请输入密码"
-            :error-condition="err_situation == 2 || err_situation == 3"
+            :error-condition="
+              err_situation == 2 || err_situation == 3 || err_situation == 4
+            "
             :error-message="
-              err_situation == 2 ? '密码不能为空' : '用户名或密码错误'
+              err_situation == 2
+                ? '密码不能为空'
+                : err_situation == 3
+                  ? '用户名或密码错误'
+                  : '服务器错误, 请稍后再试'
             "
             @input="err_situation = 0"
           />
@@ -82,6 +88,8 @@ const login = async () => {
     console.log(e)
     if (e instanceof HTTPError) {
       err_situation.value = 3
+    } else {
+      err_situation.value = 4
     }
   }
 }

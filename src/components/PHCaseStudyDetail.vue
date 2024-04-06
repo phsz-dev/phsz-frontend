@@ -8,7 +8,7 @@
       :key="index"
       class="border-b border-gray-300 p-2 py-4 hover:bg-gray-100 dark:hover:bg-gray-600"
     >
-      <RouterLink :to="{ path: '/case-detail/' + item.id +'/intro' }">
+      <RouterLink :to="{ path: '/case-detail/' + item.id + '/intro' }">
         <div class="flex items-center justify-between">
           <div class="text-lg font-bold dark:text-gray-200">
             {{ item.name }}

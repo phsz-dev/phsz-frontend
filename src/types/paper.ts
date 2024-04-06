@@ -1,21 +1,21 @@
 interface Paper {
-    id: number;
-    name: string;
-    time_limit: number;
-    score: number;
-    questions: Question[];
+  id: number
+  name: string
+  time_limit: number
+  score: number
+  questions: Question[]
 }
 
 interface Question {
-    id: number;
-    text: string;
-    type: string;
-    options?: Option[];
+  id: number
+  text: string
+  type: string
+  options?: Option[]
 }
 
 interface Option {
-    id: number;
-    text: string;
+  id: number
+  text: string
 }
 
-export type { Paper, Question, Option };
+export type { Paper, Question, Option }

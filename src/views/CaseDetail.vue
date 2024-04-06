@@ -1,7 +1,6 @@
 <template>
   <div class="mx-auto h-full max-w-5xl bg-white dark:!bg-dark-block-500">
     <PHCaseDetail :case_id="case_id" />
-    
   </div>
 </template>
 

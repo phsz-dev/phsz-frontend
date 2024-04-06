@@ -70,7 +70,7 @@ const routes = [
             path: 'assay',
             name: 'CaseDetailAssay',
             component: () => import('./components/PHCaseDetailAssay.vue')
-          },
+          }
         ]
       },
       {

@@ -1,15 +1,14 @@
 <template>
-  <div class="flex justify-around items-center w-full flex-row ">
+  <div class="flex w-full flex-row items-center justify-around">
     <div
       v-for="(item, index) in choices"
       :key="index"
       @click="changeIndex(index)"
-
     >
       <div
         class="text-md mx-4 my-1 cursor-pointer py-2 font-medium text-black transition-colors duration-300 ease-in-out hover:text-secondary-500 dark:text-gray-200"
         :class="{
-           'border-b-2 border-b-secondary-600': store.currentIndex === index,
+          'border-b-2 border-b-secondary-600': store.currentIndex === index
         }"
       >
         {{ item }}
@@ -19,16 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import router from '../router';
-import {useCaseStore} from '../stores/case'
-import { onMounted,onUnmounted } from 'vue';
+import router from '../router'
+import { useCaseStore } from '../stores/case'
+import { onMounted, onUnmounted } from 'vue'
 const store = useCaseStore()
 
-onMounted(()=>{
+onMounted(() => {
   store.currentIndex = parseInt(localStorage.getItem('currentIndex') || '0')
 })
 
-onUnmounted(()=>{
+onUnmounted(() => {
   localStorage.removeItem('currentIndex')
 })
 
@@ -42,6 +41,4 @@ const changeIndex = (index: number) => {
   localStorage.setItem('currentIndex', index.toString())
   router.push(props.routes[index])
 }
-
-
 </script>

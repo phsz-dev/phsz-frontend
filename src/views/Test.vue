@@ -14,11 +14,13 @@
     </div>
     <div class="container mx-auto flex h-2/3 items-center">
       <!-- Question jump navigation -->
-      <div class="flex-none grid h-full grid-cols-5 content-start gap-2 border-r-2 p-4">
+      <div
+        class="grid h-full flex-none grid-cols-5 content-start gap-2 border-r-2 p-4"
+      >
         <button
           v-for="(question, index) in questions"
           :key="question.id"
-          class="w-8 p-2 text-gray-600 border overflow-hidden border-gray-200 rounded"
+          class="w-8 overflow-hidden rounded border border-gray-200 p-2 text-gray-600"
           :class="{ 'text-primary-500': index === questionIndex }"
           @click="jumpToQuestion(index)"
         >
@@ -32,10 +34,7 @@
           :key="currentQuestion.id"
           v-model:selectedOption="answers[questionIndex]"
           v-model:textAnswer="answers[questionIndex]"
-          :question-id="currentQuestion.id"
-          :text="currentQuestion.text"
-          :type="currentQuestion.type"
-          :options="currentQuestion.options!"
+          :question="currentQuestion"
           @submit-answer="submitAnswer"
         />
         <!-- Loading -->

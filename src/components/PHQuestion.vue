@@ -1,18 +1,18 @@
 <template>
-  <div class="w-full mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
-    <h2 class="text-lg font-semibold">问题 {{ questionId }}</h2>
-    <p class="mt-2 my-6 text-sm text-gray-800">{{ text }}</p>
+  <div class="mx-auto w-full max-w-2xl rounded-lg bg-white p-6 shadow-md">
+    <h2 class="text-lg font-semibold">问题 {{ question.id }}</h2>
+    <p class="my-6 mt-2 text-sm text-gray-800">{{ question.text }}</p>
     <!-- Multiple choice example -->
-    <div v-if="type === 'mcq'">
-      <div v-for="option in options" :key="option.id">
+    <div v-if="question.type === 'mcq'">
+      <div v-for="option in question.options" :key="option.id">
         <label
           :for="`option-${option.id}`"
-          class="my-2 flex items-center rounded border p-4 has-[:checked]:border-primary-600 hover:bg-gray-50"
+          class="my-2 flex items-center rounded border p-4 hover:bg-gray-50 has-[:checked]:border-primary-600"
         >
           <input
             :id="`option-${option.id}`"
             v-model="selectedOption"
-            class="mr-2 box-content size-1.5 appearance-none rounded-lg ring-1 ring-primary-500 border-transparent border-[4px] checked:border-primary-500"
+            class="mr-2 box-content size-1.5 appearance-none rounded-lg border-[4px] border-transparent ring-1 ring-primary-500 checked:border-primary-500"
             type="radio"
             :value="option.id"
           />
@@ -21,7 +21,7 @@
       </div>
     </div>
     <!-- Free text example -->
-    <div v-else-if="type === 'text'">
+    <div v-else-if="question.type === 'text'">
       <textarea
         v-model="textAnswer"
         rows="4"
@@ -38,11 +38,10 @@
 </template>
 
 <script setup lang="ts">
+import { Question } from '../types/paper'
+
 defineProps<{
-  questionId: number
-  text: string
-  type: string
-  options: { id: number; text: string }[] | undefined
+  question: Question
 }>()
 
 const selectedOption = defineModel<number | string>('selectedOption')

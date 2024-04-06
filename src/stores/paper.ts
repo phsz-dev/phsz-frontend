@@ -51,7 +51,7 @@ export const usePaperStore = defineStore('paper', () => {
   }
   const getPaper = async (id: number) => {
     // simulate fetching paper from API
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     return paper
   }
   return {
