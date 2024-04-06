@@ -1,15 +1,18 @@
 <template>
-  <div class="container mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
+  <div class="w-full mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
     <h2 class="text-lg font-semibold">问题 {{ questionId }}</h2>
-    <p class="my-2 text-sm text-gray-800">{{ text }}</p>
+    <p class="mt-2 my-6 text-sm text-gray-800">{{ text }}</p>
     <!-- Multiple choice example -->
     <div v-if="type === 'mcq'">
       <div v-for="option in options" :key="option.id">
-        <label :for="`option-${option.id}`" class="flex items-center">
+        <label
+          :for="`option-${option.id}`"
+          class="my-2 flex items-center rounded border p-4 has-[:checked]:border-primary-600 hover:bg-gray-50"
+        >
           <input
             :id="`option-${option.id}`"
             v-model="selectedOption"
-            class="mr-2"
+            class="mr-2 box-content size-1.5 appearance-none rounded-lg ring-1 ring-primary-500 border-transparent border-[4px] checked:border-primary-500"
             type="radio"
             :value="option.id"
           />
@@ -39,11 +42,11 @@ defineProps<{
   questionId: number
   text: string
   type: string
-  options: { id: number; text: string }[]
+  options: { id: number; text: string }[] | undefined
 }>()
 
-const selectedOption = defineModel<number>('selectedOption')
-const textAnswer = defineModel<string>('textAnswer')
+const selectedOption = defineModel<number | string>('selectedOption')
+const textAnswer = defineModel<number | string>('textAnswer')
 
 defineEmits(['submitAnswer'])
 </script>

@@ -1,9 +1,10 @@
 <template>
   <div class="fixed top-0 flex size-full items-center">
     <!-- Question progress -->
-    <div class="fixed top-20 w-full">
+    <div class="absolute top-20 w-full">
       <div class="container mx-auto h-2 rounded-full bg-gray-200">
         <div
+          v-if="questions.length"
           class="h-2 rounded-full bg-primary-500 transition-all"
           :style="{
             width: `${((questionIndex + 1) / questions.length) * 100}%`
@@ -11,21 +12,42 @@
         ></div>
       </div>
     </div>
-    <!-- Question display -->
-    <Transition name="slide" mode="out-in">
-      <PHQuestion
-        :key="currentQuestion.id"
-        v-model:selectedOption="selectedOption"
-        v-model:textAnswer="textAnswer"
-        :question-id="currentQuestion.id"
-        :text="currentQuestion.text"
-        :type="currentQuestion.type"
-        :options="currentQuestion.options!"
-        @submit-answer="submitAnswer"
-      />
-    </Transition>
+    <div class="container mx-auto flex h-2/3 items-center">
+      <!-- Question jump navigation -->
+      <div class="flex-none grid h-full grid-cols-5 content-start gap-2 border-r-2 p-4">
+        <button
+          v-for="(question, index) in questions"
+          :key="question.id"
+          class="w-8 p-2 text-gray-600 border overflow-hidden border-gray-200 rounded"
+          :class="{ 'text-primary-500': index === questionIndex }"
+          @click="jumpToQuestion(index)"
+        >
+          {{ index + 1 }}
+        </button>
+      </div>
+      <!-- Question display -->
+      <Transition name="slide" mode="out-in">
+        <PHQuestion
+          v-if="currentQuestion"
+          :key="currentQuestion.id"
+          v-model:selectedOption="answers[questionIndex]"
+          v-model:textAnswer="answers[questionIndex]"
+          :question-id="currentQuestion.id"
+          :text="currentQuestion.text"
+          :type="currentQuestion.type"
+          :options="currentQuestion.options!"
+          @submit-answer="submitAnswer"
+        />
+        <!-- Loading -->
+        <div v-else class="flex h-full w-full items-center justify-center">
+          <div
+            class="h-8 w-8 animate-spin rounded-full border-b-2 border-t-2 border-primary-500"
+          ></div>
+        </div>
+      </Transition>
+    </div>
     <!-- Question navigation -->
-    <div class="fixed bottom-0 w-full bg-white p-4">
+    <div class="absolute bottom-0 w-full bg-white p-4">
       <div class="container mx-auto flex justify-between">
         <button
           class="px-4 py-2 text-gray-600 hover:text-gray-800"
@@ -45,39 +67,41 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { usePaperStore } from '../stores/paper'
+
 import PHQuestion from '../components/PHQuestion.vue'
-import { ref } from 'vue'
+import { Paper, Question } from '../types/paper'
 
-const questions = [
-  {
-    id: 1,
-    text: 'What is the capital of France?',
-    type: 'mcq',
-    options: [
-      { id: 1, text: 'Paris' },
-      { id: 2, text: 'London' },
-      { id: 3, text: 'Berlin' }
-    ]
-  },
-  {
-    id: 2,
-    text: 'What is 2 + 2?',
-    type: 'text'
-  }
-]
+const route = useRoute()
+const paperStore = usePaperStore()
 
-const currentQuestion = ref(questions[0])
-const selectedOption = ref(0)
-const textAnswer = ref('')
+const paperId = Number(route.params.id)
+const paper = ref<Paper | null>(null)
+const questions = computed<Question[]>(() => paper.value?.questions ?? [])
+
+const answers = ref<(number | string)[]>([])
 const questionIndex = ref(0)
+const currentQuestion = computed(() => {
+  return questions.value[questionIndex.value]
+})
+
+onMounted(async () => {
+  try {
+    paper.value = await paperStore.getPaper(paperId)
+    answers.value = Array(questions.value.length).fill('')
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 const nextQuestion = () => {
-  if (questionIndex.value === questions.length - 1) {
+  if (questionIndex.value === questions.value.length - 1) {
     alert('This is the last question')
     return
   }
   questionIndex.value++
-  currentQuestion.value = questions[questionIndex.value]
 }
 
 const prevQuestion = () => {
@@ -86,14 +110,21 @@ const prevQuestion = () => {
     return
   }
   questionIndex.value--
-  currentQuestion.value = questions[questionIndex.value]
+}
+
+const jumpToQuestion = (index: number) => {
+  if (index < 0 || index >= questions.value.length) {
+    alert('Invalid question index')
+    return
+  }
+  questionIndex.value = index
 }
 
 const submitAnswer = () => {
-  if (currentQuestion.value.type === 'mcq') {
-    alert(`You selected option ${selectedOption.value}`)
+  if (currentQuestion.value!.type === 'mcq') {
+    alert(`You selected option ${answers.value}`)
   } else {
-    alert(`You entered: ${textAnswer.value}`)
+    alert(`You entered: ${answers.value}`)
   }
 }
 </script>
@@ -101,16 +132,14 @@ const submitAnswer = () => {
 <style scoped>
 .slide-enter-active,
 .slide-leave-active {
-  transition:
-    transform 0.3s,
-    opacity 0.3s;
+  transition: all 0.2s;
 }
 .slide-leave-to {
-  transform: translateX(-30%);
+  transform: translateX(-10%);
   opacity: 0;
 }
 .slide-enter-from {
-  transform: translateX(30%);
+  transform: translateX(10%);
   opacity: 0;
 }
 </style>
