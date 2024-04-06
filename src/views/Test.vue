@@ -67,8 +67,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { usePaperStore } from '../stores/paper'
 
 import PHQuestion from '../components/PHQuestion.vue'
@@ -88,12 +88,23 @@ const currentQuestion = computed(() => {
 })
 
 onMounted(async () => {
+  onbeforeunload = (event) => {
+    event.preventDefault()
+  }
   try {
     paper.value = await paperStore.getPaper(paperId)
     answers.value = Array(questions.value.length).fill('')
   } catch (e) {
     console.log(e)
   }
+})
+
+onUnmounted(() => {
+  onbeforeunload = null
+})
+
+onBeforeRouteLeave(() => {
+  return confirm('你所做的更改可能未保存。')
 })
 
 const nextQuestion = () => {
