@@ -70,7 +70,7 @@ const routes = [
             path: 'assay',
             name: 'CaseDetailAssay',
             component: () => import('./components/PHCaseDetailAssay.vue')
-          },
+          }
         ]
       },
       {
@@ -86,7 +86,19 @@ const routes = [
       {
         path: 'profile',
         name: 'Profile',
-        component: () => import('./views/Profile.vue')
+        component: () => import('./views/Profile.vue'),
+        children: [
+          {
+            path: '',
+            name: 'ProfileBasic',
+            component: () => import('./components/PHProfileBasic.vue')
+          },
+          {
+            path: 'collect-case',
+            name: 'CollectCase',
+            component: () => import('./components/PHCollectCase.vue')
+          },
+        ]
       },
       {
         path: 'paper-selection',

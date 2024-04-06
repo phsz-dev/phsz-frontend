@@ -1,8 +1,13 @@
 <template>
   <div class="p-2">
     <div v-if="store.chargeList.details">
-      <div v-if="JSON.parse(store.chargeList.details).assays&&JSON.parse(store.chargeList.details).assays.length>0">
-        <div class="text-lg font-bold text-black dark:!text-gray-200 py-2">
+      <div
+        v-if="
+          JSON.parse(store.chargeList.details).assays &&
+          JSON.parse(store.chargeList.details).assays.length > 0
+        "
+      >
+        <div class="py-2 text-lg font-bold text-black dark:!text-gray-200">
           检查收费
         </div>
         <div
@@ -29,8 +34,14 @@
           </div>
         </div>
       </div>
-      <div v-if="JSON.parse(store.chargeList.details).medicines&&JSON.parse(store.chargeList.details).medicines.length>0" class="mt-5">
-        <div class="text-lg font-bold text-black dark:!text-gray-200 py-2">
+      <div
+        v-if="
+          JSON.parse(store.chargeList.details).medicines &&
+          JSON.parse(store.chargeList.details).medicines.length > 0
+        "
+        class="mt-5"
+      >
+        <div class="py-2 text-lg font-bold text-black dark:!text-gray-200">
           药品收费
         </div>
         <div
@@ -41,7 +52,8 @@
           <div class="flex-[2_2_0%]">总计</div>
         </div>
         <div
-          v-for="(item, index) in JSON.parse(store.chargeList.details).medicines"
+          v-for="(item, index) in JSON.parse(store.chargeList.details)
+            .medicines"
           :key="index"
           class="px-2 py-3"
           :class="
@@ -59,8 +71,14 @@
           </div>
         </div>
       </div>
-      <div v-if="JSON.parse(store.chargeList.details).vaccines&&JSON.parse(store.chargeList.details).vaccines.length>0" class="mt-5">
-        <div class="text-lg font-bold text-black dark:!text-gray-200 py-2">
+      <div
+        v-if="
+          JSON.parse(store.chargeList.details).vaccines &&
+          JSON.parse(store.chargeList.details).vaccines.length > 0
+        "
+        class="mt-5"
+      >
+        <div class="py-2 text-lg font-bold text-black dark:!text-gray-200">
           疫苗收费
         </div>
         <div

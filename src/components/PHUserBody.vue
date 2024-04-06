@@ -31,8 +31,8 @@ const userStore = useUserStore()
 
 const left_title = '用户中心'
 const left_menu = [
-  '我的课程',
-  '我的收藏',
+  '个人信息',
+  '病例收藏',
   '我的问答',
   '我的考试',
   '我的证书',
