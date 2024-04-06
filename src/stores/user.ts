@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', () => {
   const username = ref('')
   const email = ref('')
   const roles = ref<string[]>([])
+  const userList = ref<any[]>([])
 
   const register = async (username: string, password: string) => {
     let data = {
@@ -59,6 +60,15 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const getUserList = async () => {
+    try {
+      const res = await apiService.get('/api/users', token.value)
+      userList.value = res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   hydrate()
 
   return {
@@ -66,9 +76,11 @@ export const useUserStore = defineStore('user', () => {
     username,
     email,
     roles,
+    userList,
     login,
     logout,
     register,
-    hydrate
+    hydrate,
+    getUserList,
   }
 })

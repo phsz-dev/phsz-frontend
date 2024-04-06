@@ -102,6 +102,11 @@ const routes = [
         path: 'test/:id',
         name: 'Test',
         component: () => import('./views/Test.vue')
+      },
+      {
+        path: 'admin-dashboard',
+        name: 'AdminDashboard',
+        component: () => import('./views/AdminDashboard.vue')
       }
     ]
   }

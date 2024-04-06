@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div>
     <TresCanvas
       ref="canvas"
       window-size
@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useDark } from '@vueuse/core'
 const dark = useDark()
 
