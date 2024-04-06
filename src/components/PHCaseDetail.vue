@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="w-full overflow-hidden overflow-y-scroll rounded-md bg-white px-4 py-1 dark:bg-dark-block-500 h-full">
     <div class="text-xl font-bold dark:text-gray-200">
       {{ store.detailedCase?.name }}
     </div>
@@ -19,7 +19,6 @@
         <PHChoiceList
           :choices="choices"
           :routes="routes"
-          v-model="currentIndex"
         />
         <div class="h-[0.1rem] bg-gray-200"></div>
       </div>
@@ -72,5 +71,4 @@ const routes = ref([
     path: `/case-detail/${props.case_id}/charge`,
   }
 ])
-const currentIndex = ref(0)
 </script>

@@ -9,7 +9,7 @@
       <div
         class="text-md mx-4 my-1 cursor-pointer py-2 font-medium text-black transition-colors duration-300 ease-in-out hover:text-secondary-500 dark:text-gray-200"
         :class="{
-           'border-b-2 border-b-secondary-600': currentIndex === index,
+           'border-b-2 border-b-secondary-600': store.currentIndex === index,
         }"
       >
         {{ item }}
@@ -20,7 +20,17 @@
 
 <script setup lang="ts">
 import router from '../router';
+import {useCaseStore} from '../stores/case'
+import { onMounted,onUnmounted } from 'vue';
+const store = useCaseStore()
 
+onMounted(()=>{
+  store.currentIndex = parseInt(localStorage.getItem('currentIndex') || '0')
+})
+
+onUnmounted(()=>{
+  localStorage.removeItem('currentIndex')
+})
 
 const props = defineProps<{
   choices: string[]
@@ -28,9 +38,10 @@ const props = defineProps<{
 }>()
 
 const changeIndex = (index: number) => {
-  currentIndex.value = index
+  store.currentIndex = index
+  localStorage.setItem('currentIndex', index.toString())
   router.push(props.routes[index])
 }
 
-const currentIndex = defineModel<number>()
+
 </script>

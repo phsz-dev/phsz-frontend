@@ -9,6 +9,8 @@ export const useCaseStore = defineStore('case', () => {
   const diseaseCatalog = ref<any[]>([])
   const roughCases = ref<any>([])
   const detailedCase = ref<Case>()
+  const currentIndex = ref<number>(0)
+  const chargeList = ref<any>([])
   const getDiseaseCatalog = async () => {
     try {
       const res = await apiService.get('/api/diseases')
@@ -41,7 +43,10 @@ export const useCaseStore = defineStore('case', () => {
     try {
       const res = await apiService.get('/api/cases/' + caseId)
       console.log(res)
+      const res2 = await apiService.get('/api/charges/' + res.chargeId)
+      console.log(res2)
       detailedCase.value = res
+      chargeList.value = res2
     } catch (e) {
       console.log(e)
     }
@@ -50,6 +55,8 @@ export const useCaseStore = defineStore('case', () => {
     diseaseCatalog,
     roughCases,
     detailedCase,
+    currentIndex,
+    chargeList,
     getDiseaseCatalog,
     getRoughCaseByDisease,
     getDetailedCase
