@@ -80,7 +80,6 @@ export const useUserStore = defineStore('user', () => {
         pageSize,
         token.value
       )
-      console.log(res)
       userList.value = res
     } catch (e) {
       console.log(e)
@@ -99,13 +98,11 @@ export const useUserStore = defineStore('user', () => {
 
   const updateUser = async (data: object) => {
     try {
-      console.log(data)
       await apiService.put('/api/users', data, token.value)
     } catch (e) {
       console.log(e)
     }
   }
-
   const updateUserInfo = async (email:string) => {
     try {
       await apiService.put('/api/users/update/normal', {email}, token.value)
@@ -127,6 +124,16 @@ export const useUserStore = defineStore('user', () => {
   
   }
 
+  const sortUserList = (key: string, order: number) => {
+    userList.value.content.sort((a: any, b: any) => {
+      if (a[key] > b[key]) {
+        return order
+      } else {
+        return -order
+      }
+    })
+  }
+
   return {
     token,
     username,
@@ -144,5 +151,6 @@ export const useUserStore = defineStore('user', () => {
     uploadAvatar,
     getUserList,
     updateUser,
+    sortUserList
   }
 })

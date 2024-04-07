@@ -10,15 +10,26 @@
     </div>
 
     <!-- 用户表格 id, username, email, role, enabled 5个字段 -->
-    <div class="overflow-x-auto relative">
+    <div class="overflow-x-auto relative my-5">
       <table class="w-full text-sm text-left text-black dark:text-gray-200">
         <thead>
           <tr>
-            <th scope="col" class="py-3 px-6">ID</th>
-            <th scope="col" class="py-3 px-6">用户名</th>
-            <th scope="col" class="py-3 px-6">邮箱</th>
-            <th scope="col" class="py-3 px-6">角色</th>
-            <th scope="col" class="py-3 px-6">状态</th>
+            <th 
+              scope="col" 
+              class="py-3 px-6 flex justify-between cursor-pointer items-center group"
+              :class="{ 'bg-gray-500': sortKey === 'id' }"
+              @click="sortBy('id')"
+            >
+              ID
+              <span v-if="sortKey === 'id'" class="flex items-center">
+                <span v-if="sortOrder === 1">↑</span>
+                <span v-else>↓</span>
+              </span>
+            </th>
+            <th scope="col" class="py-3 px-6 cursor-pointer">用户名</th>
+            <th scope="col" class="py-3 px-6 cursor-pointer">邮箱</th>
+            <th scope="col" class="py-3 px-6 cursor-pointer">角色</th>
+            <th scope="col" class="py-3 px-6 cursor-pointer">状态</th>
           </tr>
         </thead>
         <tbody>
@@ -45,14 +56,14 @@
       </table>
     </div>
 
-    <div class="flex justify-center items-center mt-4">
+    <div class="mx-auto flex w-1/3 items-center justify-center">
       <button
-        class="p-2 border rounded"
+        class="flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
         @click="currentPage > 1 && currentPage-- && updateUserList(currentPage)"
       >上一页</button>
-      <span class="px-4">{{ currentPage + '/' + store.userList.totalPages }}</span>
+      <span class="px-4 text-gray-600 dark:text-gray-200">{{ currentPage + '/' + store.userList.totalPages }}</span>
       <button
-        class="p-2 border rounded"
+        class="flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
         @click="currentPage < store.userList.totalPages && currentPage++ && updateUserList(currentPage)"
       >下一页</button>
     </div>
@@ -66,7 +77,9 @@ import { ref } from 'vue'
 const store = useUserStore()
 store.getUserList(0, 10)
 
-let currentPage = ref(1)
+let currentPage = 1
+const sortKey = ref<string>('')
+const sortOrder = ref<number>(0) // 0: 无序, 1: 升序, -1: 降序
 
 const updateUserList = (page: number) => {
   store.getUserList((page - 1) * 10, 10)
@@ -75,6 +88,18 @@ const updateUserList = (page: number) => {
 const toggleUserEnabled = (user: any) => {
   user.enabled = !user.enabled
   store.updateUser(user)
+}
+
+const sortBy = (key: string) => {
+  sortKey.value = key
+  // [0, 1, -1]中循环
+  sortOrder.value = (sortOrder.value + 2) % 3 - 1
+  if (sortOrder.value === 0) {
+    sortKey.value = ''
+    store.getUserList(0, 10)
+  } else {
+    store.sortUserList(key, sortOrder.value)
+  }
 }
 </script>
 
