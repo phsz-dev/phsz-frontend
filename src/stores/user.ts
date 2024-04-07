@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const username = ref('')
   const email = ref('')
   const roles = ref<string[]>([])
-  const userList = ref<any[]>([])
+  const userList = ref<any>([])
   const collectedCase = ref<RoughCases[]>([])
 
   const register = async (username: string, password: string) => {
@@ -64,9 +64,20 @@ export const useUserStore = defineStore('user', () => {
 
   hydrate()
 
-  const getUserList = async () => {
+  const getUserList = async (
+    pageNum: number,
+    pageSize: number,
+  ) => {
     try {
-      const res = await apiService.get('/api/users', token.value)
+      const res = await apiService.get(
+        '/api/users' +
+        '?pageNum=' +
+        pageNum +
+        '&pageSize=' +
+        pageSize,
+        token.value
+      )
+      console.log(res)
       userList.value = res
     } catch (e) {
       console.log(e)
@@ -77,6 +88,15 @@ export const useUserStore = defineStore('user', () => {
     try {
       const res = await apiService.get(`/api/cases/collect/mine/${pageNum}/${pageSize}`, token.value)
       collectedCase.value = res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const updateUser = async (data: object) => {
+    try {
+      console.log(data)
+      await apiService.put('/api/users', data, token.value)
     } catch (e) {
       console.log(e)
     }
@@ -94,5 +114,6 @@ export const useUserStore = defineStore('user', () => {
     hydrate,
     getUserList,
     getCollectedCase,
+    updateUser,
   }
 })
