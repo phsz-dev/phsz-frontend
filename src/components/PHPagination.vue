@@ -1,19 +1,17 @@
 <template>
-  <div class="pagination">
-    <button @click="gotoPage(currentPage - 1)" :disabled="currentPage === 1">
+  <div class="mt-4 flex items-center justify-center">
+    <button
+      class="rounded border p-2 px-4 text-sm hover:border-primary-500 hover:ring-2 dark:border-gray-500 dark:text-gray-200"
+      @click="prevPage"
+    >
       上一页
     </button>
+    <span class="mx-6 text-sm dark:text-gray-200">{{
+      currentPage + '/' + totalPages ?? 0
+    }}</span>
     <button
-      v-for="page in pageNumbers"
-      :key="page"
-      @click="gotoPage(page)"
-      :disabled="currentPage === page"
-    >
-      {{ page }}
-    </button>
-    <button
-      @click="gotoPage(currentPage + 1)"
-      :disabled="currentPage === totalPages"
+      class="rounded border p-2 px-4 text-sm hover:border-primary-500 hover:ring-2 dark:border-gray-500 dark:text-gray-200"
+      @click="nextPage"
     >
       下一页
     </button>
@@ -21,48 +19,24 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-
 const props = defineProps<{
-  total: number
-  pageSize: number
+  totalPages?: number
 }>()
 
-const emit = defineEmits(['update:page'])
+const currentPage = defineModel<number>({ required: true })
 
-const currentPage = ref(1)
+const emit = defineEmits<{
+  prevPage: []
+  nextPage: []
+}>()
 
-const totalPages = computed(() => {
-  return Math.ceil(props.total / props.pageSize)
-})
+const prevPage = () => {
+  currentPage.value > 1 && currentPage.value--
+  emit('prevPage')
+}
 
-// 生成页码数组
-const pageNumbers = computed(() => {
-  const pages = []
-  const totalNumbers = 5 // 在当前页码周围显示的页码数量
-  const halfWay = Math.floor(totalNumbers / 2)
-  const startPage = Math.max(1, currentPage.value - halfWay)
-  const endPage = Math.min(totalPages.value, startPage + totalNumbers - 1)
-
-  for (let i = startPage; i <= endPage; i++) {
-    pages.push(i)
-  }
-
-  return pages
-})
-
-// 跳转到指定页码
-function gotoPage(page: number) {
-  if (page !== currentPage.value && page > 0 && page <= totalPages.value) {
-    currentPage.value = page
-    emit('update:page', page)
-  }
+const nextPage = () => {
+  currentPage.value < (props.totalPages ?? 0) && currentPage.value++
+  emit('nextPage')
 }
 </script>
-
-<style>
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-</style>

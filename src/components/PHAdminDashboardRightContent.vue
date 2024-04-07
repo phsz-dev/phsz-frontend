@@ -56,23 +56,20 @@
       </table>
     </div>
 
-    <div class="mx-auto flex w-1/3 items-center justify-center">
-      <button
-        class="flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
-        @click="currentPage > 1 && currentPage-- && updateUserList(currentPage)"
-      >上一页</button>
-      <span class="px-4 text-gray-600 dark:text-gray-200">{{ currentPage + '/' + store.userList.totalPages }}</span>
-      <button
-        class="flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
-        @click="currentPage < store.userList.totalPages && currentPage++ && updateUserList(currentPage)"
-      >下一页</button>
-    </div>
+    <PHPageination
+      v-model="currentPage"
+      :total-pages="store.userList.totalPages"
+      @prev-page="updateUserList(currentPage)"
+      @next-page="updateUserList(currentPage)"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '../stores/user'
 import { ref } from 'vue'
+
+import { useUserStore } from '../stores/user'
+import PHPageination from '../components/PHPagination.vue'
 
 const store = useUserStore()
 store.getUserList(0, 10)
@@ -82,7 +79,7 @@ const sortKey = ref<string>('')
 const sortOrder = ref<number>(0) // 0: 无序, 1: 升序, -1: 降序
 
 const updateUserList = (page: number) => {
-  store.getUserList((page - 1) * 10, 10)
+  store.getUserList(page - 1, 10)
 }
 
 const toggleUserEnabled = (user: any) => {
