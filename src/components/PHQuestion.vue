@@ -31,7 +31,7 @@
       <textarea
         v-model="textAnswer"
         rows="4"
-        class="w-full rounded border p-2 focus:outline-none focus:ring focus:ring-primary-500"
+        class="w-full rounded border p-2 focus:outline-none focus:ring focus:ring-primary-500 dark:border-dark-block-400 dark:bg-dark-block-600 dark:focus:ring-primary-700"
       ></textarea>
     </div>
     <!-- <button
