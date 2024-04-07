@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const username = ref('')
   const email = ref('')
   const roles = ref<string[]>([])
+  const avatar = ref('')
   const userList = ref<any>([])
   const collectedCase = ref<RoughCases[]>([])
 
@@ -57,6 +58,7 @@ export const useUserStore = defineStore('user', () => {
       username.value = res.username
       email.value = res.email
       roles.value = res.roles
+      avatar.value = res.avatar
     } catch (e) {
       // do nothing
     }
@@ -99,6 +101,26 @@ export const useUserStore = defineStore('user', () => {
       console.log(e)
     }
   }
+  const updateUserInfo = async (email:string) => {
+    try {
+      await apiService.put('/api/users/update/normal', {email}, token.value)
+      hydrate()
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const uploadAvatar = async (file:File) =>{
+    try {
+      const formData = new FormData()
+      formData.append('file',file)
+      await apiService.putFile('/api/users/update/avatar', formData, token.value)
+      hydrate()
+    } catch (e) {
+      console.log(e)
+    }
+  
+  }
 
   const sortUserList = (key: string, order: number) => {
     userList.value.content.sort((a: any, b: any) => {
@@ -115,13 +137,16 @@ export const useUserStore = defineStore('user', () => {
     username,
     email,
     roles,
+    avatar,
     userList,
     login,
     logout,
     register,
     hydrate,
-    getUserList,
     getCollectedCase,
+    updateUserInfo,
+    uploadAvatar,
+    getUserList,
     updateUser,
     sortUserList
   }

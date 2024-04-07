@@ -5,7 +5,7 @@
       :key="index"
       @click="
         {
-          currentIndex = index
+          currentIndex = index;
           emit('changeIndex')
         }
       "

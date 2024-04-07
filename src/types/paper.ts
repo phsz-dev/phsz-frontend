@@ -1,7 +1,15 @@
+interface Exam {
+    id: number
+    name: string
+    paper: Paper
+    startTime: string
+    endTime: string
+}
+
 interface Paper {
   id: number
   name: string
-  time_limit: number
+  durationSeconds: number
   score: number
   questions: Question[]
 }
@@ -18,4 +26,4 @@ interface Option {
   text: string
 }
 
-export type { Paper, Question, Option }
+export type { Exam, Paper, Question, Option }
