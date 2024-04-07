@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
   const email = ref('')
   const roles = ref<string[]>([])
   const avatar = ref('')
+  const userList = ref<any>([])
   const collectedCase = ref<RoughCases[]>([])
 
   const register = async (username: string, password: string) => {
@@ -65,6 +66,26 @@ export const useUserStore = defineStore('user', () => {
 
   hydrate()
 
+  const getUserList = async (
+    pageNum: number,
+    pageSize: number,
+  ) => {
+    try {
+      const res = await apiService.get(
+        '/api/users' +
+        '?pageNum=' +
+        pageNum +
+        '&pageSize=' +
+        pageSize,
+        token.value
+      )
+      console.log(res)
+      userList.value = res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const getCollectedCase = async(pageNum:number,pageSize:number) =>{
     try {
       const res = await apiService.get(`/api/cases/collect/mine/${pageNum}/${pageSize}`, token.value)
@@ -74,9 +95,19 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const updateUser = async (data: object) => {
+    try {
+      console.log(data)
+      await apiService.put('/api/users', data, token.value)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const updateUserInfo = async (email:string) => {
     try {
       await apiService.put('/api/users/update/normal', {email}, token.value)
+      hydrate()
     } catch (e) {
       console.log(e)
     }
@@ -100,12 +131,15 @@ export const useUserStore = defineStore('user', () => {
     email,
     roles,
     avatar,
+    userList,
     login,
     logout,
     register,
     hydrate,
     getCollectedCase,
     updateUserInfo,
-    uploadAvatar
+    uploadAvatar,
+    getUserList,
+    updateUser,
   }
 })

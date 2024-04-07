@@ -61,6 +61,20 @@ class ApiService {
     return await this._handleResponse(res)
   }
 
+  async put(url: string, data: object, token?: string) {
+    const header = new Headers()
+    header.append('Content-Type', 'application/json')
+    if (token) {
+      header.append('Authorization', `Bearer ${token}`)
+    }
+    const res = await fetch(this.baseUrl + url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: header
+    })
+    return await this._handleResponse(res)
+  }
+
   async _handleResponse(res: Response) {
     if (!res.ok) {
       if (res.status === 401) {
