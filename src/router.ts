@@ -95,8 +95,8 @@ const routes = [
           },
           {
             path: 'collect-case',
-            name: 'CollectCase',
-            component: () => import('./components/PHCollectCase.vue')
+            name: 'ProfileCollectCase',
+            component: () => import('./components/PHProfileCollectCase.vue')
           },
         ]
       },
