@@ -3,7 +3,8 @@ import { useStorage } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import router from '../router'
 import ApiService from '../http'
-import RoughCases from '../types/RoughCase'
+import Page from '../types/Page'
+import RoughCase from '../types/RoughCase'
 
 const apiService = new ApiService('')
 
@@ -14,7 +15,7 @@ export const useUserStore = defineStore('user', () => {
   const roles = ref<string[]>([])
   const avatar = ref('')
   const userList = ref<any>([])
-  const collectedCase = ref<RoughCases[]>([])
+  const collectPageInfo = ref<Page<RoughCase>>()
 
   const register = async (username: string, password: string) => {
     let data = {
@@ -88,8 +89,9 @@ export const useUserStore = defineStore('user', () => {
 
   const getCollectedCase = async(pageNum:number,pageSize:number) =>{
     try {
-      const res = await apiService.get(`/api/cases/collect/mine/${pageNum}/${pageSize}`, token.value)
-      collectedCase.value = res
+      const res = await apiService.get(`/api/cases/collect/mine?pageNum=${pageNum}&pageSize=${pageSize}`, token.value)
+      console.log(res)
+      collectPageInfo.value = res
     } catch (e) {
       console.log(e)
     }
@@ -132,6 +134,7 @@ export const useUserStore = defineStore('user', () => {
     roles,
     avatar,
     userList,
+    collectPageInfo,
     login,
     logout,
     register,

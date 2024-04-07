@@ -8,21 +8,7 @@
       :key="index"
       class="border-b border-gray-300 p-2 py-4 hover:bg-gray-100 dark:hover:bg-gray-600"
     >
-      <RouterLink :to="{ path: '/case-detail/' + item.id + '/intro' }">
-        <div class="flex items-center justify-between">
-          <div class="text-lg font-bold dark:text-gray-200">
-            {{ item.name }}
-          </div>
-          <div class="text-sm dark:text-gray-200">
-            {{ new Date(parseInt(item.submitTime)).toLocaleString() }}
-          </div>
-        </div>
-        <div
-          class="mt-2 line-clamp-2 overflow-hidden text-ellipsis text-sm leading-6 text-gray-600 dark:text-gray-200"
-        >
-          {{ item.brief }}
-        </div>
-      </RouterLink>
+      <PHRoughCase :rough-case="item" />
     </div>
     <div class="h-3"></div>
     <!-- 翻页栏 -->
@@ -53,6 +39,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useCaseStore } from '../stores/case'
+import PHRoughCase from './PHRoughCase.vue';
 const props = defineProps<{
   diseaseId: number
 }>()

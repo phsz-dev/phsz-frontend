@@ -94,6 +94,6 @@ const currentIndex = ref(
 )
 
 const changeIndex = () => {
-  router.push(routes.value[currentIndex.value])
+  router.replace(routes.value[currentIndex.value])
 }
 </script>
