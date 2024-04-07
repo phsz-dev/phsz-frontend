@@ -18,14 +18,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import PHLeftMenu from './PHLeftMenu.vue'
-import { watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 import { useUserStore } from '../stores/user'
 import router from '../router'
 
 const userStore = useUserStore()
+const route = useRoute()
 
 const left_title = '用户中心'
 const left_menu = [
@@ -49,8 +50,10 @@ const routes = [
   '/my-settings'
 ]
 
-
-const menu_id = ref(0)
+// menu_id和当前路由对应
+const menu_id = ref(
+  routes.findIndex((item) => '/profile' + item === route.path)
+)
 
 watch(menu_id, (newVal) => {
   if (left_menu[newVal] === '退出登录') {
