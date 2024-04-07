@@ -57,11 +57,11 @@ const markers: Record<string, Marker> = {
 
 const markers_group = new THREE.Group()
 
-const canvas = ref<any>(null)
+const canvas = ref<InstanceType<typeof TresCanvas>>()
 let context: TresContext
 
 onMounted(async () => {
-  context = canvas.value.context
+  context = canvas.value!.context!
   context.scene.value.add(markers_group)
 
   const markerUrl = '/map_marker.svg'
