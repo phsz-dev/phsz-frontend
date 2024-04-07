@@ -25,6 +25,7 @@
     "@types/three": "^0.162.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.18",
+    "cypress": "^13.7.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.23.0",
