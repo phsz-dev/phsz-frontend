@@ -8,7 +8,7 @@
     <div class="px-4">
       <div class="h-full w-full text-center">
         <img 
-          :src="userStore.avatar || '../assets/profile/default_avatar.jpg'"
+          :src="userStore.avatar || default_avatar"
           class="mx-auto mt-6 h-40 w-40 rounded-full border border-gray-300 hover:cursor-pointer"
           @click="chooseFile"
         />
@@ -69,6 +69,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useUserStore } from '../stores/user'
+import default_avatar from '../assets/profile/default_avatar.jpg'
 const userStore = useUserStore()
 const email = ref(userStore.email)
 watch(

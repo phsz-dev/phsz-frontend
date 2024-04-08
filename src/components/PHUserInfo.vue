@@ -3,7 +3,7 @@
     class="h-42 relative flex flex-row rounded-sm bg-white p-5 dark:bg-dark-block-600"
   >
     <img
-      :src="userStore.avatar || '../assets/profile/default_avatar.jpg'"
+      :src="userStore.avatar || default_avatar"
       class="h-32 w-32 rounded-full border border-gray-300 dark:border-zinc-600"
     />
     <div class="mx-4 h-32 flex-1 text-black dark:text-gray-200">
@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from '../stores/user'
+import default_avatar from '../assets/profile/default_avatar.jpg'
 
 const userStore = useUserStore()
 </script>
