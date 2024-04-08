@@ -9,6 +9,7 @@
             :error-condition="err_situation == 1 || err_situation == 3"
             :error-message="err_situation == 1 ? '用户名不能为空' : ''"
             @input="err_situation = 0"
+            @keydown="handleEnter"
           />
           <!-- <label
               for="username"
@@ -32,11 +33,13 @@
                   : '服务器错误, 请稍后再试'
             "
             @input="err_situation = 0"
+            @keydown="handleEnter"
           />
           <!-- <label
               class="absolute left-6 top-4 text-gray-400 dark:text-gray-200"
               >密码</label
             > -->
+          <button type="submit" style="display: none" @click="login"></button>
         </div>
       </div>
     </template>
@@ -93,6 +96,37 @@ const login = async () => {
     }
   }
 }
+
+// 按enter后判断这个输入框是否有文字，并且是否是最后一个，都是，则进入登陆，如果没有文字，则提示错误，如果不是最后一个，就进入下一个输入框
+const handleEnter = (e: KeyboardEvent) => {
+  if (e.key === 'Enter') {
+    // 先获取到所有的输入框
+    const inputs = document.querySelectorAll('input')
+    // 判断当前输入框是否有文字
+    if (e.target instanceof HTMLInputElement) {
+      if (e.target.value === '') {
+        if (e.target === inputs[0]) {
+          err_situation.value = 1
+        } else {
+          err_situation.value = 2
+        }
+        return
+      }
+    }
+    // 判断当前输入框是否是最后一个
+    if (e.target === inputs[inputs.length - 1]) {
+      login()
+    } else {
+      // 不是最后一个，就进入下一个输入框
+      const index = Array.from(inputs).findIndex((input) => input === e.target)
+      if (index !== -1) {
+        inputs[index + 1].focus()
+      }
+    }
+    
+  }
+}
+
 </script>
 
 <style scoped></style>

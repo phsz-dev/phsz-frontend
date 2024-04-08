@@ -5,26 +5,38 @@
     >
         病例收藏
     </div>
-    <div>
-      <div v-for="(item,index) in userStore.collectPageInfo?.content" :key="index" class="py-3 px-1 mx-4 border-gray-400 border-b">
+    <div class="pb-2">
+      <div v-for="(item,index) in store.collectPageInfo?.content" :key="index" class="py-3 px-1 mx-4 border-gray-400 border-b">
         <PHRoughCase :rough-case="item" />
       </div>
       <!-- 翻页 -->
       <div>
-        
+        <PHPageination
+          v-model="currentPage"
+          :total-pages="store.collectPageInfo?.totalPages"
+          @prev-page="updateCollctedCaseList(currentPage)"
+          @next-page="updateCollctedCaseList(currentPage)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted,ref } from 'vue';
 import { useUserStore } from '../stores/user';
 import PHRoughCase from './PHRoughCase.vue';
-const userStore = useUserStore();
+import PHPageination from './PHPagination.vue';
+const store = useUserStore();
+
+const currentPage = ref(1)
+
+const updateCollctedCaseList = (currentPage: number) => {
+    store.getCollectedCase(currentPage-1,8);
+}
 
 
 onMounted(() => {
-    userStore.getCollectedCase(0,8);
+    store.getCollectedCase(0,8);
 });
 </script>
