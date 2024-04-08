@@ -11,7 +11,7 @@
           检查收费
         </div>
         <div
-          class="flex w-full flex-row bg-gray-200 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
+          class="flex w-full flex-row bg-secondary-100/60 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
         >
           <div class="flex-[2_2_0%]">名称</div>
           <div class="flex-[2_2_0%]">价格</div>
@@ -22,8 +22,8 @@
           class="px-2 py-3"
           :class="
             index % 2 === 0
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'bg-gray-200 dark:bg-gray-700'
+              ? 'bg-secondary-50 dark:bg-gray-800'
+              : 'bg-secondary-100/60 dark:bg-gray-700'
           "
         >
           <div
@@ -45,11 +45,11 @@
           药品收费
         </div>
         <div
-          class="flex w-full flex-row bg-gray-200 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
+          class="flex w-full flex-row bg-secondary-100/60 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
         >
-          <div class="flex-[2_2_0%]">名称</div>
-          <div class="flex-[2_2_0%]">数量</div>
-          <div class="flex-[2_2_0%]">总计</div>
+          <div class="flex-[3_3_0%]">名称</div>
+          <div class="flex-[2_2_0%] text-center">数量</div>
+          <div class="flex-[2_2_0%] text-center">总计</div>
         </div>
         <div
           v-for="(item, index) in store.chargeList.details
@@ -58,16 +58,16 @@
           class="px-2 py-3"
           :class="
             index % 2 === 0
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'bg-gray-200 dark:bg-gray-700'
+              ? 'bg-secondary-50 dark:bg-gray-800'
+              : 'bg-secondary-100/60 dark:bg-gray-700'
           "
         >
           <div
             class="flex w-full flex-row text-base text-black dark:!text-gray-200"
           >
-            <div class="flex-[2_2_0%]">{{ item.name }}</div>
-            <div class="flex-[2_2_0%]">{{ item.dosage }}</div>
-            <div class="flex-[2_2_0%]">{{ item.price }}元</div>
+            <div class="flex-[3_3_0%]">{{ item.name }}</div>
+            <div class="flex-[2_2_0%] text-center">{{ item.dosage }}</div>
+            <div class="flex-[2_2_0%] text-center">{{ item.price }}元</div>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
           疫苗收费
         </div>
         <div
-          class="flex w-full flex-row bg-gray-200 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
+          class="flex w-full flex-row bg-secondary-100/60 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
         >
           <div class="flex-[2_2_0%]">名称</div>
           <div class="flex-[2_2_0%]">价格</div>
@@ -93,8 +93,8 @@
           class="px-2 py-3"
           :class="
             index % 2 === 0
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'bg-gray-200 dark:bg-gray-700'
+              ? 'bg-secondary-50 dark:bg-gray-800'
+              : 'bg-secondary-100/60 dark:bg-gray-700'
           "
         >
           <div

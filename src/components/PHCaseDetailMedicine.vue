@@ -6,7 +6,7 @@
       "
     >
       <div
-        class="flex w-full flex-row bg-gray-200 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
+        class="flex w-full flex-row px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200 bg-secondary-100/60"
       >
         <div class="flex-[2_2_0%]">名称</div>
         <div class="flex-[2_2_0%]">用法</div>
@@ -18,15 +18,15 @@
         :key="index"
         class="px-2 py-3"
         :class="
-          index % 2 === 0
-            ? 'bg-gray-100 dark:bg-gray-800'
-            : 'bg-gray-200 dark:bg-gray-700'
-        "
+            index % 2 === 0
+              ? 'bg-secondary-50 dark:bg-gray-800'
+              : 'bg-secondary-100/60 dark:bg-gray-700'
+          "
       >
         <div
           class="flex w-full flex-row text-base text-black dark:!text-gray-200"
         >
-          <div class="flex-[2_2_0%]">{{ item.name }}</div>
+          <div class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500" @click="goMedicineDetail(item.id)">{{ item.name }}</div>
           <div class="flex-[2_2_0%]">{{ item.usage }}</div>
           <div class="flex-1 text-center">{{ item.medicineDosage }}</div>
           <div class="flex-[2_2_0%]">
@@ -44,6 +44,12 @@
 </template>
 
 <script setup lang="ts">
+import router from '../router';
 import { useCaseStore } from '../stores/case'
 const store = useCaseStore()
+
+const goMedicineDetail = (id:number) => {
+  router.push({path: `/medicine/${id}`})
+  
+}
 </script>

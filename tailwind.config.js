@@ -12,9 +12,9 @@ export default {
         'primary-light': '#008B8B',
         secondary: {
           50: '#e5f9f6',
-          100: '#e0f2f1',
+          100: '#B2ECE2',
           200: '#d5f5f2',
-          300: '#b0f0e6',
+          300: '#A2F6F5',
           400: '#8ce7e0',
           500: '#61c0bf',
           600: '#3aafa9',

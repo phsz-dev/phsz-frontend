@@ -1,22 +1,22 @@
 <template>
   <div
-    class="relative h-full w-full overflow-hidden overflow-y-scroll rounded-md bg-white px-4 py-2 dark:bg-dark-block-500"
+    class="relative mx-auto h-full w-full overflow-y-scroll rounded-xl bg-white px-4 py-2 shadow-md md:max-w-5xl dark:bg-dark-block-500"
     v-if="store.detailedCase"
   >
-    <div class="text-2xl font-bold dark:text-gray-200">
+    <div class="text-2xl font-bold dark:text-gray-200 mt-2">
       {{ store.detailedCase?.name }}
     </div>
-    <div class="mt-1 text-gray-400 dark:text-gray-300">
+    <div class="mt-2 text-gray-400 dark:text-gray-300">
       {{
         store.detailedCase?.submitTime
           ? new Date(store.detailedCase?.submitTime).toLocaleString()
           : new Date().toLocaleString()
       }}
     </div>
-    <div class="mb-2 mt-1 break-all dark:text-gray-200">
+    <div class="mb-2 mt-2 break-all dark:text-gray-200">
       {{ store.detailedCase?.brief }}
     </div>
-    <div class="h-[0.105rem] bg-gray-200"></div>
+    <div class="h-[0.105rem] bg-gray-200 mt-5"></div>
     <div>
       <div>
         <PHChoiceList
