@@ -3,8 +3,8 @@
     <div v-if="store.chargeList.details">
       <div
         v-if="
-          JSON.parse(store.chargeList.details).assays &&
-          JSON.parse(store.chargeList.details).assays.length > 0
+          store.chargeList.details.assays &&
+          store.chargeList.details.assays.length > 0
         "
       >
         <div class="py-2 text-lg font-bold text-black dark:!text-gray-200">
@@ -17,7 +17,7 @@
           <div class="flex-[2_2_0%]">价格</div>
         </div>
         <div
-          v-for="(item, index) in JSON.parse(store.chargeList.details).assays"
+          v-for="(item, index) in store.chargeList.details.assays"
           :key="index"
           class="px-2 py-3"
           :class="
@@ -36,8 +36,8 @@
       </div>
       <div
         v-if="
-          JSON.parse(store.chargeList.details).medicines &&
-          JSON.parse(store.chargeList.details).medicines.length > 0
+          store.chargeList.details.medicines &&
+          store.chargeList.details.medicines.length > 0
         "
         class="mt-5"
       >
@@ -52,7 +52,7 @@
           <div class="flex-[2_2_0%]">总计</div>
         </div>
         <div
-          v-for="(item, index) in JSON.parse(store.chargeList.details)
+          v-for="(item, index) in store.chargeList.details
             .medicines"
           :key="index"
           class="px-2 py-3"
@@ -73,8 +73,8 @@
       </div>
       <div
         v-if="
-          JSON.parse(store.chargeList.details).vaccines &&
-          JSON.parse(store.chargeList.details).vaccines.length > 0
+          store.chargeList.details.vaccines &&
+          store.chargeList.details.vaccines.length > 0
         "
         class="mt-5"
       >
@@ -88,7 +88,7 @@
           <div class="flex-[2_2_0%]">价格</div>
         </div>
         <div
-          v-for="(item, index) in JSON.parse(store.chargeList.details).vaccines"
+          v-for="(item, index) in store.chargeList.details.vaccines"
           :key="index"
           class="px-2 py-3"
           :class="

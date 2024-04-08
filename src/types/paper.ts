@@ -1,9 +1,10 @@
 interface Exam {
-    id: number
-    name: string
-    paper: Paper
-    startTime: string
-    endTime: string
+  id: number
+  name: string
+  status: string
+  paper: Paper
+  startTime: string
+  endTime: string
 }
 
 interface Paper {
@@ -11,7 +12,13 @@ interface Paper {
   name: string
   durationSeconds: number
   score: number
-  questions: Question[]
+  questions: PaperQuestion[]
+}
+
+interface PaperQuestion {
+  sequence: number
+  score: number
+  question: Question
 }
 
 interface Question {
@@ -26,4 +33,4 @@ interface Option {
   text: string
 }
 
-export type { Exam, Paper, Question, Option }
+export type { Exam, Paper, PaperQuestion, Question, Option }

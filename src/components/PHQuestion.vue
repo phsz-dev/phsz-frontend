@@ -3,7 +3,7 @@
     class="mx-auto w-full max-w-2xl rounded-lg bg-white p-6 shadow-md dark:bg-dark-block-600"
   >
     <h2 class="text-lg font-semibold dark:text-gray-100">
-      问题 {{ question.id }}
+      问题 {{ paperQuestion.sequence }}
     </h2>
     <p class="my-6 mt-2 text-sm text-gray-800 dark:text-gray-200">
       {{ question.text }}
@@ -31,7 +31,7 @@
       <textarea
         v-model="textAnswer"
         rows="4"
-        class="w-full rounded border p-2 focus:outline-none focus:ring focus:ring-primary-500 dark:border-dark-block-400 dark:bg-dark-block-600 dark:focus:ring-primary-700"
+        class="w-full rounded border p-2 focus:outline-none focus:ring focus:ring-primary-500 dark:border-dark-block-400 dark:bg-dark-block-600 dark:focus:ring-primary-700 dark:text-gray-100"
       ></textarea>
     </div>
     <!-- <button
@@ -44,11 +44,14 @@
 </template>
 
 <script setup lang="ts">
-import { Question } from '../types/paper'
+import { computed } from 'vue';
+import { PaperQuestion } from '../types/paper'
 
-defineProps<{
-  question: Question
+const props = defineProps<{
+  paperQuestion: PaperQuestion
 }>()
+
+const question = computed(() => props.paperQuestion.question)
 
 const selectedOption = defineModel<number | string>('selectedOption')
 const textAnswer = defineModel<number | string>('textAnswer')

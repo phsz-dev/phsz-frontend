@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 
 import ApiService from '../http'
 import { Exam } from '../types/paper'
@@ -10,6 +9,7 @@ export const usePaperStore = defineStore('paper', () => {
   const exam : Exam = {
     id: 0,
     name: 'Test Exam',
+    status: 'start',
     startTime: '2024-04-07 02:35:08.113',
     endTime: '2024-04-07 10:23:42',
     paper: {
@@ -56,9 +56,20 @@ export const usePaperStore = defineStore('paper', () => {
       ]
     }
   }
-  const getExam = async (id: number) => {
+  const getExam = async (id: number, token: string) => {
     // simulate fetching paper from API
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // await new Promise((resolve) => setTimeout(resolve, 1000))
+    // return exam
+
+    // fetch发起请求
+    const exam : Exam = await apiService.get('/api/test/exam/' + id, token)
+    // 遍历exam里的paper.questions，将每个question的options parse成{id, text}形式
+    // exam.paper.questions.forEach((pq) => {
+    //   if (pq.question.options) {
+    //     console.log(pq.question.options)
+    //     pq.question.options = JSON.parse(pq.question.options)
+    //   }
+    // })
     return exam
   }
   return {

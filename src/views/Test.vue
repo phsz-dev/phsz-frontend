@@ -3,7 +3,7 @@
     <!-- Countdown -->
     <div class="absolute top-20 w-full px-2">
       <div
-        class="relative container mx-auto h-2 rounded-full bg-gray-200 dark:bg-dark-block-400 flex"
+        class="container relative mx-auto flex h-2 rounded-full bg-gray-200 dark:bg-dark-block-400"
       >
         <div
           v-if="questions.length"
@@ -14,26 +14,30 @@
         ></div>
       </div>
       <!-- remaining time -->
-      <div class="container mx-auto flex justify-between mt-2">
+      <div class="container mx-auto mt-2 flex justify-between">
         <div class="text-gray-600 dark:text-gray-200">
           {{ questionIndex + 1 }} / {{ questions.length }}
         </div>
-        <div class="text-gray-600 dark:text-gray-200">
-          剩余时间: {{ remainingTime }}
+        <div class="text-gray-600 dark:text-gray-200 text-lg font-bold">
+          {{ remainingTime }}
         </div>
       </div>
     </div>
     <div class="container mx-auto flex h-2/3 flex-col items-center sm:flex-row">
       <!-- Question jump navigation -->
       <div
-        class="grid flex-none grid-cols-10 sm:grid-cols-5 content-start gap-2 lg:border-r-2 p-4 sm:h-full dark:border-dark-block-600"
+        class="grid flex-none grid-cols-10 content-start gap-2 p-4 sm:h-full sm:grid-cols-5 lg:border-r-2 dark:border-dark-block-600"
       >
         <button
           v-for="(question, index) in questions"
-          :key="question.id"
-          class="w-8 overflow-hidden rounded border border-gray-200 p-2 text-gray-600 dark:border-dark-block-600 dark:text-gray-200"
+          :key="question.sequence"
+          class="w-8 overflow-hidden rounded border-2 border-gray-200 p-2 text-gray-600 dark:border-dark-block-600 dark:text-gray-200"
           :class="{
-            'text-primary-500 dark:text-primary-600': index === questionIndex
+            'text-primary-500 dark:text-primary-600': index === questionIndex,
+            // 在当前题面前面且答案为空标黄
+            'border-yellow-300 dark:border-yellow-700': index < questionIndex && !answers[index],
+            // 不然标绿
+            'border-green-300 dark:border-green-700': answers[index]
           }"
           @click="jumpToQuestion(index)"
         >
@@ -44,10 +48,10 @@
       <Transition name="slide" mode="out-in">
         <PHQuestion
           v-if="currentQuestion"
-          :key="currentQuestion.id"
+          :key="currentQuestion.sequence"
           v-model:selectedOption="answers[questionIndex]"
           v-model:textAnswer="answers[questionIndex]"
-          :question="currentQuestion"
+          :paper-question="currentQuestion"
           @submit-answer="submitAnswer"
         />
         <!-- Loading -->
@@ -58,8 +62,9 @@
     </div>
     <!-- Question navigation -->
     <PHQuestionNavigator
-      @prev-question="prevQuestion"
-      @next-question="nextQuestion"
+      v-model="questionIndex"
+      :total-questions="questions.length"
+      @submit="submitAnswer"
     />
   </div>
 </template>
@@ -67,25 +72,42 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
-import { usePaperStore } from '../stores/paper'
 
 import PHQuestion from '../components/PHQuestion.vue'
 import PHQuestionNavigator from '../components/PHQuestionNavigator.vue'
 import PHLoadingIcon from '../components/PHLoadingIcon.vue'
-import { Exam, Question } from '../types/paper'
+import { Exam, PaperQuestion } from '../types/paper'
+import { useUserStore } from '../stores/user'
+import { usePaperStore } from '../stores/paper'
 
 const route = useRoute()
+const userStore = useUserStore()
 const paperStore = usePaperStore()
 
 const examId = Number(route.params.id)
 const exam = ref<Exam | null>(null)
-const questions = computed<Question[]>(() => exam.value?.paper.questions ?? [])
+const questions = computed<PaperQuestion[]>(
+  () => exam.value?.paper.questions ?? []
+)
 
 const answers = ref<(number | string)[]>([])
 const questionIndex = ref(0)
 const currentQuestion = computed(() => {
   return questions.value[questionIndex.value]
 })
+
+// Countdown
+
+const formatTime = (days: number, hours: number, minutes: number, seconds: number) => {
+  const pad = (num: number) => String(num).padStart(2, '0');
+  
+  let timeString = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  if (days) {
+    timeString = `${days} 天 ` + timeString;
+  }
+  
+  return timeString;
+}
 
 const countdownPercentage = ref(0)
 const secondsRemaining = ref(0)
@@ -94,67 +116,54 @@ const remainingTime = computed(() => {
   const hours = Math.floor((secondsRemaining.value % 86400) / 3600)
   const minutes = Math.floor((secondsRemaining.value % 3600) / 60)
   const seconds = secondsRemaining.value % 60
-  if (days) return `${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`
-  if (hours) return `${hours} 小时 ${minutes} 分钟 ${seconds} 秒`
-  if (minutes) return `${minutes} 分钟 ${seconds} 秒`
-  return `${seconds} 秒`
+  return formatTime(days, hours, minutes, seconds)
 })
 
+const updateCountdown = () => {
+  if (!exam.value) return
+  // 从 startTime endTime, new Date 里面取
+  const now = new Date()
+  const startTime = new Date(exam.value!.startTime)
+  const endTime = new Date(exam.value!.endTime)
+  const duration = endTime.getTime() - startTime.getTime()
+  const elapsed = now.getTime() - startTime.getTime()
+  countdownPercentage.value = (elapsed / duration) * 100
+  // 还剩 x 天 x 小时 x 分钟 x 秒
+  secondsRemaining.value = Math.max(
+    0,
+    Math.floor((endTime.getTime() - now.getTime()) / 1000)
+  )
+}
+
 const startCountdown = () => {
+  const intervalId = setInterval(updateCountdown, 1000)
 
   onUnmounted(() => {
     clearInterval(intervalId)
   })
-
-  const intervalId = setInterval(() => {
-    // 从 startTime endTime, new Date 里面取
-    const now = new Date()
-    const startTime = new Date(exam.value!.startTime)
-    const endTime = new Date(exam.value!.endTime)
-    const duration = endTime.getTime() - startTime.getTime()
-    const elapsed = now.getTime() - startTime.getTime()
-    countdownPercentage.value = (elapsed / duration) * 100
-    // 还剩 x 天 x 小时 x 分钟 x 秒
-    secondsRemaining.value = Math.floor((endTime.getTime() - now.getTime()) / 1000)
-  }, 1000)
 }
 
 onMounted(async () => {
   onbeforeunload = (event) => {
     event.preventDefault()
   }
+  onUnmounted(() => {
+    onbeforeunload = null
+  })
   try {
-    exam.value = await paperStore.getExam(examId)
     startCountdown()
+    exam.value = await paperStore.getExam(examId, userStore.token!)
+    updateCountdown()
+    console.log(exam.value)
     answers.value = Array(questions.value.length).fill('')
   } catch (e) {
     console.log(e)
   }
 })
 
-onUnmounted(() => {
-  onbeforeunload = null
-})
-
 onBeforeRouteLeave(() => {
   return confirm('你所做的更改可能未保存。')
 })
-
-const nextQuestion = () => {
-  if (questionIndex.value === questions.value.length - 1) {
-    alert('This is the last question')
-    return
-  }
-  questionIndex.value++
-}
-
-const prevQuestion = () => {
-  if (questionIndex.value === 0) {
-    alert('This is the first question')
-    return
-  }
-  questionIndex.value--
-}
 
 const jumpToQuestion = (index: number) => {
   if (index < 0 || index >= questions.value.length) {
@@ -165,11 +174,7 @@ const jumpToQuestion = (index: number) => {
 }
 
 const submitAnswer = () => {
-  if (currentQuestion.value!.type === 'mcq') {
-    alert(`You selected option ${answers.value}`)
-  } else {
-    alert(`You entered: ${answers.value}`)
-  }
+  alert(`Submit answer: ${answers.value}`)
 }
 </script>
 

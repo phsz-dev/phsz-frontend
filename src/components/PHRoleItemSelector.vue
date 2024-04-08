@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { useDark } from '@vueuse/core'
 const isDark = useDark()
-const props = defineProps({
+defineProps({
   roleItem: {
     type: Object,
     required: true
@@ -30,5 +30,4 @@ const props = defineProps({
     required: true
   }
 })
-console.log(props.roleItem)
 </script>

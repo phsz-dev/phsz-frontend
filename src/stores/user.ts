@@ -9,7 +9,7 @@ import RoughCase from '../types/RoughCase'
 const apiService = new ApiService('')
 
 export const useUserStore = defineStore('user', () => {
-  const token = useStorage('token', undefined)
+  const token = useStorage<string | undefined>('token', undefined)
   const username = ref('')
   const email = ref('')
   const roles = ref<string[]>([])
