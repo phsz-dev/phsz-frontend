@@ -2,12 +2,14 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import ApiService from '../http'
 import Case from '../types/Case'
+import Page from '../types/Page'
+import RoughCase from '../types/RoughCase'
 
 const apiService = new ApiService('')
 
 export const useCaseStore = defineStore('case', () => {
   const diseaseCatalog = ref<any[]>([])
-  const roughCases = ref<any>([])
+  const roughCases = ref<Page<RoughCase>>()
   const detailedCase = ref<Case>()
   const currentIndex = ref<number>(0)
   const chargeList = ref<any>([])
@@ -33,7 +35,7 @@ export const useCaseStore = defineStore('case', () => {
           '&pageNum=' +
           pageNum
       )
-      // console.log(res)
+      console.log(res)
       roughCases.value = res
     } catch (e) {
       console.log(e)

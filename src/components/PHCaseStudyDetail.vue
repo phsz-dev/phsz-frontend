@@ -4,7 +4,7 @@
     style="height: 98%"
   >
     <div
-      v-for="(item, index) in store.roughCases.content"
+      v-for="(item, index) in store.roughCases?.content"
       :key="index"
       class="border-b border-gray-300 p-2 py-4 hover:bg-gray-100 dark:hover:bg-gray-600"
     >
@@ -14,22 +14,12 @@
     <!-- 翻页栏 -->
     <div class="mx-auto flex w-1/3 items-center justify-center">
       <div class="flex w-full items-center justify-around">
-        <div
-          class="flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
-        >
-          上一页
-        </div>
-        <div class="text-gray-600 dark:text-gray-200">
-          {{ currentPage + 1 + '/' + store.roughCases.totalPages }}
-        </div>
-        <div
-          class="ml-2 flex h-6 w-20 items-center justify-center rounded-md bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200"
-        >
-          下一页
-        </div>
-        <div class="text-gray-600 dark:text-gray-200">
-          共{{ store.roughCases.totalElements }}条
-        </div>
+        <PHPageination
+          v-model="currentPage"
+          :total-pages="store.roughCases?.totalPages"
+          @prev-page="updateCaseList(currentPage)"
+          @next-page="updateCaseList(currentPage)"
+        />
       </div>
     </div>
     <div class="h-3"></div>
@@ -40,20 +30,25 @@
 import { onMounted, ref } from 'vue'
 import { useCaseStore } from '../stores/case'
 import PHRoughCase from './PHRoughCase.vue';
+import PHPageination from './PHPagination.vue';
 const props = defineProps<{
   diseaseId: number
 }>()
-const currentPage = ref(0)
+const currentPage = ref(1)
 
 const store = useCaseStore()
 
 onMounted(() => {
   try {
-    getRoughCases(currentPage.value, 10)
+    getRoughCases(currentPage.value-1, 8)
   } catch (e) {
     console.log(e)
   }
 })
+
+const updateCaseList = (currentPage: number) => {
+  getRoughCases(currentPage-1, 8)
+}
 
 const getRoughCases = (currentPage: number, pageSize: number) => {
   store.getRoughCaseByDisease(props.diseaseId, currentPage, pageSize)
