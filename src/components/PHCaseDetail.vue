@@ -52,6 +52,7 @@ const props = defineProps<{
 
 onMounted(async () => {
   try {
+    console.log(store)
     await store.getDetailedCase(props.case_id)
   } catch (e) {
     console.log(e)

@@ -26,7 +26,7 @@
         <div
           class="flex w-full flex-row text-base text-black dark:!text-gray-200"
         >
-          <div class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500" @click="goMedicineDetail(item.id)">{{ item.name }}</div>
+          <RouterLink :to="{path: `/medicine/${item.id}`}" class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500">{{ item.name }}</RouterLink>
           <div class="flex-[2_2_0%]">{{ item.usage }}</div>
           <div class="flex-1 text-center">{{ item.medicineDosage }}</div>
           <div class="flex-[2_2_0%]">
@@ -44,12 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import router from '../router';
 import { useCaseStore } from '../stores/case'
 const store = useCaseStore()
 
-const goMedicineDetail = (id:number) => {
-  router.push({path: `/medicine/${id}`})
-  
-}
 </script>

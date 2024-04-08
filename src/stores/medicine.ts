@@ -5,7 +5,7 @@ import medicine from '../types/medicine'
 
 const apiService = new ApiService('')
 
-export const useMedicineStore = defineStore('case', () => {
+export const useMedicineStore = defineStore('medicine', () => {
   const medicineInfo = ref<medicine>()
   
   const getMedicineById = async (medicineId:number) =>{

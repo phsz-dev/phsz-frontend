@@ -32,10 +32,10 @@ const store = useUserStore();
 const currentPage = ref(1)
 
 const updateCollctedCaseList = (currentPage: number) => {
-    store.getCollectedCase(currentPage-1,8);
+    store.getCollectedCase(currentPage-1,6);
 }
 
 onMounted(() => {
-    store.getCollectedCase(0,8);
+    store.getCollectedCase(0,6);
 });
 </script>
