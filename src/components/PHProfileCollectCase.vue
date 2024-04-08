@@ -35,7 +35,6 @@ const updateCollctedCaseList = (currentPage: number) => {
     store.getCollectedCase(currentPage-1,8);
 }
 
-
 onMounted(() => {
     store.getCollectedCase(0,8);
 });
