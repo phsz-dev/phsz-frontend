@@ -4,4 +4,5 @@ export default interface assay {
   description: string
   type: string
   date: string
+  price: number
 }

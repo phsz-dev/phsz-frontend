@@ -17,7 +17,7 @@
         <div
           class="flex w-full flex-row text-base text-black dark:!text-gray-200"
         >
-          <div class="flex-[2_2_0%]">{{ item.name }}</div>
+          <RouterLink class="flex-[2_2_0%] hover:text-primary-500 hover:cursor-pointer" :to="{path:`/assay/${item.id}`}" >{{ item.name }}</RouterLink>
           <div class="flex-[2_2_0%]">{{ item.result }}</div>
           <div class="flex-[2_2_0%]">
             {{ new Date(item.date).toLocaleDateString() }}

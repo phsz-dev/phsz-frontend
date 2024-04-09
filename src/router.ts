@@ -131,6 +131,11 @@ const routes = [
         component: () => import('./views/VaccineDetail.vue')
       },
       {
+        path: 'assay/:id',
+        name: 'Assay',
+        component: () => import('./views/AssayDetail.vue')
+      },
+      {
         path: 'message-test',
         name: 'MessageTest',
         component: () => import('./views/PHMessageTest.vue')
