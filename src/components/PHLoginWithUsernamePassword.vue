@@ -123,10 +123,8 @@ const handleEnter = (e: KeyboardEvent) => {
         inputs[index + 1].focus()
       }
     }
-    
   }
 }
-
 </script>
 
 <style scoped></style>

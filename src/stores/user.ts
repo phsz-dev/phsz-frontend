@@ -71,17 +71,10 @@ export const useUserStore = defineStore('user', () => {
 
   hydrate()
 
-  const getUserList = async (
-    pageNum: number,
-    pageSize: number,
-  ) => {
+  const getUserList = async (pageNum: number, pageSize: number) => {
     try {
       const res = await apiService.get(
-        '/api/users' +
-        '?pageNum=' +
-        pageNum +
-        '&pageSize=' +
-        pageSize,
+        `/api/users?pageNum=${pageNum}&pageSize=${pageSize}`,
         token.value
       )
       userList.value = res
@@ -90,9 +83,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const getCollectedCase = async(pageNum:number,pageSize:number) =>{
+  const getCollectedCase = async (pageNum: number, pageSize: number) => {
     try {
-      const res = await apiService.get(`/api/cases/collect/mine?pageNum=${pageNum}&pageSize=${pageSize}`, token.value)
+      const res = await apiService.get(
+        `/api/cases/collect/mine?pageNum=${pageNum}&pageSize=${pageSize}`,
+        token.value
+      )
       console.log(res)
       collectPageInfo.value = res
     } catch (e) {
@@ -107,25 +103,28 @@ export const useUserStore = defineStore('user', () => {
       console.log(e)
     }
   }
-  const updateUserInfo = async (email:string) => {
+  const updateUserInfo = async (email: string) => {
     try {
-      await apiService.put('/api/users/update/normal', {email}, token.value)
+      await apiService.put('/api/users/update/normal', { email }, token.value)
       hydrate()
     } catch (e) {
       console.log(e)
     }
   }
 
-  const uploadAvatar = async (file:File) =>{
+  const uploadAvatar = async (file: File) => {
     try {
       const formData = new FormData()
-      formData.append('file',file)
-      await apiService.putFile('/api/users/update/avatar', formData, token.value)
+      formData.append('file', file)
+      await apiService.putFile(
+        '/api/users/update/avatar',
+        formData,
+        token.value
+      )
       hydrate()
     } catch (e) {
       console.log(e)
     }
-  
   }
 
   const sortUserList = (key: string, order: number) => {

@@ -18,7 +18,7 @@
         <div class="text-gray-600 dark:text-gray-200">
           {{ questionIndex + 1 }} / {{ questions.length }}
         </div>
-        <div class="text-gray-600 dark:text-gray-200 text-lg font-bold">
+        <div class="text-lg font-bold text-gray-600 dark:text-gray-200">
           {{ remainingTime }}
         </div>
       </div>
@@ -35,7 +35,8 @@
           :class="{
             'text-primary-500 dark:text-primary-600': index === questionIndex,
             // 在当前题面前面且答案为空标黄
-            'border-yellow-300 dark:border-yellow-700': index < questionIndex && !answers[index],
+            'border-yellow-300 dark:border-yellow-700':
+              index < questionIndex && !answers[index],
             // 不然标绿
             'border-green-300 dark:border-green-700': answers[index]
           }"
@@ -98,15 +99,20 @@ const currentQuestion = computed(() => {
 
 // Countdown
 
-const formatTime = (days: number, hours: number, minutes: number, seconds: number) => {
-  const pad = (num: number) => String(num).padStart(2, '0');
-  
-  let timeString = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+const formatTime = (
+  days: number,
+  hours: number,
+  minutes: number,
+  seconds: number
+) => {
+  const pad = (num: number) => String(num).padStart(2, '0')
+
+  let timeString = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
   if (days) {
-    timeString = `${days} 天 ` + timeString;
+    timeString = `${days} 天 ` + timeString
   }
-  
-  return timeString;
+
+  return timeString
 }
 
 const countdownPercentage = ref(0)

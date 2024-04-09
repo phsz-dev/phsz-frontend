@@ -59,8 +59,8 @@ watch(menu_id, (newVal) => {
   if (left_menu[newVal] === '退出登录') {
     userStore.logout()
     router.push('/login')
-  }else{
-    router.push('/profile'+routes[newVal])
+  } else {
+    router.push('/profile' + routes[newVal])
   }
 })
 </script>

@@ -18,10 +18,10 @@
         index == 0 || index == 1 || index == 2 ? 'list-top' : 'list-bottom'
       "
     >
-      <div class="w-80" v-for="(inItem, inIndex) in item" :key="inIndex">
+      <div v-for="(inItem, inIndex) in item" :key="inIndex" class="w-80">
         <div
-          class="my-4 flex h-12 rounded-md border border-green-300 bg-green-100 px-4 text-green-700"
           v-if="inItem.type === 'success'"
+          class="my-4 flex h-12 rounded-md border border-green-300 bg-green-100 px-4 text-green-700"
         >
           <!-- 一个svg，一个圆圈中间一个对勾 -->
           <div class="phi-message-success my-4 h-4 w-4 bg-green-500"></div>
@@ -29,27 +29,27 @@
         </div>
 
         <div
+          v-if="inItem.type === 'error'"
           class="my-4 flex h-12 rounded-md border border-red-300 bg-red-100 px-4 text-red-700 transition-all duration-300 ease-in-out"
           role="alert"
-          v-if="inItem.type === 'error'"
         >
           <!-- 一个svg，一个圆圈中间一个对勾 -->
           <div class="phi-message-fail my-4 h-4 w-4 bg-red-500"></div>
           <p class="ml-3 py-1 text-sm leading-10">{{ inItem.content }}</p>
         </div>
         <div
+          v-if="inItem.type === 'warn'"
           class="my-4 flex h-12 rounded-md border border-yellow-300 bg-yellow-100 px-4 text-yellow-700 transition-all duration-300 ease-in-out"
           role="alert"
-          v-if="inItem.type === 'warn'"
         >
           <!-- 一个svg，一个圆圈中间一个对勾 -->
           <div class="phi-message-warn my-4 h-4 w-4 bg-yellow-500"></div>
           <p class="ml-3 py-1 text-sm leading-10">{{ inItem.content }}</p>
         </div>
         <div
+          v-if="inItem.type === 'normal'"
           class="my-4 flex h-12 rounded-md border border-gray-300 bg-gray-200 px-4 text-gray-800 transition-all duration-300 ease-in-out"
           role="alert"
-          v-if="inItem.type === 'normal'"
         >
           <!-- 一个svg，一个圆圈中间一个对勾 -->
           <div class="phi-message-normal my-4 h-4 w-4 bg-gray-600"></div>

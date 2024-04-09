@@ -1,5 +1,5 @@
 <template>
-  <div class="grid p-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="grid grid-cols-1 p-16 sm:grid-cols-2 lg:grid-cols-4">
     <div
       v-for="feature in features"
       :key="feature.id"

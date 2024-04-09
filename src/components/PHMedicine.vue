@@ -12,8 +12,8 @@
         } -->
     <!-- 单个medicine展示页面 -->
     <div
-      class="mx-auto overflow-hidden rounded-xl bg-white shadow-md md:max-w-5xl"
       v-if="store.medicineInfo"
+      class="mx-auto overflow-hidden rounded-xl bg-white shadow-md md:max-w-5xl"
     >
       <div class="md:flex">
         <div class="p-8">
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div class="h-full w-full" v-else>
+    <div v-else class="h-full w-full">
       <PHLoadingIcon />
     </div>
   </div>

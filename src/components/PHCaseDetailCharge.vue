@@ -52,8 +52,7 @@
           <div class="flex-[2_2_0%] text-center">总计</div>
         </div>
         <div
-          v-for="(item, index) in store.chargeList.details
-            .medicines"
+          v-for="(item, index) in store.chargeList.details.medicines"
           :key="index"
           class="px-2 py-3"
           :class="

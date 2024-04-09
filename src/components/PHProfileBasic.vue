@@ -7,15 +7,23 @@
     </div>
     <div class="px-4">
       <div class="h-full w-full text-center">
-        <img 
+        <img
           :src="userStore.avatar || default_avatar"
           class="mx-auto mt-6 h-40 w-40 rounded-full border border-gray-300 hover:cursor-pointer"
           @click="chooseFile"
         />
-        <div class="mt-6 text-sm text-secondary-500 hover:cursor-pointer" @click="chooseFile">
+        <div
+          class="mt-6 text-sm text-secondary-500 hover:cursor-pointer"
+          @click="chooseFile"
+        >
           修改头像
         </div>
-        <input type="file" style="display:none;" ref="fileInput" @change="uploadFile">
+        <input
+          ref="fileInput"
+          type="file"
+          style="display: none"
+          @change="uploadFile"
+        />
       </div>
       <div class="my-5 flex h-10 flex-row">
         <div
@@ -36,10 +44,10 @@
           邮箱
         </div>
         <input
+          v-model="email"
           type="email"
           class="h-10 flex-1 rounded-md border border-gray-300 px-2 text-sm dark:bg-gray-600"
           placeholder="请输入邮箱"
-          v-model="email"
         />
       </div>
       <div class="my-5 flex h-10 flex-row">
@@ -83,7 +91,6 @@ const fileInput = ref<HTMLInputElement | null>(null)
 
 const chooseFile = () => {
   fileInput.value?.click()
-
 }
 
 const uploadFile = async () => {

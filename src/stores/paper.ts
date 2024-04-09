@@ -10,16 +10,16 @@ export const usePaperStore = defineStore('paper', () => {
     // simulate fetching paper from API
     // await new Promise((resolve) => setTimeout(resolve, 1000))
     // return exam
-    const exam : Exam = await apiService.get(`/api/test/exam/${id}`, token)
+    const exam: Exam = await apiService.get(`/api/test/exam/${id}`, token)
     return exam
   }
   const getPaperInfo = async (id: number) => {
-    const paperInfo : Paper = await apiService.get(`/api/test/paper/info/${id}`)
+    const paperInfo: Paper = await apiService.get(`/api/test/paper/info/${id}`)
     return paperInfo
   }
 
   const startExam = async (paperId: number, token: string) => {
-    const res : Exam = await apiService.post(`/api/test/exam`, paperId, token)
+    const res: Exam = await apiService.post(`/api/test/exam`, paperId, token)
     return res
   }
   return {
