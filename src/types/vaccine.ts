@@ -3,4 +3,5 @@ export default interface vaccine {
   name: string
   manufacturer: string
   expiryDate: String
+  price: number
 }

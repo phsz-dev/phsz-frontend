@@ -13,6 +13,7 @@
     <!-- 单个medicine展示页面 -->
     <div
       class="mx-auto overflow-hidden rounded-xl bg-white shadow-md md:max-w-5xl"
+      v-if="store.medicineInfo"
     >
       <div class="md:flex">
         <div class="p-8">
@@ -31,7 +32,7 @@
               <span class="font-bold">批号：</span
               >{{ store.medicineInfo?.batchNumber }}
             </div>
-            <div class="py-1" v-if="store.medicineInfo">
+            <div class="py-1">
               <span class="font-bold">有效期：</span
               >{{ new Date(store.medicineInfo.validity).toLocaleString() }}
             </div>
@@ -48,12 +49,16 @@
         </div>
       </div>
     </div>
+    <div class="h-full w-full" v-else>
+      <PHLoadingIcon />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useMedicineStore } from '../stores/medicine'
 import { onMounted } from 'vue'
+import PHLoadingIcon from './PHLoadingIcon.vue'
 const store = useMedicineStore()
 
 const props = defineProps<{

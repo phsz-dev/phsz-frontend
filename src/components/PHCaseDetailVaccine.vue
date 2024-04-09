@@ -25,7 +25,7 @@
         <div
           class="flex w-full flex-row text-base text-black dark:!text-gray-200"
         >
-          <div class="flex-1 hover:text-primary-500 hover:cursor-pointer" @click="">{{ item.name }}</div>
+          <RouterLink class="flex-1 hover:text-primary-500 hover:cursor-pointer" :to="{path:`/vaccine/${item.id}`}">{{ item.name }}</RouterLink>
           <div class="flex-1">{{ item.manufacturer }}</div>
           <div class="flex-1">
             {{ new Date(item.expiryDate).toLocaleDateString() }}
@@ -44,4 +44,5 @@
 <script setup lang="ts">
 import { useCaseStore } from '../stores/case'
 const store = useCaseStore()
+
 </script>
