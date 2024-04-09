@@ -10,8 +10,9 @@ interface Exam {
 interface Paper {
   id: number
   name: string
+  content: string
   durationSeconds: number
-  score: number
+  totalScore: number
   questions: PaperQuestion[]
 }
 

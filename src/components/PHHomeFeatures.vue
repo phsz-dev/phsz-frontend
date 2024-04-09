@@ -1,9 +1,9 @@
 <template>
-  <div class="flex space-x-4 p-16">
+  <div class="grid p-16 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
     <div
       v-for="feature in features"
       :key="feature.id"
-      class="flex-1 rounded-lg p-4 dark:!bg-dark-block-600"
+      class="m-2 rounded-lg p-4 dark:!bg-dark-block-600"
       :style="{ backgroundColor: feature.bg_color }"
     >
       <RouterLink :to="feature.url">

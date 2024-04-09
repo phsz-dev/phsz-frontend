@@ -9,6 +9,7 @@ import RoughCase from '../types/RoughCase'
 const apiService = new ApiService('')
 
 export const useUserStore = defineStore('user', () => {
+  const isLogged = ref(false)
   const token = useStorage<string | undefined>('token', undefined)
   const username = ref('')
   const email = ref('')
@@ -47,6 +48,8 @@ export const useUserStore = defineStore('user', () => {
     username.value = ''
     email.value = ''
     roles.value = []
+    avatar.value = ''
+    isLogged.value = false
     router.push('/login')
   }
 
@@ -60,6 +63,7 @@ export const useUserStore = defineStore('user', () => {
       email.value = res.email
       roles.value = res.roles
       avatar.value = res.avatar
+      isLogged.value = true
     } catch (e) {
       // do nothing
     }
@@ -135,6 +139,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
+    isLogged,
     token,
     username,
     email,
