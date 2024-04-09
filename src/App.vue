@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import PHMessage from './components/PHMessage.vue';
 import PHNavBar from './components/PHNavBar.vue'
 </script>
 
 <template>
   <div class="flex h-screen w-screen flex-col overflow-x-hidden">
     <PHNavBar />
+    <PHMessage />
 
     <div class="h-0 grow">
       <RouterView v-slot="{ Component }">

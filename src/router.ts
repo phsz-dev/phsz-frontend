@@ -124,6 +124,16 @@ const routes = [
         path: 'medicine/:id',
         name: 'Medicine',
         component: () => import('./views/MedicineDetail.vue')
+      },
+      {
+        path: 'vaccine/:id',
+        name: 'Vaccine',
+        component: () => import('./views/VaccineDetail.vue')
+      },
+      {
+        path: 'message-test',
+        name: 'MessageTest',
+        component: () => import('./views/PHMessageTest.vue')
       }
     ]
   }
