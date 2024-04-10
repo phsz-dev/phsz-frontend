@@ -6,14 +6,29 @@
       :clear-color="dark ? '#000' : '#f4f8ff'"
       @click="onCanvasClick"
     >
-      <TresPerspectiveCamera :position="[5, 5, 5]" />
+      <TresPerspectiveCamera :position="[15, 15, -30]" />
+      <TresAmbientLight :intensity="1" />
+      <TresDirectionalLight cast-shadow :position="[0, 20, 0]" :intensity="1" />
       <OrbitControls />
+      <Suspense @resolve="(resolveState = true)" @pending="(resolveState = false)">
+        <GLTFModel
+          path="/models/hospital-whole/hospital-whole.gltf"
+          :scale="0.05"
+          :position="[1510, -3, -2620]"
+        />
 
-      <TresMesh>
+      </Suspense>
+
+      <!-- <TresMesh>
         <TresTorusGeometry :args="[1, 0.5, 16, 32]" />
         <TresMeshBasicMaterial color="orange" />
+      </TresMesh> -->
+      <!-- <TresGridHelper /> -->
+      <!-- 在xz平面上加一块淡灰色的板 -->
+      <TresMesh :position="[0,-1.3,0]" :rotation="[-Math.PI / 2, 0, 0]">
+        <TresPlaneGeometry :args="[32, 32]" />
+        <TresMeshBasicMaterial color="#cccccc" />
       </TresMesh>
-      <TresGridHelper />
     </TresCanvas>
     <Transition name="fade">
       <div
@@ -24,8 +39,11 @@
           <h2 class="text-lg font-bold">{{ markers[selected].name }}</h2>
           <p class="text-sm">{{ markers[selected].description }}</p>
         </div>
+        <button class="bg-secondary-500 px-4 py-2 text-white rounded-md absolute bottom-4 left-1/2 -translate-x-1/2">前往{{ markers[selected].name }}</button>
       </div>
     </Transition>
+    <PHLoadingIcon v-if="!resolveState" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+    
   </div>
 </template>
 
@@ -34,22 +52,25 @@ import { useDark } from '@vueuse/core'
 const dark = useDark()
 
 import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
-import { OrbitControls } from '@tresjs/cientos'
+import { GLTFModel, OrbitControls } from '@tresjs/cientos'
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
-
 import Marker from '../types/Marker'
+import PHLoadingIcon from '../components/PHLoadingIcon.vue';
+
+const resolveState = ref(false)
+
 
 const markers: Record<string, Marker> = {
   '1': {
     id: 1,
-    position: [3, 0, 3],
-    name: '手术室',
-    description: '这是一个手术室'
+    position: [1, 0, 1],
+    name: '医院走廊',
+    description: '医院走廊，这是一个走廊'
   },
   '2': {
     id: 2,
-    position: [-3, 0, -3],
+    position: [9, 0, -6],
     name: '病房',
     description: '这是一个病房'
   }
@@ -71,7 +92,11 @@ onMounted(async () => {
   for (const key in markers) {
     const marker = markers[key]
     const sprite = new THREE.Sprite(
-      new THREE.SpriteMaterial({ map: markerTexture })
+      new THREE.SpriteMaterial({
+        map: markerTexture,
+        depthTest: false,
+        depthWrite: false
+      })
     )
     sprite.name = key
     sprite.scale.set(0.4, 0.6, 1)

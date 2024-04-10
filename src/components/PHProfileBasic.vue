@@ -46,7 +46,7 @@
         <input
           v-model="email"
           type="email"
-          class="h-10 flex-1 rounded-md border border-gray-300 px-2 text-sm dark:bg-gray-600"
+          class="h-10 flex-1 rounded-md border border-gray-300 px-2 text-sm dark:bg-gray-600 dark:text-gray-200"
           placeholder="请输入邮箱"
         />
       </div>

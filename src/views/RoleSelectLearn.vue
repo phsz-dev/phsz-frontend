@@ -9,7 +9,7 @@
     </div>
 
     <div v-if="computedLeftMenu.length > 0" class="mx-3 h-96 flex-[6_6_0]">
-      <PHRoleSelectLearnMiddleContent :current-index="id_arr" />
+      <PHRoleSelectLearnMiddleContent v-model="id_arr" />
     </div>
 
     <div v-if="computedLeftMenu.length > 0" class="h-96 flex-1">

@@ -54,7 +54,7 @@ const links = computed(() => {
     { path: '/home', text: '主页' },
     { path: '/role-select', text: '角色扮演' },
     { path: '/case-study', text: '病例' },
-    { path: '/hospital-navigation', text: '医院导览' },
+    { path: '/3d-navigation', text: '医院导览' },
     { path: '/paper-selection', text: '测试' }
   ]
 

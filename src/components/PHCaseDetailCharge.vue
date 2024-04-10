@@ -29,7 +29,11 @@
           <div
             class="flex w-full flex-row text-base text-black dark:!text-gray-200"
           >
-            <div class="flex-[2_2_0%]">{{ item.name }}</div>
+            <RouterLink
+              class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
+              :to="{ path: `/assay/${item.assay_id}` }"
+              >{{ item.name }}</RouterLink
+            >
             <div class="flex-[2_2_0%]">{{ item.price }}元</div>
           </div>
         </div>
@@ -47,7 +51,7 @@
         <div
           class="flex w-full flex-row bg-secondary-100/60 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
         >
-          <div class="flex-[3_3_0%]">名称</div>
+          <div class="flex-[2_2_0%]">名称</div>
           <div class="flex-[2_2_0%] text-center">数量</div>
           <div class="flex-[2_2_0%] text-center">总计</div>
         </div>
@@ -64,7 +68,11 @@
           <div
             class="flex w-full flex-row text-base text-black dark:!text-gray-200"
           >
-            <div class="flex-[3_3_0%]">{{ item.name }}</div>
+            <RouterLink
+              :to="{ path: `/medicine/${item.medicine_id}` }"
+              class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
+              >{{ item.name }}</RouterLink
+            >
             <div class="flex-[2_2_0%] text-center">{{ item.dosage }}</div>
             <div class="flex-[2_2_0%] text-center">{{ item.price }}元</div>
           </div>
@@ -99,8 +107,12 @@
           <div
             class="flex w-full flex-row text-base text-black dark:!text-gray-200"
           >
-            <div class="flex-[2_2_0%]">{{ item.name }}</div>
-            <div class="flex-[2_2_0%]">{{ item.price }}元</div>
+            <RouterLink
+              class="flex-1 hover:cursor-pointer hover:text-primary-500"
+              :to="{ path: `/vaccine/${item.id}` }"
+              >{{ item.name }}</RouterLink
+            >
+            <div class="flex-1">{{ item.price }}元</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative mx-auto flex h-full w-full max-w-5xl flex-col rounded-3xl p-8 sm:h-[32rem] sm:w-[40rem] sm:flex-none sm:bg-white xl:w-[50rem] 2xl:w-[72rem] dark:bg-dark-block-600"
+    class="relative mx-auto flex h-full w-full max-w-5xl flex-col rounded-3xl p-8 sm:h-[32rem] sm:w-[40rem] sm:flex-none sm:bg-white  xl:w-[50rem] 2xl:w-[72rem] sm:dark:bg-dark-block-600"
   >
     <div class="py-8 text-4xl"><PHLogo /></div>
     <div class="h-full sm:flex sm:flex-row">

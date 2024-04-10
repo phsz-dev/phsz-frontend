@@ -12,13 +12,13 @@
     <!-- 单个assay展示页面 -->
     <div
       v-if="store.assayInfo"
-      class="mx-auto overflow-hidden rounded-xl bg-white shadow-md md:max-w-5xl"
+      class="mx-auto overflow-hidden rounded-xl bg-white shadow-md md:max-w-5xl dark:bg-dark-block-600 dark:text-gray-200"
     >
       <div class="md:flex">
         <div class="p-8">
           <a
             href="#"
-            class="mt-1 block text-lg font-medium leading-tight text-black hover:underline"
+            class="mt-1 block text-lg font-medium leading-tight dark:text-gray-200 text-black hover:underline"
             >{{ store.assayInfo?.name }}</a
           >
 
