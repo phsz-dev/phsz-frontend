@@ -17,6 +17,11 @@ export default defineConfig({
         target: 'http://192.168.31.140:10010',
         ws: true,
         changeOrigin: true
+      },
+      '/oss':{
+        target: 'http://192.168.31.140:10010',
+        ws: true,
+        changeOrigin: true
       }
     }
   }

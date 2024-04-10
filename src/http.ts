@@ -22,6 +22,19 @@ class ApiService {
     return await this._handleResponse(res)
   }
 
+  async postFile(url: string, data: FormData, token?: string) {
+    const header = new Headers()
+    if (token) {
+      header.append('Authorization', `Bearer ${token}`)
+    }
+    const res = await fetch(this.baseUrl + url, {
+      method: 'POST',
+      body: data,
+      headers: header
+    })
+    return await this._handleResponse(res)
+  }
+
   async put(url: string, data: object, token?: string) {
     const header = new Headers()
     header.append('Content-Type', 'application/json')

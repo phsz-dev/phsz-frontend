@@ -116,7 +116,9 @@ export const useUserStore = defineStore('user', () => {
     try {
       const formData = new FormData()
       formData.append('file',file)
-      await apiService.putFile('/api/users/update/avatar', formData, token.value)
+      const fileUrl = await apiService.postFile('/oss/avatar', formData, token.value)
+      console.log(fileUrl)
+      await apiService.put(`/api/users/update/avatar?avatar=${fileUrl}`,{}, token.value)
       hydrate()
     } catch (e) {
       console.log(e)
