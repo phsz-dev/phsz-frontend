@@ -20,21 +20,21 @@ describe('User Test', () => {
   })
 
   // 先登录，然后在页面上的input中输入一个随机的邮箱，点击保存按钮，判断邮箱是否正确保存
-    it('Correct Email', () => {
-        login()
-        // 随机邮箱
-        const email = Math.random().toString(36).substring(7) + '@qq.com'
-        cy.get('input[type="email"]').clear().type(email)
-        cy.contains('保存').click()
-        // input中的邮箱是否等于随机邮箱
-        cy.get('input[type="email"]').should('have.value', email)
-    })
+  it('Correct Email', () => {
+    login()
+    // 随机邮箱
+    const email = Math.random().toString(36).substring(7) + '@qq.com'
+    cy.get('input[type="email"]').clear().type(email)
+    cy.contains('保存').click()
+    // input中的邮箱是否等于随机邮箱
+    cy.get('input[type="email"]').should('have.value', email)
+  })
 
-    // 点击带有类名h-6 w-10的按钮，判断是否进入深色模式
-    it('Dark Mode', () => {
-        login()
-        cy.get('button').should('have.class', 'h-6 w-10').click()
-        // 判断html标签是否包含class为dark
-        cy.get('html').should('have.class', 'dark')
-    })
+  // 点击带有类名h-6 w-10的按钮，判断是否进入深色模式
+  it('Dark Mode', () => {
+    login()
+    cy.get('button').should('have.class', 'h-6 w-10').click()
+    // 判断html标签是否包含class为dark
+    cy.get('html').should('have.class', 'dark')
+  })
 })

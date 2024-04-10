@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PHMessage from './components/PHMessage.vue';
+import PHMessage from './components/PHMessage.vue'
 import PHNavBar from './components/PHNavBar.vue'
 </script>
 

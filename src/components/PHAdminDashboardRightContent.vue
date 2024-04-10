@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500"
-  >
+  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
     <div class="flex flex-row items-center align-middle">
       <div class="h-3 w-3"></div>
       <div class="px-2 text-lg font-bold text-black dark:text-gray-200">
@@ -10,13 +8,13 @@
     </div>
 
     <!-- 用户表格 id, username, email, role, enabled 5个字段 -->
-    <div class="overflow-x-auto relative my-5">
-      <table class="w-full text-sm text-left text-black dark:text-gray-200">
+    <div class="relative my-5 overflow-x-auto">
+      <table class="w-full text-left text-sm text-black dark:text-gray-200">
         <thead>
           <tr>
-            <th 
-              scope="col" 
-              class="py-3 px-6 flex justify-between cursor-pointer items-center group"
+            <th
+              scope="col"
+              class="group flex cursor-pointer items-center justify-between px-6 py-3"
               :class="{ 'bg-gray-500': sortKey === 'id' }"
               @click="sortBy('id')"
             >
@@ -26,27 +24,27 @@
                 <span v-else>↓</span>
               </span>
             </th>
-            <th scope="col" class="py-3 px-6 cursor-pointer">用户名</th>
-            <th scope="col" class="py-3 px-6 cursor-pointer">邮箱</th>
-            <th scope="col" class="py-3 px-6 cursor-pointer">角色</th>
-            <th scope="col" class="py-3 px-6 cursor-pointer">状态</th>
+            <th scope="col" class="cursor-pointer px-6 py-3">用户名</th>
+            <th scope="col" class="cursor-pointer px-6 py-3">邮箱</th>
+            <th scope="col" class="cursor-pointer px-6 py-3">角色</th>
+            <th scope="col" class="cursor-pointer px-6 py-3">状态</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="user in store.userList.content" :key="user.id">
-            <td class="py-4 px-6">{{ user.id }}</td>
-            <td class="py-4 px-6">{{ user.username }}</td>
-            <td class="py-4 px-6">{{ user.email }}</td>
-            <td class="py-4 px-6">{{ user.roles }}</td>
-            <td class="py-4 px-6 flex items-center justify-start space-x-2">
+            <td class="px-6 py-4">{{ user.id }}</td>
+            <td class="px-6 py-4">{{ user.username }}</td>
+            <td class="px-6 py-4">{{ user.email }}</td>
+            <td class="px-6 py-4">{{ user.roles }}</td>
+            <td class="flex items-center justify-start space-x-2 px-6 py-4">
               <span>{{ user.enabled ? '启用' : '禁用' }}</span>
               <div
-                class="cursor-pointer w-10 h-5 flex items-center bg-gray-400 rounded-full p-0.5 duration-300 ease-in-out"
+                class="flex h-5 w-10 cursor-pointer items-center rounded-full bg-gray-400 p-0.5 duration-300 ease-in-out"
                 :class="{ 'bg-green-400': user.enabled }"
                 @click="toggleUserEnabled(user)"
               >
                 <div
-                  class="bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ease-in-out"
+                  class="h-4 w-4 transform rounded-full bg-white shadow-md duration-300 ease-in-out"
                   :class="{ 'translate-x-5': user.enabled }"
                 ></div>
               </div>
@@ -90,7 +88,7 @@ const toggleUserEnabled = (user: any) => {
 const sortBy = (key: string) => {
   sortKey.value = key
   // [0, 1, -1]中循环
-  sortOrder.value = (sortOrder.value + 2) % 3 - 1
+  sortOrder.value = ((sortOrder.value + 2) % 3) - 1
   if (sortOrder.value === 0) {
     sortKey.value = ''
     store.getUserList(0, 10)
@@ -100,5 +98,4 @@ const sortBy = (key: string) => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

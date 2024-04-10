@@ -1,6 +1,6 @@
 <template>
-  <div class="mx-auto pb-2 max-w-5xl h-full">
-    <PHCaseDetail :case_id="case_id" />
+  <div class="mx-auto h-full max-w-5xl pb-2">
+    <PHCaseDetail :case-id="case_id" />
   </div>
 </template>
 

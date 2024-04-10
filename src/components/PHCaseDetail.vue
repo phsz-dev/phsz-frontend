@@ -1,9 +1,9 @@
 <template>
   <div
-    class="relative mx-auto h-full w-full overflow-y-scroll rounded-xl bg-white px-4 py-2 shadow-md md:max-w-5xl dark:bg-dark-block-500"
     v-if="store.detailedCase"
+    class="relative mx-auto h-full w-full overflow-y-scroll rounded-xl bg-white px-4 py-2 shadow-md md:max-w-5xl dark:bg-dark-block-500"
   >
-    <div class="text-2xl font-bold dark:text-gray-200 mt-2">
+    <div class="mt-2 text-2xl font-bold dark:text-gray-200">
       {{ store.detailedCase?.name }}
     </div>
     <div class="mt-2 text-gray-400 dark:text-gray-300">
@@ -16,12 +16,12 @@
     <div class="mb-2 mt-2 break-all dark:text-gray-200">
       {{ store.detailedCase?.brief }}
     </div>
-    <div class="h-[0.105rem] bg-gray-200 mt-5"></div>
+    <div class="mt-5 h-[0.105rem] bg-gray-200"></div>
     <div>
       <div>
         <PHChoiceList
-          :choices="choices"
           v-model="currentIndex"
+          :choices="choices"
           @change-index="changeIndex"
         />
         <div class="h-[0.1rem] bg-gray-200"></div>
@@ -47,13 +47,13 @@ const store = useCaseStore()
 const route = useRoute()
 
 const props = defineProps<{
-  case_id: number
+  caseId: number
 }>()
 
 onMounted(async () => {
   try {
     console.log(store)
-    await store.getDetailedCase(props.case_id)
+    await store.getDetailedCase(props.caseId)
   } catch (e) {
     console.log(e)
   }
@@ -73,19 +73,19 @@ const choices = ref([
 
 const routes = ref([
   {
-    path: `/case-detail/${props.case_id}/intro`
+    path: `/case-detail/${props.caseId}/intro`
   },
   {
-    path: `/case-detail/${props.case_id}/medicine`
+    path: `/case-detail/${props.caseId}/medicine`
   },
   {
-    path: `/case-detail/${props.case_id}/vaccine`
+    path: `/case-detail/${props.caseId}/vaccine`
   },
   {
-    path: `/case-detail/${props.case_id}/assay`
+    path: `/case-detail/${props.caseId}/assay`
   },
   {
-    path: `/case-detail/${props.case_id}/charge`
+    path: `/case-detail/${props.caseId}/charge`
   }
 ])
 

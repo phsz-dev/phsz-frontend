@@ -8,7 +8,7 @@ class ApiService {
     this.baseUrl = baseUrl
   }
 
-  async post(url: string, data: object, token?: string) {
+  async post(url: string, data: any, token?: string) {
     const header = new Headers()
     header.append('Content-Type', 'application/json')
     if (token) {
@@ -35,7 +35,7 @@ class ApiService {
     return await this._handleResponse(res)
   }
 
-  async put(url: string, data: object, token?: string) {
+  async put(url: string, data: any, token?: string) {
     const header = new Headers()
     header.append('Content-Type', 'application/json')
     if (token) {
@@ -88,7 +88,7 @@ class ApiService {
     if (!t.code) {
       return t.data
     } else {
-      throw new HTTPError(t.code, t.message)
+      throw new HTTPError(t.code, t.msg)
     }
   }
 }

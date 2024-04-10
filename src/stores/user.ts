@@ -9,6 +9,7 @@ import RoughCase from '../types/RoughCase'
 const apiService = new ApiService('')
 
 export const useUserStore = defineStore('user', () => {
+  const isLogged = ref(false)
   const token = useStorage<string | undefined>('token', undefined)
   const username = ref('')
   const email = ref('')
@@ -47,6 +48,8 @@ export const useUserStore = defineStore('user', () => {
     username.value = ''
     email.value = ''
     roles.value = []
+    avatar.value = ''
+    isLogged.value = false
     router.push('/login')
   }
 
@@ -60,6 +63,7 @@ export const useUserStore = defineStore('user', () => {
       email.value = res.email
       roles.value = res.roles
       avatar.value = res.avatar
+      isLogged.value = true
     } catch (e) {
       // do nothing
     }
@@ -67,17 +71,10 @@ export const useUserStore = defineStore('user', () => {
 
   hydrate()
 
-  const getUserList = async (
-    pageNum: number,
-    pageSize: number,
-  ) => {
+  const getUserList = async (pageNum: number, pageSize: number) => {
     try {
       const res = await apiService.get(
-        '/api/users' +
-        '?pageNum=' +
-        pageNum +
-        '&pageSize=' +
-        pageSize,
+        `/api/users?pageNum=${pageNum}&pageSize=${pageSize}`,
         token.value
       )
       userList.value = res
@@ -86,9 +83,12 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const getCollectedCase = async(pageNum:number,pageSize:number) =>{
+  const getCollectedCase = async (pageNum: number, pageSize: number) => {
     try {
-      const res = await apiService.get(`/api/cases/collect/mine?pageNum=${pageNum}&pageSize=${pageSize}`, token.value)
+      const res = await apiService.get(
+        `/api/cases/collect/mine?pageNum=${pageNum}&pageSize=${pageSize}`,
+        token.value
+      )
       console.log(res)
       collectPageInfo.value = res
     } catch (e) {
@@ -103,16 +103,16 @@ export const useUserStore = defineStore('user', () => {
       console.log(e)
     }
   }
-  const updateUserInfo = async (email:string) => {
+  const updateUserInfo = async (email: string) => {
     try {
-      await apiService.put('/api/users/update/normal', {email}, token.value)
+      await apiService.put('/api/users/update/normal', { email }, token.value)
       hydrate()
     } catch (e) {
       console.log(e)
     }
   }
 
-  const uploadAvatar = async (file:File) =>{
+  const uploadAvatar = async (file: File) => {
     try {
       const formData = new FormData()
       formData.append('file',file)
@@ -123,7 +123,6 @@ export const useUserStore = defineStore('user', () => {
     } catch (e) {
       console.log(e)
     }
-  
   }
 
   const sortUserList = (key: string, order: number) => {
@@ -137,6 +136,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return {
+    isLogged,
     token,
     username,
     email,

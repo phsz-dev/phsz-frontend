@@ -25,12 +25,10 @@ const menuList = [
   { name: '病例管理' },
   { name: '文章管理' },
   { name: '评论管理' },
-  { name: '系统设置' },
+  { name: '系统设置' }
 ]
 // 当前索引
 let currentIndex = ref(0)
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

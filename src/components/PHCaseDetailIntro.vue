@@ -1,8 +1,8 @@
 <template>
   <div class="p-2">
     <div
-      v-html="store.detailedCase?.description"
       class="text-black dark:!text-gray-200"
+      v-html="store.detailedCase?.description"
     ></div>
     <div class="mt-5">
       <div class="text-xl font-bold text-black dark:!text-gray-200">

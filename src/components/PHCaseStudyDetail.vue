@@ -29,8 +29,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useCaseStore } from '../stores/case'
-import PHRoughCase from './PHRoughCase.vue';
-import PHPageination from './PHPagination.vue';
+import PHRoughCase from './PHRoughCase.vue'
+import PHPageination from './PHPagination.vue'
 const props = defineProps<{
   diseaseId: number
 }>()
@@ -40,14 +40,14 @@ const store = useCaseStore()
 
 onMounted(() => {
   try {
-    getRoughCases(currentPage.value-1, 8)
+    getRoughCases(currentPage.value - 1, 8)
   } catch (e) {
     console.log(e)
   }
 })
 
 const updateCaseList = (currentPage: number) => {
-  getRoughCases(currentPage-1, 8)
+  getRoughCases(currentPage - 1, 8)
 }
 
 const getRoughCases = (currentPage: number, pageSize: number) => {
