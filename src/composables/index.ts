@@ -18,13 +18,13 @@ const usePage = <T>(url: string, pageSize: number) => {
     content: []
   })
 
-  // watch(
-  //   () => page.value.pageNumber,
-  //   (newPage) => {
-  //     router.push({ query: { ...route.query, page: newPage + 1 } })
-  //     getPage()
-  //   }
-  // )
+  watch(
+    () => page.value.pageNumber,
+    (newPage) => {
+      router.push({ query: { ...route.query, page: newPage + 1 } })
+      getPage()
+    }
+  )
 
   const getPage = async () => {
     page.value = await apiService.get(

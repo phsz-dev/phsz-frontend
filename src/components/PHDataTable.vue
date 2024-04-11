@@ -44,7 +44,6 @@ const props = defineProps<{
 }>();
 
 const currentPage = defineModel<number>({ required: true })
-console.log(currentPage)
 const sortKey = ref('')
 const sortOrder = ref(0) // 0: 无序, 1: 升序, -1: 降序
 
