@@ -9,7 +9,6 @@
             <td class="px-6 py-4">{{ medicine.name }}</td>
             <td class="px-6 py-4">{{ medicine.type }}</td>
             <td class="px-6 py-4">{{ medicine.usage }}</td>
-            <td class="px-6 py-4">{{ medicine.medicineDosage }}</td>
             <td class="px-6 py-4">{{ medicine.price }}</td>
             <td class="px-6 py-4">{{ medicine.batchNumber }}</td>
             <td class="px-6 py-4">{{ medicine.validity }}</td>
@@ -32,7 +31,6 @@ const tableHeaders = [
   { text: '药品名称', value: 'name' },
   { text: '类型', value: 'type' },
   { text: '用法', value: 'usage' },
-  { text: '药品剂量', value: 'medicineDosage' },
   { text: '价格', value: 'price' },
   { text: '批号', value: 'batchNumber' },
   { text: '有效期', value: 'validity' },

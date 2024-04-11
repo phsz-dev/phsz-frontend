@@ -5,6 +5,5 @@ export default interface Medicine {
   usage: string
   validity: string
   batchNumber: string
-  medicineDosage: string
   price: number
 }

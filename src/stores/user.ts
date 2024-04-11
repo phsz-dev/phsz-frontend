@@ -15,7 +15,6 @@ export const useUserStore = defineStore('user', () => {
   const email = ref('')
   const roles = ref<string[]>([])
   const avatar = ref('')
-  const userList = ref<any>([])
   const collectPageInfo = ref<Page<RoughCase>>()
 
   const register = async (username: string, password: string) => {
@@ -71,18 +70,6 @@ export const useUserStore = defineStore('user', () => {
 
   hydrate()
 
-  const getUserList = async (pageNum: number, pageSize: number) => {
-    try {
-      const res = await apiService.get(
-        `/api/users?pageNum=${pageNum}&pageSize=${pageSize}`,
-        token.value
-      )
-      userList.value = res
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
   const getCollectedCase = async (pageNum: number, pageSize: number) => {
     try {
       const res = await apiService.get(
@@ -103,6 +90,7 @@ export const useUserStore = defineStore('user', () => {
       console.log(e)
     }
   }
+
   const updateUserInfo = async (email: string) => {
     try {
       await apiService.put('/api/users/update/normal', { email }, token.value)
@@ -125,16 +113,6 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const sortUserList = (key: string, order: number) => {
-    userList.value.content.sort((a: any, b: any) => {
-      if (a[key] > b[key]) {
-        return order
-      } else {
-        return -order
-      }
-    })
-  }
-
   return {
     isLogged,
     token,
@@ -142,7 +120,6 @@ export const useUserStore = defineStore('user', () => {
     email,
     roles,
     avatar,
-    userList,
     collectPageInfo,
     login,
     logout,
@@ -151,8 +128,6 @@ export const useUserStore = defineStore('user', () => {
     getCollectedCase,
     updateUserInfo,
     uploadAvatar,
-    getUserList,
     updateUser,
-    sortUserList
   }
 })
