@@ -3,8 +3,10 @@ import { useRoute, useRouter } from 'vue-router'
 import ApiService from '../http'
 import Page from '../types/Page'
 
-const usePage = <T>(url: string, pageSize: number, token?: string) => {
+const usePage = <T>(initialUrl: string, pageSize: number, token?: string) => {
   const apiService = new ApiService('')
+  const url = ref<string>(initialUrl)
+  const params = ref<any>({})
 
   const route = useRoute()
   const router = useRouter()
@@ -25,12 +27,19 @@ const usePage = <T>(url: string, pageSize: number, token?: string) => {
     }
   )
 
+  watch(
+    () => params.value,
+    () => {
+      page.value.pageNumber = 0
+      getPage()
+    }
+  )
+
   const getPage = async () => {
     const res = await apiService.get(
-      `${url}?pageNum=${page.value.pageNumber}&pageSize=${pageSize}`,
+      url.value + '?' + new URLSearchParams({ ...params.value, pageNum: page.value.pageNumber, pageSize: page.value.pageSize }),
       token
     )
-    console.log(res)
     if (res.pageNumber === page.value.pageNumber) {
       page.value = res
     }
@@ -38,7 +47,7 @@ const usePage = <T>(url: string, pageSize: number, token?: string) => {
 
   getPage()
 
-  return { page }
+  return { page, url, params }
 }
 
 export { usePage }
