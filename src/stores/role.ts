@@ -313,6 +313,8 @@ export const useRoleStore = defineStore('role', () => {
   //   }
   // ]
   const roleResponsibility = ref<RoleResponsibility[]>([])
+  const learnedResponsibility = ref<number[]>()
+  const learnedSubResponsibility = ref<number[]>()
   const getRoleResponsibility = async (role: number) => {
     const res = await apiService.get(
       `/api/plays/responsibilities/full/${role}`,
@@ -327,9 +329,33 @@ export const useRoleStore = defineStore('role', () => {
   const clearRoleResponsibility = () => {
     roleResponsibility.value = []
   }
+
+  const getLearnedRoleSubResponsibility = async (role: number) => {
+    const res = await apiService.get(
+      `/api/plays/responsibilities/getLearned/${role}`,
+      localStorage.getItem('token') ?? undefined
+    )
+    console.log(res)
+    if (res) {
+      learnedResponsibility.value = res.responsibility
+      learnedSubResponsibility.value = res.learned
+    }
+  }
+
+  const addLearnedRoleSubResponsibility = async (subResponsibility: number) => {
+    const res = await apiService.post(
+      `/api/plays/responsibilities/learned/${subResponsibility}`,
+      {},
+      localStorage.getItem('token') ?? undefined
+    )
+    console.log(res)
+  }
+
   return {
     roleResponsibility,
     getRoleResponsibility,
-    clearRoleResponsibility
+    clearRoleResponsibility,
+    getLearnedRoleSubResponsibility,
+    addLearnedRoleSubResponsibility
   }
 })

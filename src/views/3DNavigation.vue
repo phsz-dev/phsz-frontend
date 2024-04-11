@@ -1,15 +1,18 @@
 <template>
   <div>
+    <div class="fixed text-3xl left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-black dark:text-white opacity-20">+</div>
     <TresCanvas
       ref="canvas"
       window-size
       :clear-color="dark ? '#000' : '#f4f8ff'"
       @click="onCanvasClick"
     >
-      <TresPerspectiveCamera :position="[15, 15, -30]" />
+      <TresPerspectiveCamera :position="[15, -0.5, -30]" />
       <TresAmbientLight :intensity="1" />
       <TresDirectionalLight cast-shadow :position="[0, 20, 0]" :intensity="1" />
-      <OrbitControls />
+      <!-- <OrbitControls /> -->
+      <PointerLockControls make-default  />
+      <KeyboardControls :moveSpeed="0.15"/>
       <Suspense @resolve="(resolveState = true)" @pending="(resolveState = false)">
         <GLTFModel
           path="/models/hospital-whole/hospital-whole.gltf"
@@ -52,7 +55,7 @@ import { useDark } from '@vueuse/core'
 const dark = useDark()
 
 import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
-import { GLTFModel, OrbitControls } from '@tresjs/cientos'
+import { GLTFModel, OrbitControls, PointerLockControls, KeyboardControls } from '@tresjs/cientos'
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
 import Marker from '../types/Marker'
@@ -113,8 +116,11 @@ let raycaster = new THREE.Raycaster()
 const onCanvasClick = (e: MouseEvent) => {
   e.preventDefault()
   let mouse = new THREE.Vector2()
-  mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+  // mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+  // mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+  // 鼠标移动到canvas中心
+  mouse.x = 0
+  mouse.y = 0
   raycaster.setFromCamera(mouse, context.camera.value!)
   var intersects = raycaster.intersectObject(markers_group, true)
   if (intersects.length > 0) {

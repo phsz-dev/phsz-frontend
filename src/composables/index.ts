@@ -30,6 +30,7 @@ const usePage = <T>(url: string, pageSize: number, token?: string) => {
       `${url}?pageNum=${page.value.pageNumber}&pageSize=${pageSize}`,
       token
     )
+    console.log(res)
     if (res.pageNumber === page.value.pageNumber) {
       page.value = res
     }

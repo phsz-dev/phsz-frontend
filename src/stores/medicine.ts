@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import ApiService from '../http'
 import { ref } from 'vue'
-import Medicine from '../types/Medicine'
+import Medicine from '../types/medicine'
 
 const apiService = new ApiService('')
 

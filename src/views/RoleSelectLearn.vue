@@ -35,6 +35,7 @@ const titleId = parseInt(useRoute().params.id as string)
 onMounted(() => {
   try {
     store.getRoleResponsibility(titleId)
+    store.getLearnedRoleSubResponsibility(titleId)
   } catch (error) {
     console.log(error)
   }

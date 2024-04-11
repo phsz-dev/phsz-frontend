@@ -7,6 +7,11 @@
 
 <script setup lang="ts">
 import PHTableCaption from '../components/PHTableCaption.vue'
+import {usePage} from '../composables'
+import AdminCase from '../types/AdminCase'
+
+const { page } = usePage<AdminCase>('/api/cases', 10)
+
 
 const title = '病例管理'
 
