@@ -28,7 +28,7 @@ const menuList = [
   { name: '药品管理' },
   { name: '疫苗管理' },
   { name: '收费管理' },
-  { name: '病例管理' },
+  { name: '病例管理' }
 ]
 
 const routes = [
@@ -37,7 +37,7 @@ const routes = [
   '/medicine-management',
   '/vaccine-management',
   '/charge-management',
-  '/case-management',
+  '/case-management'
 ]
 
 const menu_id = ref(

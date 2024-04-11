@@ -19,7 +19,7 @@
         <div class="p-8">
           <a
             href="#"
-            class="mt-1 block text-lg font-medium leading-tight text-black dark:text-gray-200 hover:underline dark:bg-dark-block-600"
+            class="mt-1 block text-lg font-medium leading-tight text-black hover:underline dark:bg-dark-block-600 dark:text-gray-200"
             >{{ store.medicineInfo?.name }}</a
           >
 

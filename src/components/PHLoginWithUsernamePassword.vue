@@ -66,7 +66,7 @@ import PHInputField from './PHInputField.vue'
 import { useUserStore } from '../stores/user'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import HTTPError from '../types/Error'
+import HTTPError from '../types/error'
 const route = useRoute()
 const err_situation = ref(0)
 const username = ref('')

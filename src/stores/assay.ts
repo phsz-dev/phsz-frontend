@@ -20,6 +20,6 @@ export const useAssayStore = defineStore('assay', () => {
 
   return {
     assayInfo,
-    getAssayById,
+    getAssayById
   }
 })

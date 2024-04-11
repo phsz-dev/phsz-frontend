@@ -18,7 +18,7 @@
         <div class="p-8">
           <a
             href="#"
-            class="mt-1 block text-lg font-medium leading-tight dark:text-gray-200 text-black hover:underline"
+            class="mt-1 block text-lg font-medium leading-tight text-black hover:underline dark:text-gray-200"
             >{{ store.assayInfo?.name }}</a
           >
 

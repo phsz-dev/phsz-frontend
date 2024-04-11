@@ -4,7 +4,11 @@
 
     <!-- 用户表格 id, username, email, role, enabled 5个字段 -->
     <div class="relative my-5 overflow-x-auto">
-      <PHDataTable v-model="page.pageNumber" :headers="tableHeaders" :total-pages="page.totalPages">
+      <PHDataTable
+        v-model="page.pageNumber"
+        :headers="tableHeaders"
+        :total-pages="page.totalPages"
+      >
         <template #default>
           <tr v-for="user in page.content" :key="user.id">
             <td class="px-6 py-4">{{ user.id }}</td>

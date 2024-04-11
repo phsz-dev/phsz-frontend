@@ -51,9 +51,9 @@ import router from '../router'
 import { useUserStore } from '../stores/user'
 import { usePaperStore } from '../stores/paper'
 import { useMessageStore } from '../stores/message'
-import { Paper } from '../types/Paper'
-import HTTPError from '../types/Error'
-import Message from '../types/Message'
+import { Paper } from '../types/paper'
+import HTTPError from '../types/error'
+import Message from '../types/message'
 import PHLoadingIcon from '../components/PHLoadingIcon.vue'
 
 const route = useRoute()

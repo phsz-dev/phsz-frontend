@@ -2,13 +2,13 @@
   <table class="w-full text-left text-sm text-black dark:text-gray-200">
     <thead>
       <tr>
-        <th 
-            v-for="header in props.headers" 
-            :key="header.value" 
-            scope="col"
-            class="px-6 py-3 cursor-pointer justify-between group items-center"
-            :class="{ 'bg-gray-500': sortKey === header.value }"
-            @click="sortBy(header.value)"
+        <th
+          v-for="header in props.headers"
+          :key="header.value"
+          scope="col"
+          class="group cursor-pointer items-center justify-between px-6 py-3"
+          :class="{ 'bg-gray-500': sortKey === header.value }"
+          @click="sortBy(header.value)"
         >
           {{ header.text }}
           <span v-if="sortKey === header.value">
@@ -22,25 +22,22 @@
       <slot></slot>
     </tbody>
   </table>
-  <PHPagination
-    v-model="currentPage"
-    :total-pages="props.totalPages"
-  />
+  <PHPagination v-model="currentPage" :total-pages="props.totalPages" />
 </template>
-  
+
 <script setup lang="ts">
 import { ref } from 'vue'
-import PHPagination  from '../components/PHPagination.vue'
+import PHPagination from '../components/PHPagination.vue'
 
 const props = defineProps<{
   headers: Array<{
-    text: string,
+    text: string
     value: string
-  }>,
-  totalPages?: number,
-  sortList?: Function,
+  }>
+  totalPages?: number
+  sortList?: Function
   getList?: Function
-}>();
+}>()
 
 const currentPage = defineModel<number>({ required: true })
 const sortKey = ref('')
@@ -59,6 +56,4 @@ const sortBy = (key: string) => {
 }
 </script>
 
-<style scoped>
-</style>
-  
+<style scoped></style>

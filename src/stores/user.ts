@@ -103,10 +103,18 @@ export const useUserStore = defineStore('user', () => {
   const uploadAvatar = async (file: File) => {
     try {
       const formData = new FormData()
-      formData.append('file',file)
-      const fileUrl = await apiService.postFile('/oss/avatar', formData, token.value)
+      formData.append('file', file)
+      const fileUrl = await apiService.postFile(
+        '/oss/avatar',
+        formData,
+        token.value
+      )
       console.log(fileUrl)
-      await apiService.put(`/api/users/update/avatar?avatar=${fileUrl}`,{}, token.value)
+      await apiService.put(
+        `/api/users/update/avatar?avatar=${fileUrl}`,
+        {},
+        token.value
+      )
       hydrate()
     } catch (e) {
       console.log(e)
@@ -128,6 +136,6 @@ export const useUserStore = defineStore('user', () => {
     getCollectedCase,
     updateUserInfo,
     uploadAvatar,
-    updateUser,
+    updateUser
   }
 })
