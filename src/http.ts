@@ -74,6 +74,18 @@ class ApiService {
     return await this._handleResponse(res)
   }
 
+  async delete(url: string, token?: string) {
+    const header = new Headers()
+    if (token) {
+      header.append('Authorization', `Bearer ${token}`)
+    }
+    const res = await fetch(this.baseUrl + url, {
+      method: 'DELETE',
+      headers: header
+    })
+    return await this._handleResponse(res)
+  }
+
   async _handleResponse(res: Response) {
     if (!res.ok) {
       if (res.status === 401) {
