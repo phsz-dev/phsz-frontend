@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { PaperQuestion } from '../types/paper'
+import { PaperQuestion } from '../types/Paper'
 
 const props = defineProps<{
   paperQuestion: PaperQuestion

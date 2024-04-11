@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import Message from '../types/message'
+import Message from '../types/Message'
 
 export const useMessageStore = defineStore('message', () => {
   const messageQueue = reactive<Message[][]>([[], [], [], [], [], []])

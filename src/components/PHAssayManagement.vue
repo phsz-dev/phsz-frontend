@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import PHTableCaption from '../components/PHTableCaption.vue'
 import PHDataTable from '../components/PHDataTable.vue'
-import Assay from '../types/assay';
+import Assay from '../types/Assay';
 import { usePage } from '../composables';
 
 const title = '检查管理'

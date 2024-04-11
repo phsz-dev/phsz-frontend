@@ -32,7 +32,7 @@ import { computed } from 'vue'
 import PHInputField from '../components/PHInputField.vue'
 import PHPaperItem from '../components/PHPaperItem.vue'
 import PHPagination from '../components/PHPagination.vue'
-import { Paper } from '../types/paper'
+import { Paper } from '../types/Paper'
 import { usePage } from '../composables'
 
 const { page } = usePage<Paper>('api/test/paper/info', 12)

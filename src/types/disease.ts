@@ -1,4 +1,4 @@
-export default interface disease {
+export default interface Disease {
   id: number
   name: string
   description: string

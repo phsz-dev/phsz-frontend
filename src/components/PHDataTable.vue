@@ -39,7 +39,6 @@ const props = defineProps<{
   }>,
   totalPages?: number,
   sortList?: Function,
-  updateList?: Function,
   getList?: Function
 }>();
 
@@ -47,17 +46,17 @@ const currentPage = defineModel<number>({ required: true })
 const sortKey = ref('')
 const sortOrder = ref(0) // 0: 无序, 1: 升序, -1: 降序
 
-// const sortBy = (key: string) => {
-//   sortKey.value = key
-//   // [0, 1, -1]中循环
-//   sortOrder.value = ((sortOrder.value + 2) % 3) - 1
-//   if (sortOrder.value === 0) {
-//     sortKey.value = ''
-//     props.getList()
-//   } else {
-//     props.sortList(key, sortOrder.value)
-//   }
-// }
+const sortBy = (key: string) => {
+  sortKey.value = key
+  // [0, 1, -1]中循环
+  sortOrder.value = ((sortOrder.value + 2) % 3) - 1
+  if (sortOrder.value === 0) {
+    sortKey.value = ''
+    props.getList?.()
+  } else {
+    props.sortList?.(key, sortOrder.value)
+  }
+}
 </script>
 
 <style scoped>

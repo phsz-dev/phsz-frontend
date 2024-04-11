@@ -131,9 +131,19 @@ const routes = [
             component: () => import('./components/PHAssayManagement.vue')
           },
           {
+            path: 'medicine-management',
+            name: 'MedicineManagement',
+            component: () => import('./components/PHMedicineManagement.vue')
+          },
+          {
             path: 'vaccine-management',
             name: 'VaccineManagement',
             component: () => import('./components/PHVaccineManagement.vue')
+          },
+          { 
+            path: 'charge-management',
+            name: 'ChargeManagement',
+            component: () => import('./components/PHChargeManagement.vue')
           },
           {
             path: 'case-management',

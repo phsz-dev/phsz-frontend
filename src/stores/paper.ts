@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 import ApiService from '../http'
-import { Exam, Paper } from '../types/paper'
+import { Exam, Paper } from '../types/Paper'
 
 const apiService = new ApiService('')
 

@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import ApiService from '../http'
 import { ref } from 'vue'
-import medicine from '../types/medicine'
+import Medicine from '../types/Medicine'
 
 const apiService = new ApiService('')
 
 export const useMedicineStore = defineStore('medicine', () => {
-  const medicineInfo = ref<medicine>()
+  const medicineInfo = ref<Medicine>()
 
   const getMedicineById = async (medicineId: number) => {
     try {
