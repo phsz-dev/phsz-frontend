@@ -112,6 +112,12 @@ export const useCaseStore = defineStore('case', () => {
   const updateCase = async (caseInfo: Case) => {
     try {
       const res = await apiService.put('/api/cases', caseInfo)
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  
   const collectCase = async (caseId: number) => {
     try {
       const res = await apiService.get('/api/cases/collect/' + caseId, localStorage.getItem('token') ?? undefined)
