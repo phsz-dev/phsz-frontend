@@ -11,19 +11,7 @@
     </div>
 
     <!-- Exam Papers List -->
-    <!-- <div class="container mx-auto grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <PHTestItem
-        v-for="paper in papers"
-        :key="paper.id"
-        :name="paper.name"
-        :description="paper.description"
-      />
-    </div> -->
     <div class="container mx-auto">
-      <!-- <div v-for="(category, categoryName) in categories" :key="categoryName">
-        <h1 class="my-4 text-2xl font-bold dark:text-gray-100">
-          {{ categoryName }}
-        </h1> -->
       <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <PHPaperItem
           v-for="paper in papers"
@@ -47,7 +35,7 @@ import PHPagination from '../components/PHPagination.vue'
 import { Paper } from '../types/paper'
 import { usePage } from '../composables'
 
-const { page } = usePage<Paper>('api/test/paper/info', 1)
+const { page } = usePage<Paper>('api/test/paper/info', 12)
 
 const papers = computed(() => page.value.content)
 </script>
