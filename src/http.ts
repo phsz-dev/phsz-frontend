@@ -1,4 +1,4 @@
-import HTTPError from './types/error'
+import HTTPError from './types/Error'
 
 import { useUserStore } from './stores/user'
 

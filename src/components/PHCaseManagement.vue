@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { useCaseStore } from '../stores/case'
 import PHTableCaption from '../components/PHTableCaption.vue'
 
 const title = '病例管理'

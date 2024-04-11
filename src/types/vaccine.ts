@@ -1,4 +1,4 @@
-export default interface vaccine {
+export default interface Vaccine {
   id: number
   name: string
   manufacturer: string

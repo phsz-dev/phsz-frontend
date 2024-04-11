@@ -25,15 +25,18 @@ const left_title = '管理菜单'
 const menuList = [
   { name: '用户管理' },
   { name: '检查管理' },
+  { name: '药品管理' },
   { name: '疫苗管理' },
+  { name: '收费管理' },
   { name: '病例管理' },
 ]
 
 const routes = [
   '/user-management',
   '/assay-management',
-  // '/',
+  '/medicine-management',
   '/vaccine-management',
+  '/charge-management',
   '/case-management',
 ]
 

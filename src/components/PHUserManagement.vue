@@ -4,9 +4,9 @@
 
     <!-- 用户表格 id, username, email, role, enabled 5个字段 -->
     <div class="relative my-5 overflow-x-auto">
-      <PHDataTable :headers="tableHeaders" :total-pages="store.userList.totalPages" :get-list="getUserList" :update-list="updateUserList" :sort-list=" store.sortUserList">
+      <PHDataTable v-model="page.pageNumber" :headers="tableHeaders" :total-pages="page.totalPages">
         <template #default>
-          <tr v-for="user in store.userList.content" :key="user.id">
+          <tr v-for="user in page.content" :key="user.id">
             <td class="px-6 py-4">{{ user.id }}</td>
             <td class="px-6 py-4">{{ user.username }}</td>
             <td class="px-6 py-4">{{ user.email }}</td>
@@ -35,6 +35,8 @@
 import { useUserStore } from '../stores/user'
 import PHTableCaption from '../components/PHTableCaption.vue'
 import PHDataTable from '../components/PHDataTable.vue'
+import UserInfo from '../types/User'
+import { usePage } from '../composables'
 
 const title = '用户管理'
 const tableHeaders = [
@@ -47,20 +49,12 @@ const tableHeaders = [
 
 const store = useUserStore()
 
-const getUserList = async () => {
-  await store.getUserList(0, 10)
-}
-
-const updateUserList = (page: number) => {
-  store.getUserList(page - 1, 10)
-}
-
 const toggleUserEnabled = (user: any) => {
   user.enabled = !user.enabled
   store.updateUser(user)
 }
 
-getUserList()
+const { page } = usePage<UserInfo>('/api/users', 10, store.token)
 </script>
 
 <style scoped></style>

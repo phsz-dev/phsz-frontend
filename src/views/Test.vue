@@ -77,7 +77,7 @@ import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import PHQuestion from '../components/PHQuestion.vue'
 import PHQuestionNavigator from '../components/PHQuestionNavigator.vue'
 import PHLoadingIcon from '../components/PHLoadingIcon.vue'
-import { Exam, PaperQuestion } from '../types/paper'
+import { Exam, PaperQuestion } from '../types/Paper'
 import { useUserStore } from '../stores/user'
 import { usePaperStore } from '../stores/paper'
 
