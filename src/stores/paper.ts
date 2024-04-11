@@ -22,9 +22,38 @@ export const usePaperStore = defineStore('paper', () => {
     const res: Exam = await apiService.post(`/api/test/exam`, paperId, token)
     return res
   }
+
+  const saveAnswer = async (
+    examinationId: number,
+    questionId: number,
+    answer: string | number,
+    token: string
+  ) => {
+    const res = await apiService.post(
+      `/api/test/exam/answer`,
+      {
+        examinationId,
+        questionId,
+        answer
+      },
+      token
+    )
+    return res
+  }
+
+  const submitExam = async (examinationId: number, token: string) => {
+    const res = await apiService.put(
+      `/api/test/exam/end`,
+      examinationId,
+      token
+    )
+    return res
+  }
   return {
     getExam,
     getPaperInfo,
-    startExam
+    startExam,
+    saveAnswer,
+    submitExam
   }
 })

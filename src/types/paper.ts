@@ -5,6 +5,7 @@ interface Exam {
   paper: Paper
   startTime: string
   endTime: string
+  questions: Answer[]
 }
 
 interface Paper {
@@ -34,4 +35,10 @@ interface Option {
   text: string
 }
 
-export type { Exam, Paper, PaperQuestion, Question, Option }
+interface Answer {
+  examination: number
+  question: number
+  answer: string
+}
+
+export type { Exam, Paper, PaperQuestion, Question, Option, Answer }
