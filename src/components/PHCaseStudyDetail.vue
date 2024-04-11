@@ -34,20 +34,20 @@ import PHPageination from './PHPagination.vue'
 const props = defineProps<{
   diseaseId: number
 }>()
-const currentPage = ref(1)
+const currentPage = ref(0)
 
 const store = useCaseStore()
 
 onMounted(() => {
   try {
-    getRoughCases(currentPage.value - 1, 8)
+    getRoughCases(currentPage.value, 8)
   } catch (e) {
     console.log(e)
   }
 })
 
 const updateCaseList = (currentPage: number) => {
-  getRoughCases(currentPage - 1, 8)
+  getRoughCases(currentPage, 8)
 }
 
 const getRoughCases = (currentPage: number, pageSize: number) => {

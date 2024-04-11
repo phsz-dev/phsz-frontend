@@ -20,36 +20,34 @@
       />
     </div> -->
     <div class="container mx-auto">
-      <div v-for="(category, categoryName) in categories" :key="categoryName">
+      <!-- <div v-for="(category, categoryName) in categories" :key="categoryName">
         <h1 class="my-4 text-2xl font-bold dark:text-gray-100">
           {{ categoryName }}
-        </h1>
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <PHPaperItem
-            v-for="paper in category"
-            :key="paper.id"
-            :paper-id="paper.id"
-            :name="paper.name"
-            :description="paper.description"
-          />
-        </div>
+        </h1> -->
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <PHPaperItem
+          v-for="paper in papers"
+          :key="paper.id"
+          :paper-id="paper.id"
+          :name="paper.name"
+          :description="paper.content"
+        />
       </div>
+      <!-- </div> -->
+      <PHPagination v-model="page.pageNumber" :total-pages="page.totalPages" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import PHInputField from '../components/PHInputField.vue'
 import PHPaperItem from '../components/PHPaperItem.vue'
+import PHPagination from '../components/PHPagination.vue'
+import { Paper } from '../types/paper'
+import { usePage } from '../composables'
 
-const categories = {
-  大类1: [
-    { id: 1, name: '试卷一', description: '关于病种A的考试' },
-    { id: 2, name: '试卷二', description: '关于病种B的考试' }
-  ],
-  大类2: [
-    { id: 3, name: '试卷三', description: '关于病种C的考试' },
-    { id: 4, name: '试卷四', description: '关于病种D的考试' }
-  ]
-}
+const { page } = usePage<Paper>('api/test/paper/info', 1)
+
+const papers = computed(() => page.value.content)
 </script>

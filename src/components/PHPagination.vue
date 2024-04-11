@@ -7,7 +7,7 @@
       上一页
     </button>
     <span class="mx-6 text-sm dark:text-gray-200">{{
-      currentPage + '/' + (totalPages ?? 0)
+      currentPage + 1 + '/' + (totalPages ?? 0)
     }}</span>
     <button
       class="rounded border p-2 px-4 text-sm hover:border-primary-500 hover:ring-2 dark:border-gray-500 dark:text-gray-200"
@@ -31,12 +31,12 @@ const emit = defineEmits<{
 }>()
 
 const prevPage = () => {
-  currentPage.value > 1 && currentPage.value--
+  currentPage.value > 0 && currentPage.value--
   emit('prevPage')
 }
 
 const nextPage = () => {
-  currentPage.value < (props.totalPages ?? 0) && currentPage.value++
+  currentPage.value < (props.totalPages ?? 0) - 1 && currentPage.value++
   emit('nextPage')
 }
 </script>

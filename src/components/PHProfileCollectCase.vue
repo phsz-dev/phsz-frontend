@@ -33,10 +33,10 @@ import PHRoughCase from './PHRoughCase.vue'
 import PHPageination from './PHPagination.vue'
 const store = useUserStore()
 
-const currentPage = ref(1)
+const currentPage = ref(0)
 
 const updateCollctedCaseList = (currentPage: number) => {
-  store.getCollectedCase(currentPage - 1, 6)
+  store.getCollectedCase(currentPage, 6)
 }
 
 onMounted(() => {
