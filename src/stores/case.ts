@@ -53,6 +53,16 @@ export const useCaseStore = defineStore('case', () => {
       console.log(e)
     }
   }
+
+  const collectCase = async (caseId: number) => {
+    try {
+      const res = await apiService.get('/api/cases/collect/' + caseId, localStorage.getItem('token') ?? undefined)
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     diseaseCatalog,
     roughCases,
@@ -61,6 +71,7 @@ export const useCaseStore = defineStore('case', () => {
     chargeList,
     getDiseaseCatalog,
     getRoughCaseByDisease,
-    getDetailedCase
+    getDetailedCase,
+    collectCase
   }
 })

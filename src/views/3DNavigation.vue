@@ -1,24 +1,22 @@
 <template>
   <div>
-    <div class="fixed text-3xl left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-black dark:text-white opacity-20">+</div>
     <TresCanvas
       ref="canvas"
       window-size
       :clear-color="dark ? '#000' : '#f4f8ff'"
       @click="onCanvasClick"
     >
-      <TresPerspectiveCamera :position="[15, -0.5, -30]" />
+      <TresPerspectiveCamera :position="[15, 15, -30]" />
       <TresAmbientLight :intensity="1" />
       <TresDirectionalLight cast-shadow :position="[0, 20, 0]" :intensity="1" />
-      <!-- <OrbitControls /> -->
-      <PointerLockControls make-default  />
-      <KeyboardControls :moveSpeed="0.15"/>
+      <OrbitControls />
       <Suspense @resolve="(resolveState = true)" @pending="(resolveState = false)">
         <GLTFModel
           path="/models/hospital-whole/hospital-whole.gltf"
           :scale="0.05"
           :position="[1510, -3, -2620]"
         />
+
       </Suspense>
 
       <!-- <TresMesh>
@@ -27,7 +25,7 @@
       </TresMesh> -->
       <!-- <TresGridHelper /> -->
       <!-- 在xz平面上加一块淡灰色的板 -->
-      <TresMesh :position="[0, -1.3, 0]" :rotation="[-Math.PI / 2, 0, 0]">
+      <TresMesh :position="[0,-1.3,0]" :rotation="[-Math.PI / 2, 0, 0]">
         <TresPlaneGeometry :args="[32, 32]" />
         <TresMeshBasicMaterial color="#cccccc" />
       </TresMesh>
@@ -41,17 +39,11 @@
           <h2 class="text-lg font-bold">{{ markers[selected].name }}</h2>
           <p class="text-sm">{{ markers[selected].description }}</p>
         </div>
-        <button
-          class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-md bg-secondary-500 px-4 py-2 text-white"
-        >
-          前往{{ markers[selected].name }}
-        </button>
+        <RouterLink :to="{path:`/3d-navigation-inner/${markers[selected].id}`}" class="bg-secondary-500 px-4 py-2 text-white rounded-md absolute bottom-4 left-1/2 -translate-x-1/2">前往{{ markers[selected].name }}</RouterLink>
       </div>
     </Transition>
-    <PHLoadingIcon
-      v-if="!resolveState"
-      class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-    />
+    <PHLoadingIcon v-if="!resolveState" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+    
   </div>
 </template>
 
@@ -60,13 +52,14 @@ import { useDark } from '@vueuse/core'
 const dark = useDark()
 
 import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
-import { GLTFModel, OrbitControls, PointerLockControls, KeyboardControls } from '@tresjs/cientos'
+import { GLTFModel, OrbitControls } from '@tresjs/cientos'
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
 import Marker from '../types/Marker'
-import PHLoadingIcon from '../components/PHLoadingIcon.vue'
+import PHLoadingIcon from '../components/PHLoadingIcon.vue';
 
 const resolveState = ref(false)
+
 
 const markers: Record<string, Marker> = {
   '1': {
@@ -120,11 +113,8 @@ let raycaster = new THREE.Raycaster()
 const onCanvasClick = (e: MouseEvent) => {
   e.preventDefault()
   let mouse = new THREE.Vector2()
-  // mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-  // mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
-  // 鼠标移动到canvas中心
-  mouse.x = 0
-  mouse.y = 0
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
   raycaster.setFromCamera(mouse, context.camera.value!)
   var intersects = raycaster.intersectObject(markers_group, true)
   if (intersects.length > 0) {

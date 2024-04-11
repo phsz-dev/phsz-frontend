@@ -343,9 +343,8 @@ export const useRoleStore = defineStore('role', () => {
   }
 
   const addLearnedRoleSubResponsibility = async (subResponsibility: number) => {
-    const res = await apiService.post(
+    const res = await apiService.get(
       `/api/plays/responsibilities/learned/${subResponsibility}`,
-      {},
       localStorage.getItem('token') ?? undefined
     )
     console.log(res)
@@ -353,6 +352,8 @@ export const useRoleStore = defineStore('role', () => {
 
   return {
     roleResponsibility,
+    learnedSubResponsibility,
+    learnedResponsibility,
     getRoleResponsibility,
     clearRoleResponsibility,
     getLearnedRoleSubResponsibility,
