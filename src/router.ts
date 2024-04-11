@@ -118,7 +118,29 @@ const routes = [
       {
         path: 'admin-dashboard',
         name: 'AdminDashboard',
-        component: () => import('./views/AdminDashboard.vue')
+        component: () => import('./views/AdminDashboard.vue'),
+        children: [
+          {
+            path: 'user-management',
+            name: 'UserManagement',
+            component: () => import('./components/PHUserManagement.vue')
+          },
+          {
+            path: 'assay-management',
+            name: 'AssayManagement',
+            component: () => import('./components/PHAssayManagement.vue')
+          },
+          {
+            path: 'vaccine-management',
+            name: 'VaccineManagement',
+            component: () => import('./components/PHVaccineManagement.vue')
+          },
+          {
+            path: 'case-management',
+            name: 'CaseManagement',
+            component: () => import('./components/PHCaseManagement.vue')
+          },
+        ]
       },
       {
         path: 'medicine/:id',
