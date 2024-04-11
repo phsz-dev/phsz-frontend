@@ -31,7 +31,7 @@
         <button
           v-for="(question, index) in questions"
           :key="question.sequence"
-          class="w-8 overflow-hidden rounded border-2 border-gray-200 p-2 text-gray-600 dark:border-dark-block-600 dark:text-gray-200"
+          class="w-8 overflow-hidden rounded border-2 border-gray-200 py-2 text-gray-600 dark:border-dark-block-600 dark:text-gray-200"
           :class="{
             'text-primary-500 dark:text-primary-600': index === questionIndex,
             // 在当前题面前面且答案为空标黄
@@ -71,19 +71,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
 
 import PHQuestion from '../components/PHQuestion.vue'
 import PHQuestionNavigator from '../components/PHQuestionNavigator.vue'
 import PHLoadingIcon from '../components/PHLoadingIcon.vue'
-import { Exam, PaperQuestion } from '../types/Paper'
+import { Answer, Exam, PaperQuestion } from '../types/paper'
+import Message from '../types/message'
 import { useUserStore } from '../stores/user'
 import { usePaperStore } from '../stores/paper'
+import { useMessageStore } from '../stores/message'
+import HTTPError from '../types/error'
 
 const route = useRoute()
 const userStore = useUserStore()
 const paperStore = usePaperStore()
+const msgStore = useMessageStore()
 
 const examId = Number(route.params.id)
 const exam = ref<Exam | null>(null)
@@ -96,6 +100,35 @@ const questionIndex = ref(0)
 const currentQuestion = computed(() => {
   return questions.value[questionIndex.value]
 })
+
+const saveAnswer = async (questionIndex: number) => {
+  if (answers.value[questionIndex] === '') return
+  try {
+    await paperStore.saveAnswer(
+      examId,
+      questions.value[questionIndex].question.id,
+      answers.value[questionIndex],
+      userStore.token!
+    )
+    msgStore.addMessage(
+      Message.topSuccess(`第 ${questionIndex + 1} 题答案保存成功`)
+    )
+  } catch (e) {
+    msgStore.addMessage(
+      Message.topError(`第 ${questionIndex + 1} 题答案保存失败`)
+    )
+  }
+}
+
+// Save answer on question change
+watch(
+  () => questionIndex.value,
+  (_newIndex, oldIndex) => {
+    if (oldIndex !== null) {
+      saveAnswer(oldIndex)
+    }
+  }
+)
 
 // Countdown
 
@@ -150,8 +183,8 @@ const startCountdown = () => {
 }
 
 onMounted(async () => {
-  onbeforeunload = (event) => {
-    event.preventDefault()
+  onbeforeunload = async () => {
+    await saveAnswer(questionIndex.value)
   }
   onUnmounted(() => {
     onbeforeunload = null
@@ -160,14 +193,24 @@ onMounted(async () => {
     startCountdown()
     exam.value = await paperStore.getExam(examId, userStore.token!)
     updateCountdown()
-    console.log(exam.value)
     answers.value = Array(questions.value.length).fill('')
+    const savedAnswers: Answer[] = exam.value.questions
+    savedAnswers.forEach((answer) => {
+      const questionId = answer.question
+      const index = questions.value.findIndex(
+        (question) => question.question.id === questionId
+      )
+      if (index !== -1) {
+        answers.value[index] = answer.answer
+      }
+    })
   } catch (e) {
-    console.log(e)
+    msgStore.addMessage(Message.topError('试卷加载失败'))
   }
 })
 
 onBeforeRouteLeave(() => {
+  saveAnswer(questionIndex.value)
   return confirm('你所做的更改可能未保存。')
 })
 
@@ -179,8 +222,21 @@ const jumpToQuestion = (index: number) => {
   questionIndex.value = index
 }
 
-const submitAnswer = () => {
-  alert(`Submit answer: ${answers.value}`)
+const submitAnswer = async () => {
+  // alert(`Submit answer: ${answers.value}`)
+  // 确认提交
+  if (confirm('确认提交试卷？')) {
+    try {
+      const score = await paperStore.submitExam(examId, userStore.token!)
+      alert(`试卷提交成功，得分：${score}`)
+    } catch (e) {
+      if (e instanceof HTTPError) {
+        msgStore.addMessage(Message.topError('试卷已经提交过了'))
+      } else {
+        msgStore.addMessage(Message.topError('试卷提交未知失败'))
+      }
+    }
+  }
 }
 </script>
 

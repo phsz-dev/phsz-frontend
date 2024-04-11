@@ -33,4 +33,12 @@ export default class Message {
     msg.showTime = showTime
     return msg
   }
+
+  public static topSuccess = (content: string) => {
+    return Message.partialMessage(content, 'success', 'top')
+  }
+
+  public static topError = (content: string) => {
+    return Message.partialMessage(content, 'error', 'top')
+  }
 }

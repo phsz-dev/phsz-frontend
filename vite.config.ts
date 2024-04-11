@@ -18,7 +18,7 @@ export default defineConfig({
         ws: true,
         changeOrigin: true
       },
-      '/oss':{
+      '/oss': {
         target: 'http://127.0.0.1:10010',
         ws: true,
         changeOrigin: true

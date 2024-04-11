@@ -79,7 +79,7 @@ import { RouterLink } from 'vue-router'
 
 import { useUserStore } from '../stores/user'
 import router from '../router'
-import HTTPError from '../types/Error'
+import HTTPError from '../types/error'
 
 const userStore = useUserStore()
 

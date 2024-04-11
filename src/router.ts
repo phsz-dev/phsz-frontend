@@ -140,7 +140,7 @@ const routes = [
             name: 'VaccineManagement',
             component: () => import('./components/PHVaccineManagement.vue')
           },
-          { 
+          {
             path: 'charge-management',
             name: 'ChargeManagement',
             component: () => import('./components/PHChargeManagement.vue')
@@ -149,7 +149,7 @@ const routes = [
             path: 'case-management',
             name: 'CaseManagement',
             component: () => import('./components/PHCaseManagement.vue')
-          },
+          }
         ]
       },
       {

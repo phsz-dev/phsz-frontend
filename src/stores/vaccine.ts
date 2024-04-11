@@ -15,7 +15,7 @@ export const useVaccineStore = defineStore('vaccine', () => {
     } catch (e) {
       console.log(e)
     }
-  } 
+  }
 
   return {
     vaccineInfo,

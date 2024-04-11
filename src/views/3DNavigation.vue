@@ -19,7 +19,6 @@
           :scale="0.05"
           :position="[1510, -3, -2620]"
         />
-
       </Suspense>
 
       <!-- <TresMesh>
@@ -28,7 +27,7 @@
       </TresMesh> -->
       <!-- <TresGridHelper /> -->
       <!-- 在xz平面上加一块淡灰色的板 -->
-      <TresMesh :position="[0,-1.3,0]" :rotation="[-Math.PI / 2, 0, 0]">
+      <TresMesh :position="[0, -1.3, 0]" :rotation="[-Math.PI / 2, 0, 0]">
         <TresPlaneGeometry :args="[32, 32]" />
         <TresMeshBasicMaterial color="#cccccc" />
       </TresMesh>
@@ -42,11 +41,17 @@
           <h2 class="text-lg font-bold">{{ markers[selected].name }}</h2>
           <p class="text-sm">{{ markers[selected].description }}</p>
         </div>
-        <button class="bg-secondary-500 px-4 py-2 text-white rounded-md absolute bottom-4 left-1/2 -translate-x-1/2">前往{{ markers[selected].name }}</button>
+        <button
+          class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-md bg-secondary-500 px-4 py-2 text-white"
+        >
+          前往{{ markers[selected].name }}
+        </button>
       </div>
     </Transition>
-    <PHLoadingIcon v-if="!resolveState" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-    
+    <PHLoadingIcon
+      v-if="!resolveState"
+      class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+    />
   </div>
 </template>
 
@@ -59,10 +64,9 @@ import { GLTFModel, OrbitControls, PointerLockControls, KeyboardControls } from 
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
 import Marker from '../types/Marker'
-import PHLoadingIcon from '../components/PHLoadingIcon.vue';
+import PHLoadingIcon from '../components/PHLoadingIcon.vue'
 
 const resolveState = ref(false)
-
 
 const markers: Record<string, Marker> = {
   '1': {

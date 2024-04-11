@@ -3,41 +3,47 @@
     class="h-fit w-full rounded-sm bg-white px-3 py-3 dark:bg-dark-block-600"
   >
     <div class="text-black dark:text-gray-200" v-html="processContent"></div>
-    <div class="mt-8 flex justify-around text-center select-none">
+    <div class="mt-8 flex select-none justify-around text-center">
       <button
-        @click="id_arr[2]<=0?id_arr[2]=0:id_arr[2]--"
         v-if="id_arr[2] > 0"
-        class="mx-2 py-2 px-6 flex-1 rounded-md border border-gray-400 text-left text-sm hover:border-secondary-500 hover:text-secondary-500 dark:border-gray-200 dark:text-gray-200"
+        class="mx-2 flex-1 rounded-md border border-gray-400 px-6 py-2 text-left text-sm hover:border-secondary-500 hover:text-secondary-500 dark:border-gray-200 dark:text-gray-200"
+        @click="id_arr[2] <= 0 ? (id_arr[2] = 0) : id_arr[2]--"
       >
         <div>上一步</div>
-        <div>{{store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]].procedures[id_arr[2]-1].name}}</div>
+        <div>
+          {{
+            store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]]
+              .procedures[id_arr[2] - 1].name
+          }}
+        </div>
       </button>
-      <div
-        v-else
-        class="mx-2 h-16 flex-1 px-6"
-      >
-      </div>
+      <div v-else class="mx-2 h-16 flex-1 px-6"></div>
       <button
-        @click="id_arr[2] <
-          store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]]
-            .procedures.length -
-            1?id_arr[2]++:id_arr[2]"
         v-if="
           id_arr[2] <
           store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]]
             .procedures.length -
             1
         "
-        class="mx-2 py-2 px-6 h-16 flex-1 rounded-md border border-gray-400 text-right text-sm hover:border-secondary-500 hover:text-secondary-500 dark:border-gray-200 dark:text-gray-200"
+        class="mx-2 h-16 flex-1 rounded-md border border-gray-400 px-6 py-2 text-right text-sm hover:border-secondary-500 hover:text-secondary-500 dark:border-gray-200 dark:text-gray-200"
+        @click="
+          id_arr[2] <
+          store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]]
+            .procedures.length -
+            1
+            ? id_arr[2]++
+            : id_arr[2]
+        "
       >
         <div>下一步</div>
-        <div>{{store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]].procedures[id_arr[2]+1].name}}</div>
+        <div>
+          {{
+            store.roleResponsibility[id_arr[0]].subResponsibilities[id_arr[1]]
+              .procedures[id_arr[2] + 1].name
+          }}
+        </div>
       </button>
-      <div
-        v-else
-        class="mx-2 h-16 flex-1 px-6"
-      >
-      </div>
+      <div v-else class="mx-2 h-16 flex-1 px-6"></div>
     </div>
   </div>
 </template>

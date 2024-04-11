@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useMessageStore } from '../stores/message'
-import Message from '../types/Message.ts'
+import Message from '../types/message.ts'
 const store = useMessageStore()
 
 const addMessage = (position: string, type: string) => {
