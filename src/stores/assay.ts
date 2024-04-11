@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import ApiService from '../http'
 import { ref } from 'vue'
-import Assay from '../types/Assay'
+import Assay from '../types/assay'
 
 const apiService = new ApiService('')
 

@@ -176,6 +176,11 @@ const routes = [
         path: 'message-test',
         name: 'MessageTest',
         component: () => import('./views/PHMessageTest.vue')
+      },
+      {
+        path: 'case-revise/:id',
+        name: 'CaseRevise',
+        component: () => import('./views/CaseRevise.vue')
       }
     ]
   }
