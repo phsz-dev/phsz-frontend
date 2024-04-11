@@ -25,8 +25,6 @@
   <PHPagination
     v-model="currentPage"
     :total-pages="props.totalPages"
-    @prev-page="updateList(currentPage)"
-    @next-page="updateList(currentPage)"
   />
 </template>
   
@@ -40,31 +38,27 @@ const props = defineProps<{
     value: string
   }>,
   totalPages?: number,
-  sortList: Function,
-  updateList: Function,
-  getList: Function
+  sortList?: Function,
+  updateList?: Function,
+  getList?: Function
 }>();
 
-let currentPage = 1
+const currentPage = defineModel<number>({ required: true })
+console.log(currentPage)
 const sortKey = ref('')
 const sortOrder = ref(0) // 0: 无序, 1: 升序, -1: 降序
 
-const sortBy = (key: string) => {
-  sortKey.value = key
-  // [0, 1, -1]中循环
-  sortOrder.value = ((sortOrder.value + 2) % 3) - 1
-  if (sortOrder.value === 0) {
-    sortKey.value = ''
-    props.getList()
-  } else {
-    props.sortList(key, sortOrder.value)
-  }
-}
-
-const updateList = (page: number) => {
-  currentPage = page
-  props.updateList(currentPage)
-}
+// const sortBy = (key: string) => {
+//   sortKey.value = key
+//   // [0, 1, -1]中循环
+//   sortOrder.value = ((sortOrder.value + 2) % 3) - 1
+//   if (sortOrder.value === 0) {
+//     sortKey.value = ''
+//     props.getList()
+//   } else {
+//     props.sortList(key, sortOrder.value)
+//   }
+// }
 </script>
 
 <style scoped>

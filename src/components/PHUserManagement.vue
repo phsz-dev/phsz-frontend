@@ -47,8 +47,8 @@ const tableHeaders = [
 
 const store = useUserStore()
 
-const getUserList = () => {
-  store.getUserList(0, 10)
+const getUserList = async () => {
+  await store.getUserList(0, 10)
 }
 
 const updateUserList = (page: number) => {

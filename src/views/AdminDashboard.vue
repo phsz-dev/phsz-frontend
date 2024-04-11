@@ -32,6 +32,7 @@ const menuList = [
 const routes = [
   '/user-management',
   '/assay-management',
+  // '/',
   '/vaccine-management',
   '/case-management',
 ]

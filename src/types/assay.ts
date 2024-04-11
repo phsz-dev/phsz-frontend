@@ -1,4 +1,4 @@
-export default interface assay {
+export default interface Assay {
   id: number
   name: string
   description: string

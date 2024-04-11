@@ -7,19 +7,33 @@ const apiService = new ApiService('')
 
 export const useVaccineStore = defineStore('vaccine', () => {
   const vaccineInfo = ref<vaccine>()
+  const vaccineList = ref<any>([])
 
   const getVaccineById = async (vaccineId: number) => {
     try {
       const res = await apiService.get('/api/vaccines/' + vaccineId)
-      console.log(res)
       vaccineInfo.value = res
     } catch (e) {
       console.log(e)
     }
   }
 
+  const getVaccineList = async (pageNum: number, pageSize: number) => {
+    try {
+      const res = await apiService.get(
+        `/api/vaccines?pageNum=${pageNum}&pageSize=${pageSize}`
+      )
+      vaccineList.value = res
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }    
+
   return {
     vaccineInfo,
-    getVaccineById
+    vaccineList,
+    getVaccineById,
+    getVaccineList
   }
 })
