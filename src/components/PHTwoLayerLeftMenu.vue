@@ -15,27 +15,32 @@
         @click="item.status = !item.status"
       >
         <div
-          class="text-md flex-grow font-medium text-black group-hover:text-secondary-500 dark:text-gray-200"
+          class="text-md flex-grow font-medium text-black group-hover:text-secondary-500 dark:text-gray-200 flex items-center justify-between"
         >
-          {{ item.name }}
-        </div>
-        <span
+          <div class="flex items-center">
+            {{ item.name }}
+            <div class="ml-2 phi-message-success w-5 h-5 bg-green-300" v-if="store.learnedResponsibility?.findIndex((it) => it == item.id) != -1"></div>
+          
+          </div>
+          <span
           v-if="item.subResponsibilities"
           class="phi-right-arrow h-6 w-6 rounded-full bg-zinc-700 group-hover:bg-secondary-500 dark:bg-gray-200 dark:group-hover:bg-secondary-500"
           :class="{
             'rotate-90 transform': item.status
           }"
         ></span>
+        </div>
+        
       </div>
 
       <template v-if="item.subResponsibilities && item.status">
         <div
           v-for="(subItem, subIndex) in item.subResponsibilities"
           :key="subIndex"
-          class="mx-4 cursor-pointer rounded-md px-2 pt-4 transition-colors duration-300 ease-in-out"
+          class="mx-4 cursor-pointer rounded-md px-2 pt-4 transition-colors duration-300 ease-in-out flex flex-row"
         >
           <div
-            class="text-md pt-2 font-medium text-black hover:text-secondary-500 dark:text-gray-200"
+            class="text-md font-medium text-black hover:text-secondary-500 dark:text-gray-200"
             :class="{
               '!text-secondary-500':
                 (menu_id == undefined ? [0, 0, 0] : menu_id)[1] == subIndex &&
@@ -45,6 +50,7 @@
           >
             {{ subItem.name }}
           </div>
+          <div class="ml-2 phi-message-success w-5 h-5 bg-green-300" v-if="store.learnedSubResponsibility?.findIndex((item) => item == subItem.id) != -1"></div>
         </div>
       </template>
     </div>
@@ -55,7 +61,8 @@
 <script setup lang="ts">
 import MenuLayer from '../types/MenuLayer'
 import { ref, watch } from 'vue'
-
+import { useRoleStore } from '../stores/role';
+const store = useRoleStore()
 const props = defineProps<{
   title: string
   leftMenu: MenuLayer[]

@@ -97,6 +97,11 @@ const routes = [
             path: 'collect-case',
             name: 'ProfileCollectCase',
             component: () => import('./components/PHProfileCollectCase.vue')
+          },
+          {
+            path: 'my-exams',
+            name: 'ProfileMyExam',
+            component: () => import('./components/PHProfileTest.vue')
           }
         ]
       },
@@ -181,6 +186,11 @@ const routes = [
         path: 'case-revise/:id',
         name: 'CaseRevise',
         component: () => import('./views/CaseRevise.vue')
+      },
+      {
+        path: '3d-navigation-inner/:id',
+        name: '3dNavigationInner',
+        component: () => import('./views/3DNavigationInner.vue')
       }
     ]
   }

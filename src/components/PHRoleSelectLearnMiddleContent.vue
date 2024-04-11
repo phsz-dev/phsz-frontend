@@ -17,7 +17,9 @@
           }}
         </div>
       </button>
-      <div v-else class="mx-2 h-16 flex-1 px-6"></div>
+      <div v-else class="mx-2 h-16 flex-1 px-6">
+        
+      </div>
       <button
         v-if="
           id_arr[2] <
@@ -43,7 +45,9 @@
           }}
         </div>
       </button>
-      <div v-else class="mx-2 h-16 flex-1 px-6"></div>
+      <div v-else class="mx-2 h-16 leading-10 flex-1 px-6 rounded-md border border-gray-400 py-2 text-right text-sm hover:border-secondary-500 hover:text-secondary-500 dark:border-gray-200 dark:text-gray-200 items-center">
+        <div @click="completeChapter">完成本章节</div>
+      </div>
     </div>
   </div>
 </template>
@@ -51,9 +55,13 @@
 <script setup lang="ts">
 import { useRoleStore } from '../stores/role'
 import { computed } from 'vue'
+import { useMessageStore } from '../stores/message';
+import Message from '../types/message';
+import router from '../router';
 
 const id_arr = defineModel<number[]>({ required: true })
 const store = useRoleStore()
+const messageStore = useMessageStore()
 
 const processContent = computed(() => {
   if (
@@ -72,4 +80,24 @@ const processContent = computed(() => {
     id_arr.value[1]
   ].procedures[id_arr.value[2]].content
 })
+
+const completeChapter = async() => {
+  try{
+    if(id_arr.value[2] != store.roleResponsibility[id_arr.value[0]].subResponsibilities[id_arr.value[1]].procedures.length - 1){
+      return
+    }
+    if(store.learnedSubResponsibility?.findIndex((item) => item == store.roleResponsibility[id_arr.value[0]].subResponsibilities[id_arr.value[1]].id) != -1){
+      messageStore.addMessage(Message.partialMessage('已经学习过了', 'warn','top'))
+      return
+    }
+    await store.addLearnedRoleSubResponsibility(
+      store.roleResponsibility[id_arr.value[0]].subResponsibilities[id_arr.value[1]].id
+    )
+    // 刷新界面
+    router.go(0)
+  }catch{
+    console.log('completeChapter error')
+  }
+  
+}
 </script>

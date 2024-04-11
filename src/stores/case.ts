@@ -112,6 +112,9 @@ export const useCaseStore = defineStore('case', () => {
   const updateCase = async (caseInfo: Case) => {
     try {
       const res = await apiService.put('/api/cases', caseInfo)
+  const collectCase = async (caseId: number) => {
+    try {
+      const res = await apiService.get('/api/cases/collect/' + caseId, localStorage.getItem('token') ?? undefined)
       console.log(res)
     } catch (e) {
       console.log(e)
@@ -133,6 +136,7 @@ export const useCaseStore = defineStore('case', () => {
     addCaseVaccineLocal,
     deleteCaseAssayLocal,
     addCaseAssayLocal,
-    updateCase
+    updateCase,
+    collectCase
   }
 })

@@ -5,6 +5,7 @@ import router from '../router'
 import ApiService from '../http'
 import Page from '../types/Page'
 import RoughCase from '../types/RoughCase'
+import { Exam } from '../types/paper'
 
 const apiService = new ApiService('')
 
@@ -16,6 +17,7 @@ export const useUserStore = defineStore('user', () => {
   const roles = ref<string[]>([])
   const avatar = ref('')
   const collectPageInfo = ref<Page<RoughCase>>()
+  const myExamInfo = ref<Page<Exam>>()
 
   const register = async (username: string, password: string) => {
     let data = {
@@ -121,6 +123,19 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const getMyExam = async (pageNum: number, pageSize: number) => {
+    try {
+      const res = await apiService.get(
+        `/api/test/exam/history?pageNum=${pageNum}&pageSize=${pageSize}`,
+        token.value
+      )
+      console.log(res)
+      myExamInfo.value = res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     isLogged,
     token,
@@ -129,6 +144,7 @@ export const useUserStore = defineStore('user', () => {
     roles,
     avatar,
     collectPageInfo,
+    myExamInfo,
     login,
     logout,
     register,
@@ -136,6 +152,7 @@ export const useUserStore = defineStore('user', () => {
     getCollectedCase,
     updateUserInfo,
     uploadAvatar,
-    updateUser
+    updateUser,
+    getMyExam
   }
 })
