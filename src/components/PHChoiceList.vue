@@ -1,11 +1,12 @@
 <template>
   <div class="flex w-full flex-row items-center justify-around">
+    <!-- prettier-ignore -->
     <div
       v-for="(item, index) in choices"
       :key="index"
       @click="
         {
-          currentIndex = index
+          currentIndex = index;
           emit('changeIndex')
         }
       "
