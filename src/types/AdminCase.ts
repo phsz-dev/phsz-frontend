@@ -1,7 +1,7 @@
 export default interface AdminCase {
     id: number
     name: string
-    diseaseList: string
+    diseases: string
     description: string
     submitTime: number
     assays: string
