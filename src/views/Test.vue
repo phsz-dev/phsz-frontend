@@ -83,6 +83,7 @@ import { useUserStore } from '../stores/user'
 import { usePaperStore } from '../stores/paper'
 import { useMessageStore } from '../stores/message'
 import HTTPError from '../types/error'
+import router from '../router'
 
 const route = useRoute()
 const userStore = useUserStore()
@@ -209,7 +210,10 @@ onMounted(async () => {
   }
 })
 
+const submitted = ref(false)
+
 onBeforeRouteLeave(() => {
+  if (submitted.value) return
   saveAnswer(questionIndex.value)
   return confirm('你所做的更改可能未保存。')
 })
@@ -227,8 +231,9 @@ const submitAnswer = async () => {
   // 确认提交
   if (confirm('确认提交试卷？')) {
     try {
-      const score = await paperStore.submitExam(examId, userStore.token!)
-      alert(`试卷提交成功，得分：${score}`)
+      await paperStore.submitExam(examId, userStore.token!)
+      submitted.value = true
+      router.replace(`/test-result/${examId}`)
     } catch (e) {
       if (e instanceof HTTPError) {
         msgStore.addMessage(Message.topError('试卷已经提交过了'))

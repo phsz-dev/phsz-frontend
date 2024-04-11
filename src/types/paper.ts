@@ -6,6 +6,7 @@ interface Exam {
   startTime: string
   endTime: string
   questions: Answer[]
+  score: number
 }
 
 interface Paper {
@@ -28,6 +29,7 @@ interface Question {
   text: string
   type: string
   options?: Option[]
+  answer: string
 }
 
 interface Option {

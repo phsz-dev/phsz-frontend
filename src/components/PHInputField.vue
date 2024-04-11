@@ -12,6 +12,7 @@
       "
       :placeholder="placeholder"
       @input="$emit('input', $event)"
+      @keydown="$emit('keydown', $event)"
     />
     <div
       v-if="errorCondition && errorMessage"
@@ -44,5 +45,5 @@ withDefaults(
 
 const modelValue = defineModel<string>()
 
-defineEmits(['input'])
+defineEmits(['input', 'keydown'])
 </script>

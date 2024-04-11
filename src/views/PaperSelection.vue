@@ -7,7 +7,7 @@
       placeholder="搜索试卷..."
       class="w-full border p-2 shadow-sm"
     /> -->
-      <PHInputField type="search" placeholder="搜索试卷..." class="max-w-xl" />
+      <PHInputField v-model="inputText" type="search" placeholder="搜索试卷..." class="max-w-xl" @keydown.enter="search" />
     </div>
 
     <!-- Exam Papers List -->
@@ -28,14 +28,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import PHInputField from '../components/PHInputField.vue'
 import PHPaperItem from '../components/PHPaperItem.vue'
 import PHPagination from '../components/PHPagination.vue'
 import { Paper } from '../types/paper'
 import { usePage } from '../composables'
 
-const { page } = usePage<Paper>('api/test/paper/info', 12)
+const { page, url, params } = usePage<Paper>('api/test/paper/info', 12)
 
 const papers = computed(() => page.value.content)
+
+const inputText = ref('')
+
+const search = () => {
+  if (inputText.value === '') {
+    url.value = 'api/test/paper/info'
+    params.value = {}
+    return
+  }
+  url.value = 'api/test/paper/name'
+  params.value = { ...params.value, name: inputText }
+}
 </script>
