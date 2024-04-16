@@ -1,4 +1,5 @@
 <template>
+  <PHSearchBar :placeholder="'phrase in:field1,field2'"/>
   <table class="w-full text-left text-sm text-black dark:text-gray-200">
     <thead>
       <tr>
@@ -27,6 +28,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import PHSearchBar from '../components/PHSearchBar.vue'
 import PHPagination from '../components/PHPagination.vue'
 
 const props = defineProps<{
