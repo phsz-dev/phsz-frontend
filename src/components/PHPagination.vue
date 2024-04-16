@@ -19,6 +19,9 @@
 </template>
 
 <script setup lang="ts">
+import { useMessageStore } from '../stores/message';
+import Message from '../types/message';
+const store = useMessageStore()
 const props = defineProps<{
   totalPages?: number
 }>()
@@ -32,11 +35,19 @@ const emit = defineEmits<{
 
 const prevPage = () => {
   currentPage.value > 0 && currentPage.value--
+  if(currentPage.value == 0) {
+    store.addMessage(Message.partialMessage('已经是第一页了', 'warn','top'))
+  }
   emit('prevPage')
 }
 
 const nextPage = () => {
   currentPage.value < (props.totalPages ?? 0) - 1 && currentPage.value++
+  if(currentPage.value == (props.totalPages ?? 0) - 1) {
+    store.addMessage(Message.partialMessage('已经是最后一页了', 'warn','top'))
+  }
   emit('nextPage')
 }
+
+
 </script>

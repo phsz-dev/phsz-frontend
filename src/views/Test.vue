@@ -229,6 +229,7 @@ const jumpToQuestion = (index: number) => {
 const submitAnswer = async () => {
   // alert(`Submit answer: ${answers.value}`)
   // 确认提交
+  saveAnswer(questionIndex.value)
   if (confirm('确认提交试卷？')) {
     try {
       await paperStore.submitExam(examId, userStore.token!)

@@ -46,7 +46,10 @@ const processProcedure = computed(() => {
   if (currentIndex.value == undefined) {
     return []
   }
+  // 给我的useuseRoleStore().roleResponsibility[currentIndex.value[0]].subResponsibilities[currentIndex.value[1]].procedures按照rank排序
   return useRoleStore().roleResponsibility[currentIndex.value[0]]
-    .subResponsibilities[currentIndex.value[1]].procedures
+    .subResponsibilities[currentIndex.value[1]].procedures.sort(
+      (a, b) => a.rank - b.rank
+    )
 })
 </script>

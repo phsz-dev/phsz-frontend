@@ -64,6 +64,12 @@ const links = computed(() => {
     links.push({ path: '/login', text: '登录 | 注册' })
   }
 
+  console.log(userStore.roles)
+
+  if(userStore.roles.findIndex(role => role == 'ROLE_ADMIN') != -1) {
+    links.push({ path: '/admin-dashboard/user-management', text: '管理' })
+  }
+
   return links
 })
 </script>

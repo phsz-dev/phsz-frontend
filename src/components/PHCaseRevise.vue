@@ -314,7 +314,7 @@
     <div class="flex w-full justify-center py-4">
       <button
         class="rounded-md bg-primary-500 px-4 py-2 text-lg text-white"
-        @click="store.updateCase(store.detailedCase!)"
+        @click="saveCase"
       >
         保存
       </button>
@@ -333,6 +333,9 @@ import PHQuill from './PHQuill.vue'
 import { useAssayStore } from '../stores/assay'
 import { useMedicineStore } from '../stores/medicine'
 import { useVaccineStore } from '../stores/vaccine'
+import { useMessageStore } from '../stores/message'
+import Message from '../types/message'
+const messageStore = useMessageStore()
 const store = useCaseStore()
 const medicineStore = useMedicineStore()
 const vaccineStore = useVaccineStore()
@@ -371,4 +374,9 @@ const newAssay = reactive({
   result: '',
   date: ''
 })
+
+const saveCase = async () =>{
+  await store.updateCase(store.detailedCase!)
+  messageStore.addMessage(Message.partialMessage('保存成功', 'success','top'))
+}
 </script>

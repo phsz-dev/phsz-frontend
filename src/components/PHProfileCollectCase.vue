@@ -9,7 +9,7 @@
       <div
         v-for="(item, index) in store.collectPageInfo?.content"
         :key="index"
-        class="mx-4 border-b border-gray-400 px-1 py-3"
+        class="mx-4 border-b border-gray-400"
       >
         <PHRoughCase :rough-case="item" />
       </div>

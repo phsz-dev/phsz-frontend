@@ -44,7 +44,7 @@ const routes = [
   '',
   '/collect-case',
   '/my-questions',
-  '/my-exam',
+  '/my-exams',
   '/my-certificate',
   '/my-messages',
   '/my-settings'
