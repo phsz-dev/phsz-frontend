@@ -86,6 +86,36 @@ class ApiService {
     return await this._handleResponse(res)
   }
 
+  async postStream(url: string, data: any, token?: string, onProgress?: (str : string) => void) {
+    const header = new Headers()
+    header.append('Content-Type', 'application/json')
+    if (token) {
+      header.append('Authorization', `Bearer ${token}`)
+    }
+    const res = await fetch(this.baseUrl + url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: header
+    })
+    const reader = res.body?.getReader()
+    if (!reader) {
+      throw new Error('response body is null')
+    }
+    let str = ''
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) {
+        break
+      }
+      str += new TextDecoder().decode(value)
+      if (onProgress) {
+        onProgress(str)
+      }
+    }
+    return await this._handleResponse(res)
+  }
+
   async _handleResponse(res: Response) {
     if (!res.ok) {
       if (res.status === 401) {

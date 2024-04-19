@@ -2,6 +2,7 @@
 import PHMessage from './components/PHMessage.vue'
 import PHNavBar from './components/PHNavBar.vue'
 import PHDialogue from './components/PHDialogue.vue'
+import PHChatPanel from './components/PHChatPanel.vue';
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import PHDialogue from './components/PHDialogue.vue'
     <PHNavBar />
     <PHMessage />
     <PHDialogue />
+    <PHChatPanel />
 
     <div class="h-0 grow">
       <RouterView v-slot="{ Component }">
