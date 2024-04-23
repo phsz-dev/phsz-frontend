@@ -4,7 +4,7 @@
       {{ props.title }}
     </div>
     <button 
-      class="px-3 py-1 bg-blue-500 text-white font-semibold rounded hover:bg-blue-700"
+      class="px-4 py-2 bg-secondary-500 text-white text-sm rounded"
       @click="addItem">
       {{ props.buttonName }}
     </button>

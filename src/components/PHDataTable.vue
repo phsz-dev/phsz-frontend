@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col size-full pb-8">
+  <div class="flex flex-col flex-1 h-10">
     <PHSearchBar :placeholder="'phrase in:field1,field2'" />
     <div class="flex-1 overflow-scroll">
       <table
-        class="size-full overflow-scroll text-left text-sm text-black dark:text-gray-200"
+        class="w-full flex-1 overflow-scroll text-left text-sm text-black dark:text-gray-200"
       >
         <thead>
           <tr>
@@ -41,7 +41,7 @@
 import { ref } from 'vue'
 import PHSearchBar from '../components/PHSearchBar.vue'
 import PHPagination from '../components/PHPagination.vue'
-import Page from '../types/Page';
+import Page from '../types/Page'
 
 const props = defineProps<{
   headers: Array<{

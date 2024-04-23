@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
+  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
     <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
     <PHDataTable
       v-model="page"
@@ -62,7 +62,7 @@ const toggleUserEnabled = (user: any) => {
   store.updateUser(user)
 }
 
-const { page } = usePage<UserInfo>('/api/users', 10, store.token)
+const { page } = usePage<UserInfo>('/api/users', 12, store.token)
 
 import { useDialogueStore } from '../stores/dialogue';
 
