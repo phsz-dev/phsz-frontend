@@ -4,4 +4,6 @@ export default interface Page<T> {
   totalPages: number
   pageNumber: number
   pageSize: number
+  orderColumn: string,
+  orderType: string
 }
