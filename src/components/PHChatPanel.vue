@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed right-20 bottom-20">
+  <div class="fixed right-20 bottom-20 z-50">
     <div v-if="hidden">
       
     </div>

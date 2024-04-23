@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
+  <div class="size-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
     <PHTableCaption :title="title" />
     <PHDataTable
       v-model="page.pageNumber"

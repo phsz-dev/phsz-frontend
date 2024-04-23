@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto flex max-w-screen-2xl flex-row px-4">
+  <div class="mx-auto flex max-w-screen-2xl flex-row px-4 h-full pb-4">
     <div class="h-full w-80">
       <PHLeftMenu
         v-model="menu_id"

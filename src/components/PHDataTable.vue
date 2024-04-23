@@ -1,29 +1,40 @@
 <template>
-  <PHSearchBar :placeholder="'phrase in:field1,field2'"/>
-  <table class="w-full text-left text-sm text-black dark:text-gray-200">
-    <thead>
-      <tr>
-        <th
-          v-for="header in props.headers"
-          :key="header.value"
-          scope="col"
-          class="group cursor-pointer items-center justify-between px-6 py-3"
-          :class="{ 'bg-gray-500': sortKey === header.value }"
-          @click="sortBy(header.value)"
-        >
-          {{ header.text }}
-          <span v-if="sortKey === header.value">
-            <span v-if="sortOrder === 1">↑</span>
-            <span v-else-if="sortOrder === -1">↓</span>
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <slot></slot>
-    </tbody>
-  </table>
-  <PHPagination v-model="currentPage" :total-pages="props.totalPages" />
+  <div class="flex flex-col size-full pb-8">
+    <PHSearchBar :placeholder="'phrase in:field1,field2'" />
+    <div class="flex-1 overflow-scroll">
+      <table
+        class="size-full overflow-scroll text-left text-sm text-black dark:text-gray-200"
+      >
+        <thead>
+          <tr>
+            <th
+              v-for="header in props.headers"
+              :key="header.value"
+              scope="col"
+              class="group cursor-pointer items-center justify-between px-6 py-3"
+              :class="{ 'bg-gray-500': sortKey === header.value }"
+              @click="sortBy(header.value)"
+            >
+              {{ header.text }}
+              <span v-if="sortKey === header.value">
+                <span v-if="sortOrder === 1">↑</span>
+                <span v-else-if="sortOrder === -1">↓</span>
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <slot></slot>
+        </tbody>
+      </table>
+    </div>
+
+    <PHPagination
+      v-model="currentPage"
+      :total-pages="props.totalPages"
+      class="mt-0"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
