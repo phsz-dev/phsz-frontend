@@ -30,8 +30,8 @@
     </div>
 
     <PHPagination
-      v-model="currentPage"
-      :total-pages="props.totalPages"
+      v-model="page.pageNumber"
+      :total-pages="page.totalPages"
       class="mt-0"
     />
   </div>
@@ -41,18 +41,17 @@
 import { ref } from 'vue'
 import PHSearchBar from '../components/PHSearchBar.vue'
 import PHPagination from '../components/PHPagination.vue'
+import Page from '../types/Page';
 
 const props = defineProps<{
   headers: Array<{
     text: string
     value: string
   }>
-  totalPages?: number
-  sortList?: Function
   getList?: Function
 }>()
 
-const currentPage = defineModel<number>({ required: true })
+const page = defineModel<Page<any>>({ required: true })
 const sortKey = ref('')
 const sortOrder = ref(0) // 0: 无序, 1: 升序, -1: 降序
 
@@ -62,10 +61,12 @@ const sortBy = (key: string) => {
   sortOrder.value = ((sortOrder.value + 2) % 3) - 1
   if (sortOrder.value === 0) {
     sortKey.value = ''
-    props.getList?.()
-  } else {
-    props.sortList?.(key, sortOrder.value)
+    page.value.orderColumn = ''
+    page.value.orderType = ''
+    return
   }
+  page.value.orderColumn = sortKey.value
+  page.value.orderType = sortOrder.value == 1 ? 'ASC' : 'DESC'
 }
 </script>
 

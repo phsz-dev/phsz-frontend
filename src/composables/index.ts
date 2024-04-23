@@ -22,27 +22,39 @@ const usePage = <T>(initialUrl: string, pageSize: number, token?: string) => {
   watch(
     () => page.value.pageNumber,
     (newPage) => {
+      console.log('page changed')
       router.push({ query: { ...route.query, page: newPage + 1 } })
       getPage()
     }
   )
 
   watch(
-    () => params.value,
-    () => {
+    () => [params.value, page.value.orderColumn, page.value.orderType].join(),
+    (newValue) => {
+      console.log('params changed', newValue)
       page.value.pageNumber = 0
       getPage()
     }
   )
 
   const getPage = async () => {
+    const searchParams = {
+      ...params.value,
+      pageNum: page.value.pageNumber,
+      pageSize: page.value.pageSize
+    }
+    if (page.value.orderColumn) {
+      searchParams['orderColumn'] = page.value.orderColumn
+      searchParams['orderType'] = page.value.orderType
+    }
     const res = await apiService.get(
-      url.value + '?' + new URLSearchParams({ ...params.value, pageNum: page.value.pageNumber, pageSize: page.value.pageSize }),
+      url.value + '?' + new URLSearchParams(searchParams),
       token
     )
-    if (res.pageNumber === page.value.pageNumber) {
-      page.value = res
-    }
+    
+    page.value.content = res.content
+    page.value.totalElements = res.totalElements
+    page.value.totalPages = res.totalPages
   }
 
   getPage()

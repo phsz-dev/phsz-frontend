@@ -1,17 +1,24 @@
 <template>
   <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
-    <PHTableCaption :title="title" />
+    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
     <PHDataTable
-      v-model="page.pageNumber"
+      v-model="page"
       :headers="tableHeaders"
-      :total-pages="page.totalPages"
     >
       <template #default>
         <tr v-for="user in page.content" :key="user.id">
           <td class="px-6 py-4">{{ user.id }}</td>
           <td class="px-6 py-4">{{ user.username }}</td>
           <td class="px-6 py-4">{{ user.email }}</td>
-          <td class="px-6 py-4">{{ user.roles }}</td>
+          <td class="px-6 py-4">
+            <span
+              v-for="role in user.roles"
+              :key="role"
+              class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs mr-1"
+            >
+              {{ role }}
+            </span>
+          </td>
           <td class="flex items-center justify-start space-x-2 px-6 py-4">
             <span>{{ user.enabled ? '启用' : '禁用' }}</span>
             <div
@@ -39,6 +46,7 @@ import UserInfo from '../types/User'
 import { usePage } from '../composables'
 
 const title = '用户管理'
+const buttonName = '添加用户'
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '用户名', value: 'username' },
@@ -55,6 +63,31 @@ const toggleUserEnabled = (user: any) => {
 }
 
 const { page } = usePage<UserInfo>('/api/users', 10, store.token)
+
+import { useDialogueStore } from '../stores/dialogue';
+
+const dialogueStore = useDialogueStore()
+
+const addDialogue = () => {
+  dialogueStore.showDialogue({
+    title: '这是一个弹窗',
+    content: '这是弹窗的内容',
+    showCancel: true,
+    clickMaskClose: true,
+    confirm: () => {
+      console.log('点击了确定')
+      dialogueStore.closeDialogue()
+    },
+    cancel: () => {
+      console.log('点击了取消')
+      dialogueStore.closeDialogue()
+    }
+  })
+}
+
+const addItem = () => {
+  
+}
 </script>
 
 <style scoped></style>
