@@ -41,7 +41,7 @@ const routes = [
 ]
 
 const menu_id = ref(
-  routes.findIndex((item) => item + '/admin-dashboard' === route.path)
+  routes.findIndex((item) => '/admin-dashboard' + item === route.path)
 )
 
 watch(menu_id, (newVal) => {

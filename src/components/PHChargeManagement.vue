@@ -1,8 +1,8 @@
 <template>
-  <div class="size-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
-    <PHTableCaption :title="title" />
+  <div class="size-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex flex-col">
+    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
     <PHDataTable
-      v-model="page.pageNumber"
+      v-model="page"
       :headers="tableHeaders"
       :total-pages="page.totalPages"
     >
@@ -24,6 +24,10 @@ import Charge from '../types/Charge'
 import { usePage } from '../composables'
 
 const title = '收费管理'
+const buttonName = '添加收费'
+const addItem = () => {
+  console.log('add item')
+}
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '详情', value: 'details' },

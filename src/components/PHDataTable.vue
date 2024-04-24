@@ -11,8 +11,9 @@
               v-for="header in props.headers"
               :key="header.value"
               scope="col"
-              class="group cursor-pointer items-center justify-between px-6 py-3"
-              :class="{ 'bg-gray-500': sortKey === header.value }"
+              class="group cursor-pointer items-center justify-between px-6 py-3 h-10 select-none"
+              :class="{ 'dark:bg-dark-block-400 bg-secondary-50': sortKey === header.value }"
+              v-bind:class="header.width"
               @click="sortBy(header.value)"
             >
               {{ header.text }}
@@ -47,6 +48,7 @@ const props = defineProps<{
   headers: Array<{
     text: string
     value: string
+    width?: string
   }>
   getList?: Function
 }>()

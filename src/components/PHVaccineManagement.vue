@@ -1,8 +1,8 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
-    <PHTableCaption :title="title" />
+  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex flex-col">
+    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
     <PHDataTable
-      v-model="page.pageNumber"
+      v-model="page"
       :headers="tableHeaders"
       :total-pages="page.totalPages"
     >
@@ -12,7 +12,7 @@
           <td class="px-6 py-4">{{ vaccine.name }}</td>
           <td class="px-6 py-4">{{ vaccine.manufacturer }}</td>
           <td class="px-6 py-4">{{ vaccine.price }}</td>
-          <td class="px-6 py-4">{{ vaccine.expiryDate }}</td>
+          <td class="px-6 py-4">{{ new Date(vaccine.expiryDate.toString()).toLocaleDateString() }}</td>
         </tr>
       </template>
     </PHDataTable>
@@ -26,6 +26,10 @@ import Vaccine from '../types/vaccine'
 import { usePage } from '../composables'
 
 const title = '疫苗管理'
+const buttonName = '添加疫苗'
+const addItem = () => {
+  console.log('add item')
+}
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '疫苗名称', value: 'name' },

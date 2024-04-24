@@ -1,8 +1,8 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500">
-    <PHTableCaption :title="title" />
+  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
+    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem"/>
     <PHDataTable
-      v-model="page.pageNumber"
+      v-model="page"
       :headers="tableHeaders"
       :total-pages="page.totalPages"
     >
@@ -11,9 +11,8 @@
           <td class="px-6 py-4">{{ assay.id }}</td>
           <td class="px-6 py-4">{{ assay.name }}</td>
           <td class="px-6 py-4">{{ assay.type }}</td>
-          <td class="px-6 py-4" v-html="assay.description"></td>
           <td class="px-6 py-4">{{ assay.price }}</td>
-          <td class="px-6 py-4">{{ assay.date }}</td>
+          <td class="px-6 py-4">{{ new Date(assay.date).toLocaleDateString() }}</td>
         </tr>
       </template>
     </PHDataTable>
@@ -27,16 +26,20 @@ import Assay from '../types/assay'
 import { usePage } from '../composables'
 
 const title = '检查管理'
+const buttonName = '添加检查'
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '检查名称', value: 'name' },
   { text: '类型', value: 'type' },
-  { text: '描述', value: 'description' },
   { text: '价格', value: 'price' },
   { text: '修改时间', value: 'date' }
 ]
 
 const { page } = usePage<Assay>('/api/assays', 10)
+console.log(page)
+const addItem = () => {
+  console.log('add item')
+}
 </script>
 
 <style scoped></style>
