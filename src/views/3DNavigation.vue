@@ -3,31 +3,80 @@
     <TresCanvas
       ref="canvas"
       window-size
+      shadows
       :clear-color="dark ? '#000' : '#f4f8ff'"
       @click="onCanvasClick"
     >
-      <TresPerspectiveCamera :position="[15, 15, -30]" />
-      <TresAmbientLight :intensity="1" />
-      <TresDirectionalLight cast-shadow :position="[0, 20, 0]" :intensity="1" />
+      <!-- 定义相机 -->
+      <!-- 正交投影，适合平面图 -->
+      <!-- <TresOrthographicCamera :position="[0, 0, 100]" :look-at="[0,0,0]" /> -->
+      <TresPerspectiveCamera :position="[50, 50, 100]" :look-at="[0,0,0]" />
+      <TresAmbientLight :intensity="0.5" />
+      <!-- <TresDirectionalLight
+        ref="lightRef"
+        v-light-helper
+        cast-shadow
+        :position="[0, 60, 50]"
+        :intensity="1.5"
+      /> -->
       <OrbitControls />
-      <Suspense @resolve="(resolveState = true)" @pending="(resolveState = false)">
-        <GLTFModel
-          path="/models/hospital-whole/hospital-whole.gltf"
-          :scale="0.05"
-          :position="[1510, -3, -2620]"
-        />
 
-      </Suspense>
+      <!-- 右墙 -->
+      <TresMesh cast-shadow :position="[25, 3, 0]" >
+        <TresBoxGeometry :args="[1,6,49]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+      
+      <!-- 左墙 -->
+      <TresMesh cast-shadow :position="[-25, 3, 0]" >
+        <TresBoxGeometry :args="[1,6,49]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
 
-      <!-- <TresMesh>
-        <TresTorusGeometry :args="[1, 0.5, 16, 32]" />
-        <TresMeshBasicMaterial color="orange" />
-      </TresMesh> -->
-      <!-- <TresGridHelper /> -->
-      <!-- 在xz平面上加一块淡灰色的板 -->
-      <TresMesh :position="[0,-1.3,0]" :rotation="[-Math.PI / 2, 0, 0]">
-        <TresPlaneGeometry :args="[32, 32]" />
-        <TresMeshBasicMaterial color="#cccccc" />
+      <!-- 后墙 -->
+      <TresMesh cast-shadow :position="[0, 3, -25]" >
+        <TresBoxGeometry :args="[49,6,1]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <!-- 前墙 -->
+      <TresMesh cast-shadow :position="[0, 3, 25]" >
+        <TresBoxGeometry :args="[49,6,1]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[20, 3, 15]" >
+        <TresBoxGeometry :args="[10,6,0.5]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[20, 3, 5]" >
+        <TresBoxGeometry :args="[10,6,0.5]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[20, 3, -5]" >
+        <TresBoxGeometry :args="[10,6,0.5]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[20, 3, -15]" >
+        <TresBoxGeometry :args="[10,6,0.5]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[15, 3, 0]" >
+        <TresBoxGeometry :args="[0.5,6,49]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh
+        receive-shadow
+        :position="[0, 0, 0]"
+        :rotation="[-Math.PI / 2, 0, 0]"
+      >
+        <TresPlaneGeometry :args="[60, 60]" />
+        <TresMeshStandardMaterial color="#f7f7f7" />
       </TresMesh>
     </TresCanvas>
     <Transition name="fade">
@@ -39,11 +88,14 @@
           <h2 class="text-lg font-bold">{{ markers[selected].name }}</h2>
           <p class="text-sm">{{ markers[selected].description }}</p>
         </div>
-        <RouterLink :to="{path:`/3d-navigation-inner/${markers[selected].id}`}" class="bg-secondary-500 px-4 py-2 text-white rounded-md absolute bottom-4 left-1/2 -translate-x-1/2">前往{{ markers[selected].name }}</RouterLink>
+        <RouterLink
+          :to="{ path: `/3d-navigation-inner/${markers[selected].id}` }"
+          class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-md bg-secondary-500 px-4 py-2 text-white"
+          >前往{{ markers[selected].name }}</RouterLink
+        >
       </div>
     </Transition>
-    <PHLoadingIcon v-if="!resolveState" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-    
+    <!-- <PHLoadingIcon v-if="!resolveState" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" /> -->
   </div>
 </template>
 
@@ -52,14 +104,20 @@ import { useDark } from '@vueuse/core'
 const dark = useDark()
 
 import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
-import { GLTFModel, OrbitControls } from '@tresjs/cientos'
+import { Texture, TextureLoader } from 'three'
+import { GLTFModel, OrbitControls, vLightHelper } from '@tresjs/cientos'
 import * as THREE from 'three'
-import { onMounted, ref } from 'vue'
+import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass.js';
+import { onMounted, ref, Ref, shallowRef } from 'vue'
 import Marker from '../types/Marker'
-import PHLoadingIcon from '../components/PHLoadingIcon.vue';
+import PHLoadingIcon from '../components/PHLoadingIcon.vue'
 
 const resolveState = ref(false)
-
+const wallTexture: Ref<Texture | null> = ref(null)
+const roofTexture: Ref<Texture | null> = ref(null)
+const loader = new TextureLoader()
+wallTexture.value = loader.load('/path/to/wall-texture.jpg')
+roofTexture.value = loader.load('/path/to/roof-texture.jpg')
 
 const markers: Record<string, Marker> = {
   '1': {
@@ -84,6 +142,17 @@ let context: TresContext
 onMounted(async () => {
   context = canvas.value!.context!
   context.scene.value.add(markers_group)
+
+  const light = new THREE.DirectionalLight(0xffffff, 1.5)
+  light.position.set(0, 60, 50)
+  light.castShadow = true
+  light.shadow.camera.left = -38
+  light.shadow.camera.right = 38
+  light.shadow.camera.bottom = -38
+  light.shadow.camera.top = 38
+  light.position.set(30, 50, 30)
+
+  context.scene.value.add(light)
 
   const markerUrl = '/map_marker.svg'
   const markerTexture = await useTexture([markerUrl])
