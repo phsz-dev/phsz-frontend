@@ -8,7 +8,7 @@
     @add-item="addItem"
     @revise-item="reviseItem"
   >
-    <PHMedicineForm ref="medicineForm" />
+    <PHMedicineForm ref="medicineForm" @submit="refresh" />
   </PHManagement>
 </template>
 
@@ -17,6 +17,7 @@ import { ref } from 'vue'
 import PHManagement from './PHManagement.vue'
 import PHMedicineForm from './PHMedicineForm.vue'
 import { createModalConfig } from '../utils/ModalConfig'
+import router from '../router';
 
 const title = '药品管理'
 const buttonName = '添加药品'
@@ -48,5 +49,10 @@ const reviseItem = async (id: number) => {
     await new Promise((resolve) => setTimeout(resolve, 10))
   }
   await medicineForm.value?.revise(id)
+}
+
+const refresh = () => {
+  // 刷新页面
+  router.go(0)
 }
 </script>

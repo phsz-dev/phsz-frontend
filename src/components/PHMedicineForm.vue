@@ -80,7 +80,7 @@ const medicine = ref<Medicine>({
 
 const submit = async () => {
   await store.addMedicine(medicine.value)
-  console.log('submit')
+  emit('submit')
 }
 
 const revise = async (id: number) => {
@@ -90,6 +90,7 @@ const revise = async (id: number) => {
   medicine.value = data
 }
 
+const emit = defineEmits(['submit'])
 
 defineExpose({
   submit,

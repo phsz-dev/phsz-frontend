@@ -64,11 +64,14 @@ const assay = ref<Assay>({
 
 const submit = async () => {
   await store.addAssay(assay.value)
+  emit('submit')
 }
 
 const revise = async (id: number) => {
   assay.value = await store.getAssayById(id)
 }
+
+const emit = defineEmits(['submit'])
 
 defineExpose({
   submit,

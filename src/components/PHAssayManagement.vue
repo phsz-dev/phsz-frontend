@@ -8,7 +8,7 @@
     @add-item="addItem"
     @revise-item="reviseItem"
   >
-    <PHAssayForm ref="assayForm" />
+    <PHAssayForm ref="assayForm" @submit="refresh" />
   </PHManagement>
 </template>
 
@@ -17,6 +17,7 @@ import { ref } from 'vue'
 import PHManagement from './PHManagement.vue'
 import PHAssayForm from '../components/PHAssayForm.vue'
 import { createModalConfig } from '../utils/ModalConfig'
+import router from '../router';
 
 const title = '检查管理'
 const buttonName = '添加检查'
@@ -49,5 +50,10 @@ const reviseItem = async (id: number) => {
     await new Promise((resolve) => setTimeout(resolve, 10))
   }
   await assayForm.value?.revise(id)
+}
+
+const refresh = () => {
+  // 刷新页面
+  router.go(0)
 }
 </script>

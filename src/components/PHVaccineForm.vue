@@ -60,6 +60,7 @@ const vaccine = ref<Vaccine>({
 
 const submit = async () => {
   await store.addVaccine(vaccine.value)
+  emit('submit')
 }
 
 const revise = async (id: number) => {
@@ -67,6 +68,8 @@ const revise = async (id: number) => {
   data.expiryDate = data.expiryDate.split('T')[0]
   vaccine.value = data
 }
+
+const emit = defineEmits(['submit'])
 
 defineExpose({
   submit,
