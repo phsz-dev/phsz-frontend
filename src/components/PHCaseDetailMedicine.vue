@@ -10,7 +10,7 @@
       >
         <div class="flex-[2_2_0%]">名称</div>
         <div class="flex-[2_2_0%]">用法</div>
-        <div class="flex-1 text-center">药量</div>
+        <div class="flex-1">药量</div>
         <div class="flex-[2_2_0%]">开药日期</div>
       </div>
       <div
@@ -29,12 +29,19 @@
           <RouterLink
             :to="{ path: `/medicine/${item.id}` }"
             class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
+            v-if="item.name!='药品不存在'"
             >{{ item.name }}</RouterLink
           >
-          <div class="flex-[2_2_0%]">{{ item.usage }}</div>
-          <div class="flex-1 text-center">{{ item.medicineDosage }}</div>
+          <div
+            v-else
+            class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
+            @click="messageStore.addMessage(Message.partialMessage('药品不存在','error','top'))"
+            >{{ item.name }}</div>
+          <div class="flex-[2_2_0%]">{{ item.usage?item.usage:"/" }}</div>
+          <div class="flex-1">{{ item.medicineDosage?item.medicineDosage:"/" }}</div>
           <div class="flex-[2_2_0%]">
-            {{ new Date(item.validity).toLocaleDateString() }}
+            {{ item.validity?new Date(item.validity).toLocaleDateString():"/" }}
+            <!-- {{ new Date(item.validity).toLocaleDateString() }} -->
           </div>
         </div>
       </div>
@@ -49,5 +56,8 @@
 
 <script setup lang="ts">
 import { useCaseStore } from '../stores/case'
+import { useMessageStore } from '../stores/message';
+import Message from '../types/message';
+const messageStore = useMessageStore()
 const store = useCaseStore()
 </script>
