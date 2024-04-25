@@ -41,7 +41,7 @@
             {{ item[header.value] }}
           </template>
         </td>
-        <button class=" text-primary-600 text-base font-bold py-4 mr-2 rounded" @click="showDialogue(item.id)" >
+        <button class=" text-red-500 text-base font-bold py-4 mr-2 rounded" @click="showDialogue(item.id)" >
           删除
         </button>
       </tr>
@@ -58,6 +58,8 @@ import { usePage } from '../composables'
 import { ref } from 'vue'
 import { useSearchStore } from '../stores/search'
 import { useDialogueStore } from '../stores/dialogue'
+import { useMessageStore } from '../stores/message'
+import Message from '../types/message'
 import ApiService from '../http'
 
 const searchStore = useSearchStore()
@@ -100,12 +102,16 @@ defineEmits<{
 }>()
 
 const apiService = new ApiService('')
+const msgStore = useMessageStore()
 
 const deleteItem = async (id: number) => {
   try {
     await apiService.delete(`${props.url}/${id}`)
+    page.value.content = page.value.content.filter((item: any) => item.id !== id)
   } catch (error) {
-    console.log(error)
+    msgStore.addMessage(
+      Message.topError(`删除失败: ${error}`)
+    )
   }
 }
 
