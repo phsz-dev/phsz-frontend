@@ -31,9 +31,19 @@ export const useVaccineStore = defineStore('vaccine', () => {
 
   getAllVaccines()
 
+  const addVaccine = async (vaccine: Vaccine) => {
+    try {
+      const res = await apiService.post('/api/vaccines', vaccine)
+      return res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     vaccineInfo,
     allVaccines,
-    getVaccineById
+    getVaccineById,
+    addVaccine
   }
 })

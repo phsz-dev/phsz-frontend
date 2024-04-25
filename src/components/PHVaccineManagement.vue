@@ -1,5 +1,6 @@
 <template>
   <PHManagement
+    v-model="vaccineModal"
     :title="title"
     :button-name="buttonName"
     :table-headers="tableHeaders"
@@ -11,13 +12,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import PHManagement from './PHManagement.vue'
+import PHVaccineForm from '../components/PHVaccineForm.vue'
+import { createModalConfig } from '../utils/ModalConfig'
 
 const title = '疫苗管理'
 const buttonName = '添加疫苗'
-const addItem = () => {
-  console.log('add item')
-}
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '疫苗名称', value: 'name' },
@@ -26,6 +27,19 @@ const tableHeaders = [
   { text: '过期时间', value: 'expiryDate', type: 'time' }
 ]
 const url = '/api/vaccines'
+
+const vaccineForm = ref<InstanceType<typeof PHVaccineForm>>()
+
+const vaccineModal = createModalConfig(
+  buttonName,
+  async () => {
+    await vaccineForm.value?.submit()
+  },
+)
+
+const addItem = () => {
+  vaccineModal.value.show = true
+}
 </script>
 
 <style scoped></style>

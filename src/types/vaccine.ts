@@ -1,7 +1,7 @@
 export default interface Vaccine {
-  id: number
+  id: number | undefined
   name: string
   manufacturer: string
-  expiryDate: String
+  expiryDate: string
   price: number
 }

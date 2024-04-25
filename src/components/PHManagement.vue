@@ -108,6 +108,9 @@ const deleteItem = async (id: number) => {
   try {
     await apiService.delete(`${props.url}/${id}`)
     page.value.content = page.value.content.filter((item: any) => item.id !== id)
+    msgStore.addMessage(
+      Message.topSuccess('删除成功')
+    )
   } catch (error) {
     msgStore.addMessage(
       Message.topError(`删除失败: ${error}`)
