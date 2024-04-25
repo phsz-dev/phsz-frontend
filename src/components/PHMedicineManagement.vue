@@ -1,39 +1,20 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
-    <PHModal v-model="medicineModal">
-      <template #default>
-        <PHMedicineForm ref="medicineForm"/>
-      </template>
-    </PHModal>
-    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
-    <PHDataTable
-      v-model="page"
-      :headers="tableHeaders"
-      :total-pages="page.totalPages"
-    >
-      <template #default>
-        <tr v-for="medicine in page.content" :key="medicine.id">
-            <td class="w-[5%] px-6 py-4">{{ medicine.id }}</td>
-            <td class="w-[15%] px-6 py-4">{{ medicine.name }}</td>
-            <td class="w-[10%] px-6 py-4">{{ medicine.type }}</td>
-            <td class="w-[15%] px-6 py-4">{{ medicine.usage }}</td>
-            <td class="w-[10%] px-6 py-4">{{ medicine.price }}</td>
-            <td class="w-[10%] px-6 py-4">{{ medicine.batchNumber }}</td>
-            <td class="w-[10%] px-6 py-4">{{ new Date(medicine.validity).toLocaleDateString() }}</td>
-        </tr>
-      </template>
-    </PHDataTable>
-  </div>
+  <PHManagement
+    v-model="medicineModal"
+    :title="title"
+    :button-name="buttonName"
+    :table-headers="tableHeaders"
+    :url="url"
+    @add-item="addItem"
+  >
+    <PHMedicineForm ref="medicineForm" />
+  </PHManagement>
 </template>
 
 <script setup lang="ts">
-import PHModal from '../components/PHModal.vue'
-import PHMedicineForm from './PHMedicineForm.vue';
-import PHTableCaption from '../components/PHTableCaption.vue'
-import PHDataTable from '../components/PHDataTable.vue'
-import Medicine from '../types/medicine'
-import { usePage } from '../composables'
 import { ref } from 'vue'
+import PHManagement from './PHManagement.vue'
+import PHMedicineForm from './PHMedicineForm.vue'
 import { createModalConfig } from '../utils/ModalConfig'
 
 const title = '药品管理'
@@ -45,24 +26,17 @@ const tableHeaders = [
   { text: '用法', value: 'usage' },
   { text: '价格', value: 'price' },
   { text: '批号', value: 'batchNumber' },
-  { text: '有效期', value: 'validity' }
+  { text: '有效期', value: 'validity', type: 'time' }
 ]
-
-const { page } = usePage<Medicine>('/api/medicines', 10)
-
+const url = '/api/medicines'
 
 const medicineForm = ref<InstanceType<typeof PHMedicineForm>>()
 
-const medicineModal = createModalConfig(
-  '添加药品',
-  async () => {
-    await medicineForm.value?.submit()
-  },
-)
+const medicineModal = createModalConfig(buttonName, async () => {
+  await medicineForm.value?.submit()
+})
 
 const addItem = () => {
   medicineModal.value.show = true
 }
 </script>
-
-<style scoped></style>

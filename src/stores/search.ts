@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
 import ApiService from '../http'
-import { ref } from 'vue'
-import { temp } from 'three/examples/jsm/nodes/Nodes.js'
 
 const apiService = new ApiService('')
 

@@ -123,7 +123,6 @@ export const useCaseStore = defineStore('case', () => {
   const createCase = async () => {
     try {
       const res = await apiService.post('/api/cases', {
-        diseaseList: [],
         assays: [],
         medicines: [],
         vaccines: [],

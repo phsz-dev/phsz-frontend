@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div
     class="flex h-full flex-col rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500"
   >
@@ -24,27 +24,34 @@
       </template>
     </PHDataTable>
   </div>
+</template> -->
+<template>
+  <PHManagement
+    :title="title"
+    :button-name="buttonName"
+    :table-headers="tableHeaders"
+    :url="url"
+    @add-item="addItem"
+    @revise-item="goRevise"
+  >
+  </PHManagement>
 </template>
 
 <script setup lang="ts">
-import PHTableCaption from '../components/PHTableCaption.vue'
-import PHDataTable from '../components/PHDataTable.vue'
-import { usePage } from '../composables'
-import AdminCase from '../types/AdminCase'
+import PHManagement from './PHManagement.vue'
 import router from '../router'
 import { useCaseStore } from '../stores/case'
 
 const title = '病例管理'
 const buttonName = '添加病例'
-
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '病例名称', value: 'name' },
-  { text: '提交时间', value: 'submitTime' }
+  { text: '提交时间', value: 'submitTime', type: 'time' }
 ]
+const url = '/api/cases'
 
 const caseStore = useCaseStore()
-const { page } = usePage<AdminCase>('/api/cases', 10)
 
 const goRevise = (id: number) => {
   router.push(`/case-revise/${id}`)

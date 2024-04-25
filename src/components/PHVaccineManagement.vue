@@ -1,29 +1,17 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex flex-col">
-    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
-    <PHDataTable
-      v-model="page"
-      :headers="tableHeaders"
-      :total-pages="page.totalPages"
-    >
-      <template #default>
-        <tr v-for="vaccine in page.content" :key="vaccine.id">
-          <td class="px-6 py-4">{{ vaccine.id }}</td>
-          <td class="px-6 py-4">{{ vaccine.name }}</td>
-          <td class="px-6 py-4">{{ vaccine.manufacturer }}</td>
-          <td class="px-6 py-4">{{ vaccine.price }}</td>
-          <td class="px-6 py-4">{{ new Date(vaccine.expiryDate.toString()).toLocaleDateString() }}</td>
-        </tr>
-      </template>
-    </PHDataTable>
-  </div>
+  <PHManagement
+    :title="title"
+    :button-name="buttonName"
+    :table-headers="tableHeaders"
+    :url="url"
+    @add-item="addItem"
+  >
+    <PHMedicineForm ref="medicineForm" />
+  </PHManagement>
 </template>
 
 <script setup lang="ts">
-import PHTableCaption from '../components/PHTableCaption.vue'
-import PHDataTable from '../components/PHDataTable.vue'
-import Vaccine from '../types/vaccine'
-import { usePage } from '../composables'
+import PHManagement from './PHManagement.vue'
 
 const title = '疫苗管理'
 const buttonName = '添加疫苗'
@@ -35,10 +23,9 @@ const tableHeaders = [
   { text: '疫苗名称', value: 'name' },
   { text: '生产厂家', value: 'manufacturer' },
   { text: '价格', value: 'price' },
-  { text: '过期时间', value: 'expiryDate' }
+  { text: '过期时间', value: 'expiryDate', type: 'time' }
 ]
-
-const { page } = usePage<Vaccine>('/api/vaccines', 10)
+const url = '/api/vaccines'
 </script>
 
 <style scoped></style>
