@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col flex-1 h-10">
-    <PHSearchBar :placeholder="'phrase in:field1,field2'" />
+    
     <div class="flex-1 overflow-scroll">
       <table
         class="w-full flex-1 overflow-scroll text-left text-sm text-black dark:text-gray-200"
@@ -39,7 +39,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import PHSearchBar from '../components/PHSearchBar.vue'
 import PHPagination from '../components/PHPagination.vue'
 import Page from '../types/Page'
 

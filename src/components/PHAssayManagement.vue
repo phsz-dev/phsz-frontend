@@ -6,6 +6,7 @@
       </template>
     </PHModal>
     <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem"/>
+    <PHSearchBar :placeholder="'phrase in:field1,field2'" v-model="searchText" @search="dealSearch" />
     <PHDataTable
       v-model="page"
       :headers="tableHeaders"
@@ -33,6 +34,9 @@ import Assay from '../types/assay'
 import { usePage } from '../composables'
 import { ref } from 'vue'
 import { createModalConfig } from '../utils/ModalConfig'
+import PHSearchBar from '../components/PHSearchBar.vue'
+import {useSearchStore} from '../stores/search'
+const searchStore = useSearchStore()
 
 const title = '检查管理'
 const buttonName = '添加检查'
@@ -44,7 +48,21 @@ const tableHeaders = [
   { text: '修改时间', value: 'date' }
 ]
 
-const { page } = usePage<Assay>('/api/assays', 10)
+const { page, url, params } = usePage<Assay>('/api/assays', 10)
+const searchText = ref('')
+const dealSearch = async () => {
+  console.log(searchText)
+  if(searchText.value === '') {
+    url.value = '/api/assays'
+    params.value = {}
+  }else{
+    const obj = await searchStore.dealWithSearchText(searchText.value,tableHeaders)
+    console.log(obj)
+    url.value = '/api/assays/search'
+    params.value = obj
+  }
+}
+
 
 const assayForm = ref<InstanceType<typeof PHAssayForm>>()
 

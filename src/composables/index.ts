@@ -29,7 +29,7 @@ const usePage = <T>(initialUrl: string, pageSize: number, token?: string) => {
   )
 
   watch(
-    () => [params.value, page.value.orderColumn, page.value.orderType].join(),
+    () => [params.value, page.value.orderColumn, page.value.orderType],
     (newValue) => {
       console.log('params changed', newValue)
       page.value.pageNumber = 0

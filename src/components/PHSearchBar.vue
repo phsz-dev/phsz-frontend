@@ -5,15 +5,18 @@
       class="box-border h-10 w-full rounded-md border bg-transparent pl-4 text-black outline-none placeholder:text-gray-400 focus:border-2 focus:pl-[15px] dark:text-gray-200 border-zinc-500 focus:border-primary-600"
       type="text"
       :placeholder="placeholder"
-      @input="search"
+      @keydown.enter="search"
     />
   </div>
 </template>
 
 <script setup lang="ts">
+
 const searchQuery = defineModel<string>()
+const emit = defineEmits(['search'])
 const search = () => {
-  console.log(searchQuery.value)
+  // 向外发送信号
+  emit('search')
 }
 
 defineProps<{
