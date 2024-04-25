@@ -54,18 +54,16 @@ import { useAssayStore } from '../stores/assay'
 const store = useAssayStore()
 
 const assay = ref<Assay>({
-  id: null,
+  id: undefined,
   name: '',
   type: '',
   price: 0,
-  date: null,
+  date: undefined,
   description: ' ',
 })
 
 const submit = async () => {
-  console.log(assay.value)
   await store.addAssay(assay.value)
-  console.log("submit")
 }
 
 defineExpose({

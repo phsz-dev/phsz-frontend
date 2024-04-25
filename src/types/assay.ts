@@ -1,8 +1,8 @@
 export default interface Assay {
-  id: number | null
+  id: number | undefined
   name: string
   description: string
   type: string
-  date: string | null
+  date: string | undefined
   price: number
 }

@@ -17,7 +17,7 @@
           <td class="px-6 py-4">{{ assay.name }}</td>
           <td class="px-6 py-4">{{ assay.type }}</td>
           <td class="px-6 py-4">{{ assay.price }}</td>
-          <td class="px-6 py-4">{{ new Date(assay.date).toLocaleDateString() }}</td>
+          <td class="px-6 py-4">{{ new Date(assay.date ?? '').toLocaleDateString() }}</td>
         </tr>
       </template>
     </PHDataTable>
