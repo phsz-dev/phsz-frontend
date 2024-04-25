@@ -7,13 +7,6 @@
       {{ name }}
     </h2>
     <p class="text-gray-500 dark:text-gray-200">{{ description }}</p>
-    <!-- <div class="mt-2">
-          <button
-            class="rounded-lg bg-primary-600 px-4 py-2 text-white hover:shadow"
-          >
-            选择
-          </button>
-        </div> -->
   </RouterLink>
 </template>
 
