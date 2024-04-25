@@ -19,11 +19,34 @@
     </div>
     <div class="flex w-full justify-between py-4">
       <div class="w-30 py-2 text-lg dark:text-gray-200">对应疾病</div>
-      <input
-        type="text"
+      <select
         class="rounded-base ml-20 flex-1 rounded-md border border-gray-300 px-4 py-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
-        v-model="store.detailedCase.name"
-      />
+        v-if="!store.detailedCase.diseaseList"
+        v-model="store.detailedCase.diseaseList"
+      >
+        <option
+          v-for="disease in store.BriefDiseaseList"
+          :key="disease.id!"
+          :value="{
+            id: disease.id
+          }"
+        >
+          {{ disease.name }}
+        </option>
+      </select>
+      <select
+        class="rounded-base ml-20 flex-1 rounded-md border border-gray-300 px-4 py-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+        v-if="store.detailedCase.diseaseList"
+        v-model="store.detailedCase.diseaseList.id"
+      >
+        <option
+          v-for="disease in store.BriefDiseaseList"
+          :key="disease.id!"
+          :value="disease.id"
+        >
+          {{ disease.name }}
+        </option>
+      </select>
     </div>
     <div class="flex w-full justify-between py-4">
       <div class="w-30 py-2 text-lg dark:text-gray-200">提交时间</div>
@@ -116,7 +139,7 @@
               {{ (medicine.name + ' ' + medicine.usage).substring(0, 20) }}
             </option>
           </select>
-          
+
           <!-- 文本输入框用于输入测试结果（阳性或阴性） -->
           <select
             class="flex-[1_1_0%] border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
@@ -286,7 +309,7 @@
           >
             <option
               v-for="assay in assayStore.allAssays"
-              :key="assay.id"
+              :key="assay.id!"
               :value="assay.id"
             >
               {{ assay.name }}
@@ -294,7 +317,12 @@
           </select>
 
           <!-- 文本输入框用于输入测试结果（阳性或阴性） -->
-          <input type="text" placeholder="请输入检查结果" class="flex-[2_2_0%] px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200" v-model="newAssay.result" />
+          <input
+            type="text"
+            placeholder="请输入检查结果"
+            class="flex-[2_2_0%] border border-gray-300 px-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+            v-model="newAssay.result"
+          />
           <input
             type="date"
             class="flex-[2_2_0%] border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
@@ -325,7 +353,8 @@
         </div>
         <!-- 内容 -->
         <div
-          v-for="(item, index) in store.detailedCase?.charge?.details.arr as ChargeLineItem[]"
+          v-for="(item, index) in store.detailedCase?.charge?.details
+            .arr as ChargeLineItem[]"
           :key="index"
           class="px-2 py-3"
           :class="
@@ -339,8 +368,9 @@
           >
             <div
               class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
-              >{{ item.name }}</div
             >
+              {{ item.name }}
+            </div>
             <div class="flex-[2_2_0%]">{{ item.description }}</div>
             <div class="flex-[1_1_0%]">
               {{ item.price }}
@@ -364,24 +394,31 @@
               : 'bg-secondary-100/60 dark:bg-gray-700'
           "
         >
-        <input type="text" placeholder="请输入收费名称" class="flex-[2_2_0%] px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200" v-model="newCharge.name" />
+          <input
+            type="text"
+            placeholder="请输入收费名称"
+            class="flex-[2_2_0%] border border-gray-300 px-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+            v-model="newCharge.name"
+          />
 
           <!-- 文本输入框用于输入测试结果（阳性或阴性） -->
-          <input type="text" placeholder="请输入具体描述" class="flex-[2_2_0%] px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200" v-model="newCharge.description" />
+          <input
+            type="text"
+            placeholder="请输入具体描述"
+            class="flex-[2_2_0%] border border-gray-300 px-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+            v-model="newCharge.description"
+          />
           <input
             type="number"
-            class="flex-1 w-0 px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+            class="w-0 flex-1 border border-gray-300 px-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
             v-model="newCharge.price"
           />
           <div class="flex-[0.5_0.5_0%]">
             <button
               class="rounded-md bg-primary-500 px-2 py-1 text-sm text-white"
-              @click="{
-                store.addCaseChargeLocal(newCharge);
-                newCharge.name = '';
-                newCharge.description = '';
-                newCharge.price = 0;
-              }"
+              @click="
+                store.addCaseChargeLocal(newCharge)
+              "
             >
               添加
             </button>
@@ -430,6 +467,7 @@ onMounted(async () => {
   try {
     console.log(store)
     await store.getDetailedCase(props.case_id)
+    await store.getBriefDiseaseList()
   } catch (e) {
     console.log(e)
   }
@@ -441,7 +479,7 @@ const newMedicine = reactive({
   usage: '',
   medicineDosage: '',
   validity: '',
-  price:0
+  price: 0
 })
 
 const newVaccine = reactive({
@@ -449,7 +487,7 @@ const newVaccine = reactive({
   name: '',
   manufacturer: '',
   expiryDate: '',
-  price:0
+  price: 0
 })
 
 const newAssay = reactive({
@@ -457,7 +495,7 @@ const newAssay = reactive({
   name: '',
   result: '',
   date: '',
-  price:0
+  price: 0
 })
 
 const newCharge = reactive({
@@ -466,9 +504,9 @@ const newCharge = reactive({
   price: 0
 })
 
-const saveCase = async () =>{
+const saveCase = async () => {
   await store.updateCase(store.detailedCase!)
-  messageStore.addMessage(Message.partialMessage('保存成功', 'success','top'))
+  messageStore.addMessage(Message.partialMessage('保存成功', 'success', 'top'))
   router.go(-1)
 }
 </script>

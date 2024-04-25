@@ -14,6 +14,7 @@ import CaseVaccine from '../types/CaseVaccine'
 import Vaccine from '../types/vaccine'
 import Charge from '../types/Charge'
 import ChargeLineItem from '../types/ChargeLineItem'
+import BriefDisease from '../types/BriefDisease'
 
 const apiService = new ApiService('')
 
@@ -23,6 +24,7 @@ export const useCaseStore = defineStore('case', () => {
   const detailedCase = ref<Case>()
   const currentIndex = ref<number>(0)
   const chargeItem = ref<Charge>()
+  const BriefDiseaseList = ref<BriefDisease[]>([])
   const getDiseaseCatalog = async () => {
     try {
       const res = await apiService.get('/api/diseases')
@@ -164,12 +166,22 @@ export const useCaseStore = defineStore('case', () => {
     }
   }
 
+  const getBriefDiseaseList = async () => {
+    try {
+      const res = await apiService.get('/api/diseases/brief')
+      BriefDiseaseList.value = res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     diseaseCatalog,
     roughCases,
     detailedCase,
     currentIndex,
     chargeItem,
+    BriefDiseaseList,
     getDiseaseCatalog,
     getRoughCaseByDisease,
     getDetailedCase,
@@ -184,6 +196,7 @@ export const useCaseStore = defineStore('case', () => {
     createCase,
     updateCase,
     collectCase,
-    deleteCase
+    deleteCase,
+    getBriefDiseaseList,
   }
 })
