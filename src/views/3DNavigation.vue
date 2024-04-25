@@ -135,7 +135,7 @@
       >
         <div class="p-4">
           <h2 class="text-lg font-bold">{{ markers[selected].name }}</h2>
-          <p class="text-sm">{{ markers[selected].description }}</p>
+          <div class="text-sm mt-4" v-html="markers[selected].description"></div>
         </div>
         <RouterLink
           :to="{ path: `/3d-navigation-inner/${markers[selected].id}` }"
@@ -150,7 +150,9 @@
 
 <script setup lang="ts">
 import { useDark } from '@vueuse/core'
+import { use3dNavigationStore } from '../stores/3d'
 const dark = useDark()
+const store = use3dNavigationStore()
 
 import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
@@ -198,6 +200,16 @@ onMounted(async () => {
   const markerUrl = '/map_marker.svg'
   const markerTexture = await useTexture([markerUrl])
 
+  await store.getAllScene()
+  for (const scene of store.sceneInfo!) {
+    markers[scene.id] = {
+      id: scene.id,
+      position: [scene.x, scene.y, scene.z],
+      name: scene.name,
+      description: scene.description
+    }
+  }
+
   // 添加地图标记
   for (const key in markers) {
     const marker = markers[key]
@@ -209,7 +221,7 @@ onMounted(async () => {
       })
     )
     sprite.name = key
-    sprite.scale.set(0.4, 0.6, 1)
+    sprite.scale.set(2, 3, 5)
     sprite.center.set(0.5, 0)
     sprite.position.set(...marker.position)
     markers_group.add(sprite)

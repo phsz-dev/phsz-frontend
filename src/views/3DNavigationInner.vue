@@ -35,11 +35,12 @@
       <Transition name="fade">
         <div
           v-if="selected"
-          class="fixed right-8 top-1/2 h-1/2 w-1/4 -translate-y-1/2 bg-white/75"
+          class="fixed right-8 top-1/2 h-1/2 w-1/3 -translate-y-1/2 bg-white/75 overflow-hidden"
         >
-          <div class="p-4">
+          <div class="p-4 overflow-scroll size-full">
             <h2 class="text-lg font-bold">{{ marksList[modelId-1].find(item => item.name == selected)?.name }}</h2>
-            <p class="text-sm">{{ marksList[modelId-1].find(item => item.name == selected)?.description }}</p>
+            <p class="text-sm mt-2" v-html="marksList[modelId-1].find(item => item.name == selected)?.description"></p>
+            <video class="mt-2" :src="store.spotInfo[0]!.videoUrl" controls></video>
           </div>
         </div>
       </Transition>
@@ -60,7 +61,7 @@
   const models = [
     {
       id: 1,
-      name: '医院走廊',
+      name: '医院前台',
       path: '/models/hospital-corridor/hosipital-corridor.gltf',
       scale: 0.05,
       position: [0,-1.5,0]
@@ -71,15 +72,25 @@
       path: '/models/hospital-bedroom/hospital-bedroom.gltf',
       scale: 0.3,
       position: [55,-4,100]
-    }
+    },
+    {
+      id: 3,
+      name: '医院走廊',
+      path: '/models/hospital-corridor/hosipital-corridor.gltf',
+      scale: 0.05,
+      position: [0,-1.5,0]
+    },
+
   ]
   
   import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
   import { GLTFModel,  PointerLockControls, KeyboardControls } from '@tresjs/cientos'
   import * as THREE from 'three'
   import { onMounted, ref } from 'vue'
+  import { use3dNavigationStore } from '../stores/3d';
   import Marker from '../types/Marker'
   import PHLoadingIcon from '../components/PHLoadingIcon.vue'
+  const store = use3dNavigationStore()
   
 //   const markers: Record<string, Marker> = {
 //     '1': {
@@ -138,6 +149,17 @@ const marksList:Marker[][] = [
   
     const markerUrl = '/map_marker.svg'
     const markerTexture = await useTexture([markerUrl])
+
+    await store.getSpotByScene(modelId)
+    marksList[modelId-1] = []
+    for (const scene of store.spotInfo!) {
+      marksList[modelId-1].push({
+        id: scene.id,
+        name: scene.name,
+        description: scene.description,
+        position: [scene.x, scene.y, scene.z]
+      })
+    }
   
     // 添加地图标记
     for (const item of marksList[modelId-1]) {
