@@ -10,7 +10,7 @@
       <!-- 定义相机 -->
       <!-- 正交投影，适合平面图 -->
       <!-- <TresOrthographicCamera :position="[0, 0, 100]" :look-at="[0,0,0]" /> -->
-      <TresPerspectiveCamera :position="[50, 50, 100]" :look-at="[0,0,0]" />
+      <TresPerspectiveCamera :position="[50, 50, 100]" :look-at="[0, 0, 0]" />
       <TresAmbientLight :intensity="0.5" />
       <!-- <TresDirectionalLight
         ref="lightRef"
@@ -21,52 +21,101 @@
       /> -->
       <OrbitControls />
 
-      <!-- 右墙 -->
-      <TresMesh cast-shadow :position="[25, 3, 0]" >
-        <TresBoxGeometry :args="[1,6,49]" />
-        <TresMeshToonMaterial color="#FBB03B" />
-      </TresMesh>
-      
+        <!-- 右墙 -->
+        <TresMesh cast-shadow :position="[25, 3, 0]">
+          <TresBoxGeometry :args="[1, 6, 49]" />
+          <TresMeshStandardMaterial color="#FFCC00" />
+        </TresMesh>
       <!-- 左墙 -->
-      <TresMesh cast-shadow :position="[-25, 3, 0]" >
-        <TresBoxGeometry :args="[1,6,49]" />
+      <TresMesh cast-shadow :position="[-25, 3, 0]">
+        <TresBoxGeometry :args="[1, 6, 49]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
       <!-- 后墙 -->
-      <TresMesh cast-shadow :position="[0, 3, -25]" >
-        <TresBoxGeometry :args="[49,6,1]" />
+      <TresMesh cast-shadow :position="[0, 3, -25]">
+        <TresBoxGeometry :args="[49, 6, 1]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
       <!-- 前墙 -->
-      <TresMesh cast-shadow :position="[0, 3, 25]" >
-        <TresBoxGeometry :args="[49,6,1]" />
+      <TresMesh cast-shadow :position="[0, 3, 25]">
+        <TresBoxGeometry :args="[49, 6, 1]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
-      <TresMesh cast-shadow :position="[20, 3, 15]" >
-        <TresBoxGeometry :args="[10,6,0.5]" />
+      <TresMesh cast-shadow :position="[20, 3, 15]">
+        <TresBoxGeometry :args="[10, 6, 0.5]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
-      <TresMesh cast-shadow :position="[20, 3, 5]" >
-        <TresBoxGeometry :args="[10,6,0.5]" />
+      <TresMesh cast-shadow :position="[20, 3, 5]">
+        <TresBoxGeometry :args="[10, 6, 0.5]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
-      <TresMesh cast-shadow :position="[20, 3, -5]" >
-        <TresBoxGeometry :args="[10,6,0.5]" />
+      <TresMesh cast-shadow :position="[20, 3, -5]">
+        <TresBoxGeometry :args="[10, 6, 0.5]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
-      <TresMesh cast-shadow :position="[20, 3, -15]" >
-        <TresBoxGeometry :args="[10,6,0.5]" />
+      <TresMesh cast-shadow :position="[20, 3, -15]">
+        <TresBoxGeometry :args="[10, 6, 0.5]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
-      <TresMesh cast-shadow :position="[15, 3, 0]" >
-        <TresBoxGeometry :args="[0.5,6,49]" />
+      <TresMesh cast-shadow :position="[15, 3, 0]">
+        <TresBoxGeometry :args="[0.5, 6, 49]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[0, 3, 20]">
+        <TresBoxGeometry :args="[0.5, 6, 10]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[-8, 3, 20]">
+        <TresBoxGeometry :args="[0.5, 6, 10]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[-16, 3, 20]">
+        <TresBoxGeometry :args="[0.5, 6, 10]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[-12.5, 3, 15]">
+        <TresBoxGeometry :args="[25, 6, 0.5]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[0, 3, -20]">
+        <TresBoxGeometry :args="[0.5, 6, 10]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[-8, 3, -20]">
+        <TresBoxGeometry :args="[0.5, 6, 10]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[-16, 3, -20]">
+        <TresBoxGeometry :args="[0.5, 6, 10]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <TresMesh cast-shadow :position="[-12.5, 3, -15]">
+        <TresBoxGeometry :args="[25, 6, 0.5]" />
+        <TresMeshToonMaterial color="#FBB03B" />
+      </TresMesh>
+
+      <!-- 正中间放一个平放的甜甜圈，作为前台 -->
+      <TresMesh
+        cast-shadow
+        :position="[0, 2, 0]"
+        :rotation="[Math.PI / 2, 0, 0]"
+      >
+        <TresTorusGeometry :args="[4, 2, 16, 200]" />
         <TresMeshToonMaterial color="#FBB03B" />
       </TresMesh>
 
@@ -104,20 +153,12 @@ import { useDark } from '@vueuse/core'
 const dark = useDark()
 
 import { TresCanvas, TresContext, useTexture } from '@tresjs/core'
-import { Texture, TextureLoader } from 'three'
-import { GLTFModel, OrbitControls, vLightHelper } from '@tresjs/cientos'
+import { OrbitControls } from '@tresjs/cientos'
 import * as THREE from 'three'
-import { SSRPass } from 'three/examples/jsm/postprocessing/SSRPass.js';
-import { onMounted, ref, Ref, shallowRef } from 'vue'
+import { onMounted, ref } from 'vue'
 import Marker from '../types/Marker'
-import PHLoadingIcon from '../components/PHLoadingIcon.vue'
 
-const resolveState = ref(false)
-const wallTexture: Ref<Texture | null> = ref(null)
-const roofTexture: Ref<Texture | null> = ref(null)
-const loader = new TextureLoader()
-wallTexture.value = loader.load('/path/to/wall-texture.jpg')
-roofTexture.value = loader.load('/path/to/roof-texture.jpg')
+
 
 const markers: Record<string, Marker> = {
   '1': {
