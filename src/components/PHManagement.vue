@@ -38,6 +38,9 @@
             {{ item[header.value] }}
           </template>
         </td>
+        <button class=" text-primary-600 text-base font-bold py-4 mr-2 rounded" @click="showDialogue(item.id)" >
+          删除
+        </button>
       </tr>
     </PHDataTable>
   </div>
@@ -51,6 +54,8 @@ import PHDataTable from '../components/PHDataTable.vue'
 import { usePage } from '../composables'
 import { ref } from 'vue'
 import { useSearchStore } from '../stores/search'
+import { useDialogueStore } from '../stores/dialogue'
+import ApiService from '../http'
 
 const searchStore = useSearchStore()
 
@@ -90,6 +95,34 @@ defineEmits<{
   'add-item': [],
   'revise-item': [number]
 }>()
+
+const apiService = new ApiService('')
+
+const deleteItem = async (id: number) => {
+  try {
+    await apiService.delete(`${props.url}/${id}`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const dialogueStore = useDialogueStore()
+
+const showDialogue = (id: number) => {
+  dialogueStore.showDialogue({
+    title: '警告⚠️',
+    content: '确定删除吗？',
+    showCancel: true,
+    clickMaskClose: false,
+    confirm: async () => {
+      await deleteItem(id)
+      dialogueStore.closeDialogue()
+    },
+    cancel: () => {
+      dialogueStore.closeDialogue()
+    }
+  })
+}
 </script>
 
 <style scoped></style>

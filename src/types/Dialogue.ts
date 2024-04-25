@@ -3,6 +3,6 @@ export default interface Dialogue {
     content: string
     showCancel: boolean
     clickMaskClose: boolean
-    confirm: () => void
+    confirm: () => Promise<void>
     cancel?: () => void
 }
