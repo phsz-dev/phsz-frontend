@@ -1,10 +1,13 @@
 <template>
-  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
-    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
-    <PHDataTable
-      v-model="page"
-      :headers="tableHeaders"
-    >
+  <div
+    class="flex h-full flex-col rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500"
+  >
+    <PHTableCaption
+      :title="title"
+      :button-name="buttonName"
+      :add-item="addItem"
+    />
+    <PHDataTable v-model="page" :headers="tableHeaders">
       <template #default>
         <tr v-for="user in page.content" :key="user.id">
           <td class="px-6 py-4">{{ user.id }}</td>
@@ -14,7 +17,7 @@
             <span
               v-for="role in user.roles"
               :key="role"
-              class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs mr-1"
+              class="mr-1 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-800"
             >
               {{ role }}
             </span>
@@ -64,7 +67,7 @@ const toggleUserEnabled = (user: any) => {
 
 const { page } = usePage<UserInfo>('/api/users', 12, store.token)
 
-import { useDialogueStore } from '../stores/dialogue';
+import { useDialogueStore } from '../stores/dialogue'
 
 const dialogueStore = useDialogueStore()
 
@@ -85,9 +88,7 @@ const addDialogue = () => {
   })
 }
 
-const addItem = () => {
-  
-}
+const addItem = () => {}
 </script>
 
 <style scoped></style>

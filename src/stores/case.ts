@@ -53,19 +53,18 @@ export const useCaseStore = defineStore('case', () => {
     try {
       const res = await apiService.get('/api/cases/' + caseId)
       console.log(res)
-      const res2 = await apiService.get('/api/charges/' + res.chargeId)
-      console.log(res2)
+      if (res.chargeId != null) {
+        const res2 = await apiService.get('/api/charges/' + res.chargeId)
+        chargeList.value = res2
+        console.log(res2)
+      }
       detailedCase.value = res
-      chargeList.value = res2
     } catch (e) {
       console.log(e)
     }
   }
 
   const deleteCaseMedicineLocal = async (index: number) => {
-    // detailedCase.value!.medicines = detailedCase.value!.medicines.filter(
-    //   (medicine) => medicine.id !== medicineId
-    // )
     detailedCase.value!.medicines.splice(index, 1)
   }
 
@@ -79,9 +78,6 @@ export const useCaseStore = defineStore('case', () => {
   }
 
   const deleteCaseVaccineLocal = async (index: number) => {
-    // detailedCase.value!.vaccines = detailedCase.value!.vaccines.filter(
-    //   (vaccine) => vaccine.id !== vaccineId
-    // )
     detailedCase.value!.vaccines.splice(index, 1)
   }
 
@@ -95,9 +91,6 @@ export const useCaseStore = defineStore('case', () => {
   }
 
   const deleteCaseAssayLocal = async (index: number) => {
-    // detailedCase.value!.assays = detailedCase.value!.assays.filter(
-    //   (assay) => assay.id !== assayId
-    // )
     detailedCase.value!.assays.splice(index, 1)
   }
 
@@ -106,6 +99,22 @@ export const useCaseStore = defineStore('case', () => {
     if (detailedCase.value) {
       caseAssay.name = assay.name
       detailedCase.value.assays.push({ ...caseAssay })
+    }
+  }
+
+  const createCase = async () => {
+    try {
+      const res = await apiService.post('/api/cases', {
+        diseaseList: [],
+        assays: [],
+        medicines: [],
+        vaccines: [],
+        description: '<p></p>'
+      })
+      console.log(res)
+      return res
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -142,6 +151,7 @@ export const useCaseStore = defineStore('case', () => {
     addCaseVaccineLocal,
     deleteCaseAssayLocal,
     addCaseAssayLocal,
+    createCase,
     updateCase,
     collectCase
   }
