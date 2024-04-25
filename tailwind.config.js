@@ -14,8 +14,10 @@ export default {
       },
       colors: {
         primary: {
+          300: '#8CF2B6',
+          400: '#59D89F',
           500: '#42d392',
-          600: '#3ac17f',
+          600: '#34CF89',
           700: '#2d9e63'
         },
         'primary-light': '#008B8B',
