@@ -128,6 +128,12 @@ onMounted(async () => {
         question.question.type === 'mcq' ? question.score : 0
       questionDetails.value[question.question.id] = question
     })
+    // exam.questions 按照 sequence 排序
+    exam.value.questions.sort(
+      (a, b) =>
+        questionDetails.value[a.question].sequence -
+        questionDetails.value[b.question].sequence
+    )
   }
 })
 </script>
