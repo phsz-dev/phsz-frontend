@@ -5,7 +5,7 @@
     </div>
     <button 
       class="px-4 py-2 bg-secondary-500 text-white text-sm rounded"
-      @click="addItem">
+      @click="props.addItem">
       {{ props.buttonName }}
     </button>
   </div>

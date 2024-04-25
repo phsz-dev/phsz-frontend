@@ -1,22 +1,76 @@
 <template>
-  <div class="fixed right-20 bottom-20 z-50">
-    <div v-if="hidden">
-      
-    </div>
-    <div v-else>
-      <div class="bg-white p-4 rounded-lg shadow-lg">
-        <h2 class="text-lg font-semibold">Chat Panel</h2>
-        <p>Chat panel content...</p>
+  <div class="fixed bottom-14 right-14 z-50">
+    <Transition name="phi-scale">
+      <div v-if="!hidden" class="rounded-2xl bg-white shadow-xl w-[420px] h-[640px] overflow-hidden">
+        <PHConversation>
+        </PHConversation>
       </div>
-    </div>
-    <button class="float-right" @click="hidden = !hidden">
-      {{ hidden ? 'Show' : 'Hide'}}
+    </Transition>
+    <button
+      class="mt-4 float-right flex size-12 items-center justify-center rounded-full bg-primary-500 text-white shadow-xl transition-transform hover:scale-110"
+      @click="hidden = !hidden"
+    >
+      <Transition name="phi-rotate" mode="out-in">
+        <span v-if="hidden" id="chat-ai" class="font-bold">AI</span>
+        <span
+          v-else
+          id="chat-down"
+          class="phi-right-arrow size-6 rotate-90 bg-white"
+        ></span>
+      </Transition>
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import PHConversation from './PHConversation.vue';
 
-const hidden = ref(false)
+const hidden = ref(true)
 </script>
+
+<style scoped>
+.phi-scale-enter-active,
+.phi-scale-leave-active {
+  transition: transform 0.2s;
+  transform-origin: bottom right;
+}
+
+.phi-scale-enter-from,
+.phi-scale-leave-to {
+  transform: scale(0);
+}
+
+.phi-scale-enter-to,
+.phi-scale-leave-from {
+  transform: scale(1);
+}
+
+.phi-rotate-enter-active {
+  transition: transform 0.2s ease-out;
+}
+
+.phi-rotate-leave-active {
+  transition: transform 0.2s ease-in;
+}
+
+#chat-ai.phi-rotate-leave-from,
+#chat-ai.phi-rotate-enter-to {
+  transform: rotate(0deg);
+}
+
+#chat-ai.phi-rotate-leave-to,
+#chat-ai.phi-rotate-enter-from {
+  transform: rotate(45deg) scale(0.2);
+}
+
+#chat-down.phi-rotate-enter-from,
+#chat-down.phi-rotate-leave-to {
+  transform: rotate(45deg);
+}
+
+#chat-down.phi-rotate-enter-to,
+#chat-down.phi-rotate-leave-from {
+  transform: rotate(90deg);
+}
+</style>

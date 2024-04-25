@@ -1,13 +1,15 @@
 <template>
-  <div
-    class="flex h-full flex-col rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500"
-  >
-    <PHTableCaption
-      :title="title"
-      :button-name="buttonName"
-      :add-item="addItem"
-    />
-    <PHDataTable v-model="page" :headers="tableHeaders">
+  <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
+    <PHModal v-model="userModal">
+      <template #default>
+        <PHUserForm ref="userForm"/>
+      </template>
+    </PHModal>
+    <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
+    <PHDataTable
+      v-model="page"
+      :headers="tableHeaders"
+    >
       <template #default>
         <tr v-for="user in page.content" :key="user.id">
           <td class="px-6 py-4">{{ user.id }}</td>
@@ -26,7 +28,7 @@
             <span>{{ user.enabled ? '启用' : '禁用' }}</span>
             <div
               class="flex h-5 w-10 cursor-pointer items-center rounded-full bg-gray-400 p-0.5 duration-300 ease-in-out"
-              :class="{ 'bg-green-400': user.enabled }"
+              :class="{ 'bg-primary-500': user.enabled }"
               @click="toggleUserEnabled(user)"
             >
               <div
@@ -43,10 +45,15 @@
 
 <script setup lang="ts">
 import { useUserStore } from '../stores/user'
+import PHModal from '../components/PHModal.vue'
+import PHUserForm from '../components/PHUserForm.vue'
 import PHTableCaption from '../components/PHTableCaption.vue'
 import PHDataTable from '../components/PHDataTable.vue'
 import UserInfo from '../types/User'
 import { usePage } from '../composables'
+import { ref } from 'vue'
+import { createModalConfig } from '../utils/ModalConfig'
+
 
 const title = '用户管理'
 const buttonName = '添加用户'
@@ -67,28 +74,18 @@ const toggleUserEnabled = (user: any) => {
 
 const { page } = usePage<UserInfo>('/api/users', 12, store.token)
 
-import { useDialogueStore } from '../stores/dialogue'
+const userForm = ref<InstanceType<typeof PHUserForm>>()
 
-const dialogueStore = useDialogueStore()
+const userModal = createModalConfig(
+  '添加用户', 
+  async () => {
+    await userForm.value?.submit()
+  },
+)
 
-const addDialogue = () => {
-  dialogueStore.showDialogue({
-    title: '这是一个弹窗',
-    content: '这是弹窗的内容',
-    showCancel: true,
-    clickMaskClose: true,
-    confirm: () => {
-      console.log('点击了确定')
-      dialogueStore.closeDialogue()
-    },
-    cancel: () => {
-      console.log('点击了取消')
-      dialogueStore.closeDialogue()
-    }
-  })
+const addItem = () => {
+  userModal.value.show = true
 }
-
-const addItem = () => {}
 </script>
 
 <style scoped></style>

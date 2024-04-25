@@ -13,7 +13,6 @@ export const useAssayStore = defineStore('assay', () => {
   const getAssayById = async (assayId: number) => {
     try {
       const res = await apiService.get('/api/assays/' + assayId)
-      console.log(res)
       assayInfo.value = res
       return res
     } catch (e) {
@@ -24,7 +23,6 @@ export const useAssayStore = defineStore('assay', () => {
   const getAllAssays = async () => {
     try {
       const res = await apiService.get('/api/assays?pageSize=100&pageNum=0')
-      console.log(res)
       allAssays.value = res.content
     } catch (e) {
       console.log(e)
@@ -33,9 +31,19 @@ export const useAssayStore = defineStore('assay', () => {
 
   getAllAssays()
 
+  const addAssay = async (assay: Assay) => {
+    try {
+      const res = await apiService.post('/api/assays', assay)
+      return res
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     assayInfo,
     allAssays,
-    getAssayById
+    getAssayById,
+    addAssay
   }
 })

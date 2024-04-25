@@ -13,7 +13,6 @@
               scope="col"
               class="group cursor-pointer items-center justify-between px-6 py-3 h-10 select-none"
               :class="{ 'dark:bg-dark-block-400 bg-secondary-50': sortKey === header.value }"
-              v-bind:class="header.width"
               @click="sortBy(header.value)"
             >
               {{ header.text }}
@@ -48,9 +47,7 @@ const props = defineProps<{
   headers: Array<{
     text: string
     value: string
-    width?: string
   }>
-  getList?: Function
 }>()
 
 const page = defineModel<Page<any>>({ required: true })

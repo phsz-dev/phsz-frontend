@@ -34,12 +34,6 @@
         class="w-full rounded border p-2 focus:outline-none focus:ring focus:ring-primary-500 dark:border-dark-block-400 dark:bg-dark-block-600 dark:text-gray-100 dark:focus:ring-primary-700"
       ></textarea>
     </div>
-    <!-- <button
-      class="hover:bg-primary-700 mt-4 rounded bg-primary-600 px-4 py-2 text-white"
-      @click="$emit('submitAnswer', selectedOption, textAnswer)"
-    >
-      提交答案
-    </button> -->
   </div>
 </template>
 
