@@ -1,4 +1,8 @@
 import { ref, Ref } from 'vue';
+import { useMessageStore } from '../stores/message'
+import Message from '../types/message'
+
+const msgStore = useMessageStore()
 
 // 定义模态框配置的接口
 interface ModalConfig {
@@ -20,6 +24,7 @@ function createModalConfig(title: string, submitAction: () => Promise<void>): Re
         try {
           await submitAction();
           modal.value.show = false;
+          msgStore.addMessage(Message.topSuccess('添加成功'));
         } catch (error) {
           console.error('Error during submission:', error);
           // 根据需要处理错误，如显示错误消息等
