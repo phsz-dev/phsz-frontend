@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bottom-14 right-14 z-50">
+  <div v-if="!testing" class="fixed bottom-14 right-14 z-50">
     <Transition name="phi-scale">
       <div v-if="!hidden" class="rounded-2xl bg-white shadow-xl w-[420px] h-[640px] overflow-hidden">
         <PHConversation>
@@ -23,10 +23,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import PHConversation from './PHConversation.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
 
 const hidden = ref(true)
+const testing = ref(false)
+
+// 监听 route 变化，隐藏聊天框
+watch(() => route.path, (newPath) => {
+  if (newPath.startsWith('/test')) {
+    hidden.value = true
+    testing.value = true
+  } else {
+    testing.value = false
+  }
+})
 </script>
 
 <style scoped>
