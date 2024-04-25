@@ -1,25 +1,3 @@
-<!-- <template>
-    <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
-      <PHModal v-model="assayModal">
-        <template #default>
-          <PHAssayForm ref="assayForm"/>
-        </template>
-      </PHModal>
-      <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem"/>
-      <PHDataTable
-        v-model="page"
-        :headers="tableHeaders"
-        :total-pages="page.totalPages"
-      >
-        <template #default>
-          <tr v-for="doc in page.content" :key="doc.id">
-            <td class="px-6 py-4">{{ doc.id }}</td>
-            <td class="px-6 py-4">{{ doc.page_content }}</td>
-          </tr>
-        </template>
-      </PHDataTable>
-    </div>
-  </template> -->
 <template>
   <PHManagement
     :title="title"
@@ -28,7 +6,7 @@
     :url="url"
     @add-item="addItem"
   >
-    <PHMedicineForm ref="medicineForm" />
+    <!-- <PHDocumentForm ref="documentForm" /> -->
   </PHManagement>
 </template>
 

@@ -1,5 +1,6 @@
 interface Exam {
   id: number
+  userId: number
   name: string
   status: string
   paper: Paper

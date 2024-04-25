@@ -12,7 +12,9 @@
           :type="type" 
           :name="name" 
           :autocomplete="autocomplete" 
-          class="block w-full rounded-md border-0 bg-transparent py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6" :placeholder="placeholder" />
+          class="block w-full rounded-md border-0 bg-transparent py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6" :placeholder="placeholder" 
+          :min = "type === 'number' ? 0 : undefined"
+        />
         <textarea 
           v-else 
           :id="name" 
@@ -47,7 +49,7 @@ const modelValue = defineModel<string | number>()
 </script>
 
 <style scoped>
-input:focus {
+input:focus, textarea:focus {
   outline: none;  /* 完全移除焦点边框 */
 }
 </style>

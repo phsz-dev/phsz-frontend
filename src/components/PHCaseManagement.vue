@@ -1,30 +1,3 @@
-<!-- <template>
-  <div
-    class="flex h-full flex-col rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500"
-  >
-    <PHTableCaption
-      :title="title"
-      :button-name="buttonName"
-      :add-item="addItem"
-    />
-    <PHDataTable v-model="page" :headers="tableHeaders">
-      <template #default>
-        <tr
-          v-for="adminCase in page.content"
-          :key="adminCase.id"
-          class="hover:cursor-pointer hover:bg-secondary-50 hover:dark:bg-dark-block-400"
-          @click="goRevise(adminCase.id)"
-        >
-          <td class="px-6 py-4">{{ adminCase.id }}</td>
-          <td class="px-6 py-4">{{ adminCase.name }}</td>
-          <td class="px-6 py-4">
-            {{ new Date(adminCase.submitTime).toLocaleString() }}
-          </td>
-        </tr>
-      </template>
-    </PHDataTable>
-  </div>
-</template> -->
 <template>
   <PHManagement
     :title="title"

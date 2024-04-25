@@ -34,10 +34,16 @@
           <template v-if="header.type === 'time'">
             {{ new Date(item[header.value]).toLocaleDateString() }}
           </template>
+          <template v-else-if="header.transform">
+            {{ header.transform(item[header.value]) }}
+          </template>
           <template v-else>
             {{ item[header.value] }}
           </template>
         </td>
+        <button class=" text-red-500 text-base font-bold py-4 mr-2 rounded" @click="showDialogue(item.id)" >
+          删除
+        </button>
       </tr>
     </PHDataTable>
   </div>
@@ -51,13 +57,17 @@ import PHDataTable from '../components/PHDataTable.vue'
 import { usePage } from '../composables'
 import { ref } from 'vue'
 import { useSearchStore } from '../stores/search'
+import { useDialogueStore } from '../stores/dialogue'
+import { useMessageStore } from '../stores/message'
+import Message from '../types/message'
+import ApiService from '../http'
 
 const searchStore = useSearchStore()
 
 const props = defineProps<{
   title: string
-  buttonName: string
-  tableHeaders: { text: string; value: string; type?: string }[]
+  buttonName?: string
+  tableHeaders: { text: string; value: string; type?: string; transform?: (value: any) => string }[]
   url: string
 }>()
 
@@ -90,6 +100,38 @@ defineEmits<{
   'add-item': [],
   'revise-item': [number]
 }>()
+
+const apiService = new ApiService('')
+const msgStore = useMessageStore()
+
+const deleteItem = async (id: number) => {
+  try {
+    await apiService.delete(`${props.url}/${id}`)
+    page.value.content = page.value.content.filter((item: any) => item.id !== id)
+  } catch (error) {
+    msgStore.addMessage(
+      Message.topError(`删除失败: ${error}`)
+    )
+  }
+}
+
+const dialogueStore = useDialogueStore()
+
+const showDialogue = (id: number) => {
+  dialogueStore.showDialogue({
+    title: '警告⚠️',
+    content: '确定删除吗？',
+    showCancel: true,
+    clickMaskClose: false,
+    confirm: async () => {
+      await deleteItem(id)
+      dialogueStore.closeDialogue()
+    },
+    cancel: () => {
+      dialogueStore.closeDialogue()
+    }
+  })
+}
 </script>
 
 <style scoped></style>

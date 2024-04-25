@@ -151,20 +151,10 @@ const routes = [
             component: () => import('./components/PHVaccineManagement.vue')
           },
           {
-            path: 'charge-management',
-            name: 'ChargeManagement',
-            component: () => import('./components/PHChargeManagement.vue')
-          },
-          {
             path: 'case-management',
             name: 'CaseManagement',
             component: () => import('./components/PHCaseManagement.vue')
           },
-  //         { name: '题目管理' },
-  // { name: '试卷管理' },
-  // { name: '考试管理' },
-  // { name: '导览数据' },
-  // { name: '知识库' }
           {
             path: 'question-management',
             name: 'QuestionManagement',

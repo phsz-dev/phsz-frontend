@@ -25,7 +25,7 @@
           </button>
           <button
             @click.prevent="store.dialogue?.confirm"
-            class="ml-2 rounded-md bg-red-500 px-4 py-2 text-sm text-white"
+            class="ml-2 rounded-md bg-primary-600 px-4 py-2 text-sm text-white"
           >
             确定
           </button>
