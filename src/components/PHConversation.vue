@@ -34,6 +34,10 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import PHChatMessage from './PHChatMessage.vue'
+import ApiService from '../http';
+import { useUserStore } from '../stores/user';
+
+const apiService = new ApiService('');
 
 const messages = reactive<
   {
@@ -46,16 +50,6 @@ const messages = reactive<
     id: 0,
     type: 'bot',
     text: '你好，我是宠物医院特化版 GPT，有什么需要帮助的吗？'
-  },
-  {
-    id: 1,
-    type: 'user',
-    text: '怎么启动原神'
-  },
-  {
-    id: 2,
-    type: 'user',
-    text: '怎么启动原神啊啊啊啊啊啊啊啊啊啊啊啊啊啊'
   }
 ])
 
@@ -73,7 +67,17 @@ const send = () => {
     type: 'user',
     text: inputText.value
   })
-  inputText.value = ''
+  messages.push({
+    id: messages.length,
+    type: 'bot',
+    text: ''
+  })
   setTimeout(scrollToBottom, 0)
+
+  apiService.postStream('/api/chats/openai', inputText.value, useUserStore().token, (content: string) => {
+    messages[messages.length - 1].text = content
+    setTimeout(scrollToBottom, 0)
+  })
+  inputText.value = ''
 }
 </script>
