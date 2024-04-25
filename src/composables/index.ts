@@ -16,6 +16,8 @@ const usePage = <T>(initialUrl: string, pageSize: number, token?: string) => {
     pageSize: pageSize,
     totalElements: 0,
     totalPages: 0,
+    orderColumn: route.query.orderColumn as string,
+    orderType: route.query.orderType as string,
     content: []
   })
 
@@ -33,6 +35,7 @@ const usePage = <T>(initialUrl: string, pageSize: number, token?: string) => {
     (newValue) => {
       console.log('params changed', newValue)
       page.value.pageNumber = 0
+      router.push({ query: { ...route.query, orderColumn: page.value.orderColumn, orderType: page.value.orderType } })
       getPage()
     }
   )
