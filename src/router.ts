@@ -171,9 +171,14 @@ const routes = [
             component: () => import('./components/PHExamManagement.vue')
           },
           {
-            path: '3d-data-management',
-            name: '3DDataManagement',
-            component: () => import('./components/PH3DDataManagement.vue')
+            path: '3d-scene-management',
+            name: '3DSceneManagement',
+            component: () => import('./components/PH3DSceneManagement.vue')
+          },
+          {
+            path: '3d-spot-management',
+            name: '3DSpotManagement',
+            component: () => import('./components/PH3DSpotManagement.vue')
           },
           {
             path: 'document-management',

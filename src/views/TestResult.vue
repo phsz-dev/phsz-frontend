@@ -6,7 +6,7 @@
         {{ exam.paper.content }}
       </p>
       <div class="mb-4 text-gray-600 dark:text-gray-200">
-        得分：{{ exam.score }} / {{ totalScore }}
+        得分：{{ exam.score ?? 0 }} / {{ totalScore }}
       </div>
       <div class="space-y-4">
         <div
@@ -127,6 +127,18 @@ onMounted(async () => {
       totalMcqScore.value +=
         question.question.type === 'mcq' ? question.score : 0
       questionDetails.value[question.question.id] = question
+      // 若 exam.value.questions 里没有该题目的答案，则添加一个空答案
+      if (
+        !exam.value!.questions.find(
+          (answer) => answer.question === question.question.id
+        )
+      ) {
+        exam.value!.questions.push({
+          examination: examId,
+          question: question.question.id,
+          answer: ''
+        })
+      }
     })
     // exam.questions 按照 sequence 排序
     exam.value.questions.sort(

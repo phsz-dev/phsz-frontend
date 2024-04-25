@@ -31,7 +31,8 @@ const menuList = [
   { name: '题目管理' },
   { name: '试卷管理' },
   { name: '考试管理' },
-  { name: '导览数据' },
+  { name: '场景数据' },
+  { name: '定点数据' },
   { name: '知识库' }
 ]
 
@@ -44,7 +45,8 @@ const routes = [
   '/question-management',
   '/paper-management',
   '/exam-management',
-  '/3d-data-management',
+  '/3d-scene-management',
+  '/3d-spot-management',
   '/document-management'
 ]
 
