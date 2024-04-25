@@ -6,19 +6,28 @@
       </label>
       <div class="mt-2">
         <input 
+          v-if = "type !== 'textarea'"
           :id="name" 
           v-model="modelValue" 
           :type="type" 
           :name="name" 
           :autocomplete="autocomplete" 
-          class="block w-full rounded-md border-0 bg-transparent py-1.5 pl-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6" :placeholder="placeholder" />
+          class="block w-full rounded-md border-0 bg-transparent py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6" :placeholder="placeholder" />
+        <textarea 
+          v-else 
+          :id="name" 
+          v-model="modelValue" 
+          :name="name" 
+          :autocomplete="autocomplete" 
+          class="block w-full rounded-md border-0 bg-transparent py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm sm:leading-6 h-32" :placeholder="placeholder">
+        </textarea>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-type InputType = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url'
+type InputType = 'text' | 'email' | 'password' | 'number' | 'search' | 'tel' | 'url' | 'date' | 'textarea'
 
 withDefaults(
   defineProps<{

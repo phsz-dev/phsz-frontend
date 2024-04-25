@@ -1,5 +1,10 @@
 <template>
   <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
+    <PHModal v-model="medicineModal">
+      <template #default>
+        <PHMedicineForm ref="medicineForm"/>
+      </template>
+    </PHModal>
     <PHTableCaption :title="title" :button-name="buttonName" :add-item="addItem" />
     <PHDataTable
       v-model="page"
@@ -22,16 +27,17 @@
 </template>
 
 <script setup lang="ts">
+import PHModal from '../components/PHModal.vue'
+import PHMedicineForm from './PHMedicineForm.vue';
 import PHTableCaption from '../components/PHTableCaption.vue'
 import PHDataTable from '../components/PHDataTable.vue'
 import Medicine from '../types/medicine'
 import { usePage } from '../composables'
+import { ref } from 'vue'
+import { createModalConfig } from '../utils/ModalConfig'
 
 const title = '药品管理'
 const buttonName = '添加药品'
-const addItem = () => {
-  console.log('add item')
-}
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '药品名称', value: 'name' },
@@ -43,6 +49,20 @@ const tableHeaders = [
 ]
 
 const { page } = usePage<Medicine>('/api/medicines', 10)
+
+
+const medicineForm = ref<InstanceType<typeof PHMedicineForm>>()
+
+const medicineModal = createModalConfig(
+  '添加药品',
+  async () => {
+    await medicineForm.value?.submit()
+  },
+)
+
+const addItem = () => {
+  medicineModal.value.show = true
+}
 </script>
 
 <style scoped></style>

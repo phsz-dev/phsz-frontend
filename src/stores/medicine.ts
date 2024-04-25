@@ -33,9 +33,20 @@ export const useMedicineStore = defineStore('medicine', () => {
 
   getAllMedicines()
 
+  const addMedicine = async (medicine: Medicine) => {
+    try {
+      const res = await apiService.post('/api/medicines', medicine)
+      return res
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     medicineInfo,
     allMedicines,
     getMedicineById,
+    addMedicine
   }
 })

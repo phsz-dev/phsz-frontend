@@ -1,5 +1,5 @@
 export default interface Medicine {
-  id: number
+  id: number | undefined
   name: string
   type: string
   usage: string
