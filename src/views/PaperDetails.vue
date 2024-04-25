@@ -87,12 +87,12 @@ onMounted(async () => {
 const startExam = async () => {
   try {
     const exam = await paperStore.startExam(paperId, userStore.token!)
-    router.push(`/test/${exam.id}`)
+    await router.push(`/test/${exam.id}`)
   } catch (error) {
     if (error instanceof HTTPError) {
       msgStore.addMessage(
         Message.fullMessage(
-          ['', '试卷未找到', '你还有一场正在进行的考试'][error.code],
+          ['', '试卷未找到', '你还有一场正在进行的考试', '你没有权限参加考试'][error.code],
           1000,
           'error',
           'top'

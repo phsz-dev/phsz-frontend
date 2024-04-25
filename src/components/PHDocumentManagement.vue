@@ -17,7 +17,7 @@ const title = '知识库'
 const buttonName = '添加知识'
 const tableHeaders = [
   { text: 'ID', value: 'id' },
-  { text: '内容', value: 'page_content' }
+  { text: '内容', value: 'page_content', transform: (content: string) => content.length > 100 ? content.slice(0, 100) + '...' : content }
 ]
 const url = '/api/docs'
 

@@ -4,12 +4,14 @@
     :table-headers="tableHeaders"
     :url="url"
     @add-item="addItem"
+    @revise-item="reviseItem"
   >
     <!-- <PHExamForm ref="examForm" /> -->
   </PHManagement>
 </template>
 
 <script setup lang="ts">
+import router from '../router'
 import PHManagement from './PHManagement.vue'
 
 const title = '测试管理'
@@ -31,15 +33,23 @@ const addItem = () => {
 const tableHeaders = [
   { text: 'ID', value: 'id' },
   { text: '用户ID', value: 'userId' },
-//   { text: '名称', value: 'name' },
-  { text: '状态', value: 'status', transform: (status : 'end' | 'start') => status === 'end' ? '已结束' : '进行中' },
-  { text: '试卷', value: 'paper', transform: (paper : any) => paper.name },
+  //   { text: '名称', value: 'name' },
+  {
+    text: '状态',
+    value: 'status',
+    transform: (status: 'end' | 'start') =>
+      status === 'end' ? '已结束' : '进行中'
+  },
+  { text: '试卷', value: 'paper', transform: (paper: any) => paper.name },
   { text: '开始时间', value: 'startTime', type: 'time' },
   { text: '结束时间', value: 'endTime', type: 'time' },
   { text: '分数', value: 'score' }
 ]
-
 const url = '/api/test/exam'
+
+const reviseItem = (examId: number) => {
+  router.push(`/test-result/${examId}`)
+}
 </script>
 
 <style scoped></style>
