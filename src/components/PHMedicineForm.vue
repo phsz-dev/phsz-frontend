@@ -83,9 +83,17 @@ const submit = async () => {
   console.log('submit')
 }
 
+const revise = async (id: number) => {
+  const data = await store.getMedicineById(id)
+  // yyyy-mm-dd
+  data.validity = data.validity.split('T')[0]
+  medicine.value = data
+}
+
 
 defineExpose({
-  submit
+  submit,
+  revise
 })
 </script>
 

@@ -24,7 +24,7 @@ function createModalConfig(title: string, submitAction: () => Promise<void>): Re
         try {
           await submitAction();
           modal.value.show = false;
-          msgStore.addMessage(Message.topSuccess('添加成功'));
+          msgStore.addMessage(Message.topSuccess('提交成功'));
         } catch (error) {
           console.error('Error during submission:', error);
           // 根据需要处理错误，如显示错误消息等

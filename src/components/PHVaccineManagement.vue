@@ -6,6 +6,7 @@
     :table-headers="tableHeaders"
     :url="url"
     @add-item="addItem"
+    @revise-item="reviseItem"
   >
     <PHVaccineForm ref="vaccineForm" />
   </PHManagement>
@@ -39,6 +40,15 @@ const vaccineModal = createModalConfig(
 
 const addItem = () => {
   vaccineModal.value.show = true
+}
+
+const reviseItem = async (id: number) => {
+  vaccineModal.value.show = true
+  // 等到vaccineForm组件显示后再调用revise方法
+  while (!vaccineForm.value) {
+    await new Promise((resolve) => setTimeout(resolve, 10))
+  }
+  await vaccineForm.value?.revise(id)
 }
 </script>
 

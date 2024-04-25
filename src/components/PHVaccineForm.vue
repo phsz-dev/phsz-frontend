@@ -62,8 +62,15 @@ const submit = async () => {
   await store.addVaccine(vaccine.value)
 }
 
+const revise = async (id: number) => {
+  const data = await store.getVaccineById(id)
+  data.expiryDate = data.expiryDate.split('T')[0]
+  vaccine.value = data
+}
+
 defineExpose({
-  submit
+  submit,
+  revise
 })
 </script>
 
