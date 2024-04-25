@@ -86,7 +86,7 @@ class ApiService {
     return await this._handleResponse(res)
   }
 
-  async postStream(url: string, data: any, token?: string, onProgress?: (str : string) => void) {
+  async postStream(url: string, data: any, token?: string, onProgress?: (str: string) => void) {
     const header = new Headers()
     header.append('Content-Type', 'application/json')
     if (token) {
@@ -113,7 +113,6 @@ class ApiService {
         onProgress(str)
       }
     }
-    return await this._handleResponse(res)
   }
 
   async _handleResponse(res: Response) {
