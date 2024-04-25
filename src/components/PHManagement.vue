@@ -41,7 +41,7 @@
             {{ item[header.value] }}
           </template>
         </td>
-        <button class=" text-red-500 text-base font-bold py-4 mr-2 rounded" @click="showDialogue(item.id)" >
+        <button class=" text-red-500 text-base font-bold py-4 mr-2 rounded" @click.stop="showDialogue(item.id)" >
           删除
         </button>
       </tr>
