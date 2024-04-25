@@ -19,6 +19,7 @@
           :paper-id="paper.id"
           :name="paper.name"
           :description="paper.content"
+          :deadline="paper.deadline"
         />
       </div>
       <!-- </div> -->

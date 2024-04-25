@@ -92,7 +92,7 @@ const startExam = async () => {
     if (error instanceof HTTPError) {
       msgStore.addMessage(
         Message.fullMessage(
-          ['', '试卷未找到', '你还有一场正在进行的考试', '你没有权限参加考试'][error.code],
+          ['', '试卷未找到', '你还有一场正在进行的考试', '你没有权限参加考试', '已过截止时间'][error.code],
           1000,
           'error',
           'top'

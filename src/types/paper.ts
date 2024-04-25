@@ -16,6 +16,7 @@ interface Paper {
   content: string
   durationSeconds: number
   totalScore: number
+  deadline: string
   questions: PaperQuestion[]
 }
 
