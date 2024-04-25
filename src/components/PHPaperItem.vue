@@ -7,6 +7,7 @@
       {{ name }}
     </h2>
     <p class="text-gray-500 dark:text-gray-200">{{ description }}</p>
+    <p class="float-right text-gray-500 dark:text-gray-200">{{ new Date(deadline).toLocaleDateString() }} 截止</p>
   </RouterLink>
 </template>
 
@@ -15,5 +16,6 @@ defineProps<{
   paperId: number
   name: string
   description: string
+  deadline: string
 }>()
 </script>

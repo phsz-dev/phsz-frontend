@@ -31,7 +31,8 @@ const tableHeaders = [
   { text: 'ID', value: 'id' },
     { text: '试卷名称', value: 'name' },
     { text: '时长(秒)', value: 'durationSeconds' },
-    { text: '总分', value: 'totalScore' }
+    { text: '总分', value: 'totalScore' },
+    { text: '截止日期', value: 'deadline', type: 'time' }
 ]
 
 const url = '/api/test/paper'

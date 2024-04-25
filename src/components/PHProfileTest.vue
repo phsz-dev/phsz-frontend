@@ -11,7 +11,7 @@
         :key="index"
         class="mx-4 border-b border-gray-400 px-1 py-4 hover:bg-gray-100 hover:dark:bg-dark-block-400"
       >
-        <RouterLink :to="'/test-result/' + item.id">
+        <RouterLink :to="item.status == 'end' ? `/test-result/${item.id}` : `/test/${item.id}`">
           <div class="flex justify-between dark:text-gray-200">
             <div>{{ item.name }}</div>
             <div class="font-bold">{{ item.score ?? 0 }}分</div>
