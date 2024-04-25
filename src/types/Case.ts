@@ -2,6 +2,7 @@ import CaseDisease from './CaseDisease'
 import CaseAssay from './CaseAssay'
 import CaseMedicine from './CaseMedicine'
 import CaseVaccine from './CaseVaccine'
+import Charge from './Charge'
 
 export default interface Case {
   id: number
@@ -12,7 +13,7 @@ export default interface Case {
   assays: CaseAssay[]
   medicines: CaseMedicine[]
   vaccines: CaseVaccine[]
-  chargeId: number
+  charge: Charge
   brief: string
   doctorName: string
 }

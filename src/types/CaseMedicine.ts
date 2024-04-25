@@ -4,4 +4,5 @@ export default interface CaseMedicine {
   usage: string
   validity: string
   medicineDosage: string
+  price: number
 }

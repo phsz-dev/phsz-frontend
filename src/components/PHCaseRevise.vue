@@ -18,6 +18,14 @@
       />
     </div>
     <div class="flex w-full justify-between py-4">
+      <div class="w-30 py-2 text-lg dark:text-gray-200">对应疾病</div>
+      <input
+        type="text"
+        class="rounded-base ml-20 flex-1 rounded-md border border-gray-300 px-4 py-2 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+        v-model="store.detailedCase.name"
+      />
+    </div>
+    <div class="flex w-full justify-between py-4">
       <div class="w-30 py-2 text-lg dark:text-gray-200">提交时间</div>
       <div class="py-2 text-lg dark:text-gray-200">
         {{
@@ -108,7 +116,7 @@
               {{ (medicine.name + ' ' + medicine.usage).substring(0, 20) }}
             </option>
           </select>
-
+          
           <!-- 文本输入框用于输入测试结果（阳性或阴性） -->
           <select
             class="flex-[1_1_0%] border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
@@ -286,13 +294,7 @@
           </select>
 
           <!-- 文本输入框用于输入测试结果（阳性或阴性） -->
-          <select
-            class="flex-[2_2_0%] border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
-            v-model="newAssay.result"
-          >
-            <option value="阳性">阳性</option>
-            <option value="阴性">阴性</option>
-          </select>
+          <input type="text" placeholder="请输入检查结果" class="flex-[2_2_0%] px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200" v-model="newAssay.result" />
           <input
             type="date"
             class="flex-[2_2_0%] border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
@@ -302,6 +304,84 @@
             <button
               class="rounded-md bg-primary-500 px-2 py-1 text-sm text-white"
               @click="store.addCaseAssayLocal(newAssay)"
+            >
+              添加
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex w-full justify-between py-4">
+      <div class="w-30 py-2 text-lg dark:text-gray-200">额外付款</div>
+      <div class="ml-20 flex-1 rounded-md">
+        <div
+          class="flex w-full flex-row bg-secondary-100/60 px-2 py-3 text-base font-bold text-black dark:bg-gray-700 dark:!text-gray-200"
+        >
+          <div class="flex-[2_2_0%]">名称</div>
+          <div class="flex-[2_2_0%]">具体描述</div>
+          <div class="flex-[1_1_0%]">金额</div>
+          <div class="flex-[0.5_0.5_0%]">操作</div>
+        </div>
+        <!-- 内容 -->
+        <div
+          v-for="(item, index) in store.detailedCase?.charge?.details.arr as ChargeLineItem[]"
+          :key="index"
+          class="px-2 py-3"
+          :class="
+            index % 2 === 0
+              ? 'bg-secondary-50 dark:bg-gray-800'
+              : 'bg-secondary-100/60 dark:bg-gray-700'
+          "
+        >
+          <div
+            class="flex w-full flex-row text-base text-black dark:!text-gray-200"
+          >
+            <div
+              class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
+              >{{ item.name }}</div
+            >
+            <div class="flex-[2_2_0%]">{{ item.description }}</div>
+            <div class="flex-[1_1_0%]">
+              {{ item.price }}
+            </div>
+            <div class="flex-[0.5_0.5_0%]">
+              <button
+                class="rounded-md bg-red-500 px-2 py-1 text-sm text-white"
+                @click="store.deleteCaseChargeLocal(index)"
+              >
+                删除
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 添加输入 -->
+        <div
+          class="flex w-full flex-row px-2 py-3 text-base text-black dark:!text-gray-200"
+          :class="
+            store.detailedCase?.assays.length % 2 === 0
+              ? 'bg-secondary-50 dark:bg-gray-800'
+              : 'bg-secondary-100/60 dark:bg-gray-700'
+          "
+        >
+        <input type="text" placeholder="请输入收费名称" class="flex-[2_2_0%] px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200" v-model="newCharge.name" />
+
+          <!-- 文本输入框用于输入测试结果（阳性或阴性） -->
+          <input type="text" placeholder="请输入具体描述" class="flex-[2_2_0%] px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200" v-model="newCharge.description" />
+          <input
+            type="number"
+            class="flex-1 w-0 px-2 border border-gray-300 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+            v-model="newCharge.price"
+          />
+          <div class="flex-[0.5_0.5_0%]">
+            <button
+              class="rounded-md bg-primary-500 px-2 py-1 text-sm text-white"
+              @click="{
+                store.addCaseChargeLocal(newCharge);
+                newCharge.name = '';
+                newCharge.description = '';
+                newCharge.price = 0;
+              }"
             >
               添加
             </button>
@@ -334,7 +414,9 @@ import { useAssayStore } from '../stores/assay'
 import { useMedicineStore } from '../stores/medicine'
 import { useVaccineStore } from '../stores/vaccine'
 import { useMessageStore } from '../stores/message'
+import ChargeLineItem from '../types/ChargeLineItem'
 import Message from '../types/message'
+import router from '../router'
 const messageStore = useMessageStore()
 const store = useCaseStore()
 const medicineStore = useMedicineStore()
@@ -358,25 +440,35 @@ const newMedicine = reactive({
   name: '',
   usage: '',
   medicineDosage: '',
-  validity: ''
+  validity: '',
+  price:0
 })
 
 const newVaccine = reactive({
   id: 0,
   name: '',
   manufacturer: '',
-  expiryDate: ''
+  expiryDate: '',
+  price:0
 })
 
 const newAssay = reactive({
   id: 0,
   name: '',
   result: '',
-  date: ''
+  date: '',
+  price:0
+})
+
+const newCharge = reactive({
+  name: '',
+  description: '',
+  price: 0
 })
 
 const saveCase = async () =>{
   await store.updateCase(store.detailedCase!)
   messageStore.addMessage(Message.partialMessage('保存成功', 'success','top'))
+  router.go(-1)
 }
 </script>

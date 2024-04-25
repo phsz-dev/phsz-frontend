@@ -3,4 +3,5 @@ export default interface CaseAssay {
   name: string
   date: string
   result: string
+  price: number
 }

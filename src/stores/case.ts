@@ -12,6 +12,8 @@ import CaseMedicine from '../types/CaseMedicine'
 import { useVaccineStore } from './vaccine'
 import CaseVaccine from '../types/CaseVaccine'
 import Vaccine from '../types/vaccine'
+import Charge from '../types/Charge'
+import ChargeLineItem from '../types/ChargeLineItem'
 
 const apiService = new ApiService('')
 
@@ -20,7 +22,7 @@ export const useCaseStore = defineStore('case', () => {
   const roughCases = ref<Page<RoughCase>>()
   const detailedCase = ref<Case>()
   const currentIndex = ref<number>(0)
-  const chargeList = ref<any>([])
+  const chargeItem = ref<Charge>()
   const getDiseaseCatalog = async () => {
     try {
       const res = await apiService.get('/api/diseases')
@@ -53,11 +55,6 @@ export const useCaseStore = defineStore('case', () => {
     try {
       const res = await apiService.get('/api/cases/' + caseId)
       console.log(res)
-      if (res.chargeId != null) {
-        const res2 = await apiService.get('/api/charges/' + res.chargeId)
-        chargeList.value = res2
-        console.log(res2)
-      }
       detailedCase.value = res
     } catch (e) {
       console.log(e)
@@ -102,6 +99,25 @@ export const useCaseStore = defineStore('case', () => {
     }
   }
 
+  const deleteCaseChargeLocal = async (index: number) => {
+    (detailedCase.value!.charge.details.arr as ChargeLineItem[]).splice(index, 1)
+  }
+
+  const addCaseChargeLocal = async (charge: ChargeLineItem) => {
+    if (detailedCase.value) {
+      if(detailedCase.value.charge!=null) {
+        (detailedCase.value!.charge.details as ChargeLineItem[]).push({ ...charge })
+      }else{
+        detailedCase.value.charge = {
+          details :{
+            arr: [{...charge}]
+          }
+        }
+      
+      }
+    }
+  }
+
   const createCase = async () => {
     try {
       const res = await apiService.post('/api/cases', {
@@ -120,6 +136,9 @@ export const useCaseStore = defineStore('case', () => {
 
   const updateCase = async (caseInfo: Case) => {
     try {
+      if(caseInfo.charge!=null) {
+        JSON.stringify(caseInfo.charge.details)
+      }
       const res = await apiService.put('/api/cases', caseInfo)
       console.log(res)
     } catch (e) {
@@ -136,12 +155,21 @@ export const useCaseStore = defineStore('case', () => {
     }
   }
 
+  const deleteCase = async (caseId: number) => {
+    try {
+      const res = await apiService.delete('/api/cases/' + caseId)
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return {
     diseaseCatalog,
     roughCases,
     detailedCase,
     currentIndex,
-    chargeList,
+    chargeItem,
     getDiseaseCatalog,
     getRoughCaseByDisease,
     getDetailedCase,
@@ -151,8 +179,11 @@ export const useCaseStore = defineStore('case', () => {
     addCaseVaccineLocal,
     deleteCaseAssayLocal,
     addCaseAssayLocal,
+    deleteCaseChargeLocal,
+    addCaseChargeLocal,
     createCase,
     updateCase,
-    collectCase
+    collectCase,
+    deleteCase
   }
 })

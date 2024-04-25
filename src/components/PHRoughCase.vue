@@ -1,6 +1,6 @@
 <template>
   <RouterLink :to="{ path: '/case-detail/' + roughCase.id + '/intro' }">
-    <div class="hover:bg-gray-100 hover:dark:bg-dark-block-400 py-3 px-1">
+    <div class="py-3 px-1">
       <div class="flex items-center justify-between">
         <div class="text-lg font-bold dark:text-gray-200">
           {{ roughCase.name }}

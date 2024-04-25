@@ -3,4 +3,5 @@ export default interface CaseVaccine {
   name: string
   manufacturer: string
   expiryDate: string
+  price: number
 }
