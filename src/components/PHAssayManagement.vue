@@ -6,6 +6,7 @@
     :table-headers="tableHeaders"
     :url="url"
     @add-item="addItem"
+    @revise-item="reviseItem"
   >
     <PHAssayForm ref="assayForm" />
   </PHManagement>
@@ -39,5 +40,14 @@ const assayModal = createModalConfig(
 
 const addItem = () => {
   assayModal.value.show = true
+}
+
+const reviseItem = async (id: number) => {
+  assayModal.value.show = true
+  // 等到assayForm组件显示后再调用revise方法
+  while (!assayForm.value) {
+    await new Promise((resolve) => setTimeout(resolve, 10))
+  }
+  await assayForm.value?.revise(id)
 }
 </script>

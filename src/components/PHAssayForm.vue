@@ -66,8 +66,13 @@ const submit = async () => {
   await store.addAssay(assay.value)
 }
 
+const revise = async (id: number) => {
+  assay.value = await store.getAssayById(id)
+}
+
 defineExpose({
   submit,
+  revise
 })
 </script>
 
