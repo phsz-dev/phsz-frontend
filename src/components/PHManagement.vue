@@ -34,6 +34,9 @@
           <template v-if="header.type === 'time'">
             {{ new Date(item[header.value]).toLocaleDateString() }}
           </template>
+          <template v-else-if="header.transform">
+            {{ header.transform(item[header.value]) }}
+          </template>
           <template v-else>
             {{ item[header.value] }}
           </template>
@@ -61,8 +64,8 @@ const searchStore = useSearchStore()
 
 const props = defineProps<{
   title: string
-  buttonName: string
-  tableHeaders: { text: string; value: string; type?: string }[]
+  buttonName?: string
+  tableHeaders: { text: string; value: string; type?: string; transform?: (value: any) => string }[]
   url: string
 }>()
 

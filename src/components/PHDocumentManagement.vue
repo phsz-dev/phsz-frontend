@@ -6,7 +6,7 @@
     :url="url"
     @add-item="addItem"
   >
-    <PHMedicineForm ref="medicineForm" />
+    <!-- <PHDocumentForm ref="documentForm" /> -->
   </PHManagement>
 </template>
 
