@@ -32,22 +32,22 @@ const left_title = '用户中心'
 const left_menu = [
   '编辑信息',
   '病例收藏',
-  '我的问答',
+  // '我的问答',
   '我的考试',
-  '我的证书',
-  '我的消息',
-  '我的设置',
+  // '我的证书',
+  // '我的消息',
+  // '我的设置',
   '退出登录'
 ]
 
 const routes = [
   '',
   '/collect-case',
-  '/my-questions',
+  // '/my-questions',
   '/my-exams',
-  '/my-certificate',
-  '/my-messages',
-  '/my-settings'
+  // '/my-certificate',
+  // '/my-messages',
+  // '/my-settings'
 ]
 
 // menu_id和当前路由对应
