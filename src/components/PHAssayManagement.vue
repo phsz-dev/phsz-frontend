@@ -36,7 +36,6 @@ const tableHeaders = [
 ]
 
 const { page } = usePage<Assay>('/api/assays', 10)
-console.log(page)
 const addItem = () => {
   console.log('add item')
 }

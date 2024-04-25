@@ -24,11 +24,18 @@
           <RouterLink
             class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
             :to="{ path: `/assay/${item.id}` }"
+            v-if="item.name!='检查不存在'"
             >{{ item.name }}</RouterLink
           >
-          <div class="flex-[2_2_0%]">{{ item.result }}</div>
+          <div
+            class="flex-[2_2_0%] hover:cursor-pointer hover:text-primary-500"
+            v-else
+            @click="messageStore.addMessage(Message.partialMessage('检查不存在','error','top'))"
+            >{{ item.name }}</div
+          >
+          <div class="flex-[2_2_0%]">{{ item.result?item.result:"/" }}</div>
           <div class="flex-[2_2_0%]">
-            {{ new Date(item.date).toLocaleDateString() }}
+            {{ item.date?new Date(item.date).toLocaleDateString():"/" }}
           </div>
         </div>
       </div>
@@ -38,5 +45,8 @@
 
 <script setup lang="ts">
 import { useCaseStore } from '../stores/case'
+import { useMessageStore } from '../stores/message';
+import Message from '../types/message';
+const messageStore = useMessageStore()
 const store = useCaseStore()
 </script>

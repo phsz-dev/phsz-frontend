@@ -19,7 +19,7 @@
             <span
               v-for="role in user.roles"
               :key="role"
-              class="px-2 py-1 bg-gray-200 text-gray-800 rounded-full text-xs mr-1"
+              class="mr-1 rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-800"
             >
               {{ role }}
             </span>
@@ -72,7 +72,7 @@ const toggleUserEnabled = (user: any) => {
   store.updateUser(user)
 }
 
-const { page } = usePage<UserInfo>('/api/users', 10, store.token)
+const { page } = usePage<UserInfo>('/api/users', 12, store.token)
 
 const userForm = ref<InstanceType<typeof PHUserForm>>()
 
