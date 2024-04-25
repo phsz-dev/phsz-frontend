@@ -4,18 +4,14 @@
       class="text-black dark:!text-gray-200"
       v-html="store.detailedCase?.description"
     ></div>
-    <div class="mt-5">
-      <div class="text-xl font-bold text-black dark:!text-gray-200">
+    <div class="mt-5 flex h-10 leading-10">
+      <div class="text-xl font-bold text-black dark:!text-gray-200  h-10 leading-10">
         确认疾病:
       </div>
-      <div class="flex flex-row">
-        <div
-          v-for="(item, index) in store.detailedCase?.diseaseList"
-          :key="index"
-          class="ml-2 text-black dark:!text-gray-200"
-        >
-          <a>{{ item.name }}</a>
-        </div>
+      <div
+        class="ml-4 text-black dark:!text-gray-200 leading-10"
+      >
+        <a>{{ store.detailedCase?.diseaseList.name }}</a>
       </div>
     </div>
   </div>

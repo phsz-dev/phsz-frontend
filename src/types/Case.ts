@@ -7,7 +7,7 @@ import Charge from './Charge'
 export default interface Case {
   id: number
   name: string
-  diseaseList: CaseDisease[]
+  diseaseList: CaseDisease
   description: string
   submitTime: number
   assays: CaseAssay[]
