@@ -45,6 +45,7 @@ export const usePaperStore = defineStore('paper', () => {
     const res = await apiService.put(`/api/test/exam/end`, examinationId, token)
     return res
   }
+  
   return {
     getExam,
     getPaperInfo,

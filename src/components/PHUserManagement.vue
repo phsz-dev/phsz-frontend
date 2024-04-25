@@ -1,6 +1,6 @@
 <template>
   <div class="h-full rounded-md bg-white px-3 py-3 dark:!bg-dark-block-500 flex-col flex">
-    <PHModal v-model="modal">
+    <PHModal v-model="userModal">
       <template #default>
         <PHUserForm ref="userForm"/>
       </template>
@@ -76,7 +76,7 @@ const { page } = usePage<UserInfo>('/api/users', 12, store.token)
 
 const userForm = ref<InstanceType<typeof PHUserForm>>()
 
-const modal = createModalConfig(
+const userModal = createModalConfig(
   '添加用户', 
   async () => {
     await userForm.value?.submit()
@@ -84,7 +84,7 @@ const modal = createModalConfig(
 )
 
 const addItem = () => {
-  modal.value.show = true
+  userModal.value.show = true
 }
 </script>
 

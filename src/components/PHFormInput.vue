@@ -34,7 +34,7 @@ withDefaults(
     autocomplete: 'off'
   }
 )
-const modelValue = defineModel<string>()
+const modelValue = defineModel<string | number>()
 </script>
 
 <style scoped>

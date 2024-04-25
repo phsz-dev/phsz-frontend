@@ -35,7 +35,7 @@ const tableHeaders = [
   { text: '疫苗名称', value: 'name' },
   { text: '生产厂家', value: 'manufacturer' },
   { text: '价格', value: 'price' },
-  { text: '过期时间', value: 'expireDate' }
+  { text: '过期时间', value: 'expiryDate' }
 ]
 
 const { page } = usePage<Vaccine>('/api/vaccines', 10)

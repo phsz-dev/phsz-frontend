@@ -2,7 +2,7 @@
   <form>
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
-        <FormInput 
+        <PHFormInput 
           v-model="username"
           name="username" 
           label="用户名" 
@@ -16,7 +16,7 @@
             <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">头像
             </label>
             <div class="mt-2 flex items-center gap-x-3">
-              <img class="h-12 w-12 text-gray-300 rounded-full" aria-hidden="true" :src="avatar || default_avatar"/>
+              <img class="h-12 w-12 text-gray-300 rounded-full" aria-hidden="true" :src="avatar || defaultAvatar"/>
               <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" @click="chooseFile">更换头像</button>
               <input
                 ref="fileInput"
@@ -28,7 +28,7 @@
           </div>
         </div>
 
-        <FormInput 
+        <PHFormInput 
           v-model="password"
           name="password" 
           label="密码" 
@@ -37,8 +37,8 @@
           autocomplete="new-password"
         />
 
-        <FormInput 
-          v-model="confirm_password"
+        <PHFormInput 
+          v-model="confirmPassword"
           name="confirm_password" 
           label="确认密码" 
           type="password" 
@@ -46,7 +46,7 @@
           autocomplete="current-password"
         />
 
-        <FormInput 
+        <PHFormInput 
           v-model="email"
           name="email" 
           label="邮箱" 
@@ -87,21 +87,21 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import default_avatar from '../assets/profile/default_avatar.jpg'
-import FormInput from './PHFormInput.vue'
+import defaultAvatar from '../assets/profile/default_avatar.jpg'
+import PHFormInput from './PHFormInput.vue'
 
 const fileInput = ref<HTMLInputElement | null>(null)
-const avatar = ref('')
-const username = ref('')
-const password = ref('')
-const confirm_password = ref('')
-const email = ref('')
-const user = ref(false)
-const admin = ref(false)
+const avatar = ref<string>('')
+const username = ref<string>('')
+const password = ref<string>('')
+const confirmPassword = ref<string>('')
+const email = ref<string>('')
+const user = ref<boolean>(false)
+const admin = ref<boolean>(false)
 
-const err_situation = ref(0)
-const err_message = computed(() => {
-  if (err_situation.value == 0) return ''
+const errSituation = ref<number>(0)
+const errMessage = computed(() => {
+  if (errSituation.value == 0) return ''
   return [
     '用户名不能为空',
     '密码不能为空',
@@ -109,7 +109,7 @@ const err_message = computed(() => {
     '两次输入的密码不一致',
     '用户名不能重复',
     '服务器错误, 请稍后再试'
-  ][err_situation.value - 1]
+  ][errSituation.value - 1]
 })
 
 const chooseFile = () => {
@@ -123,7 +123,7 @@ const uploadFile = async () => {
 }
 
 const submit = async () => {
-  console.log(username.value, password.value, confirm_password.value, email.value, user.value, admin.value)
+  console.log(username.value, password.value, confirmPassword.value, email.value, user.value, admin.value)
   console.log("submit")
 }
 
