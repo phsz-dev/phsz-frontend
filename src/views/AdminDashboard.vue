@@ -28,7 +28,12 @@ const menuList = [
   { name: '药品管理' },
   { name: '疫苗管理' },
   { name: '收费管理' },
-  { name: '病例管理' }
+  { name: '病例管理' },
+  { name: '题目管理' },
+  { name: '试卷管理' },
+  { name: '考试管理' },
+  { name: '导览数据' },
+  { name: '知识库' }
 ]
 
 const routes = [
@@ -37,7 +42,12 @@ const routes = [
   '/medicine-management',
   '/vaccine-management',
   '/charge-management',
-  '/case-management'
+  '/case-management',
+  '/question-management',
+  '/paper-management',
+  '/exam-management',
+  '/3d-data-management',
+  '/document-management'
 ]
 
 const menu_id = ref(

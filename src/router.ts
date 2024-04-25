@@ -159,6 +159,36 @@ const routes = [
             path: 'case-management',
             name: 'CaseManagement',
             component: () => import('./components/PHCaseManagement.vue')
+          },
+  //         { name: '题目管理' },
+  // { name: '试卷管理' },
+  // { name: '考试管理' },
+  // { name: '导览数据' },
+  // { name: '知识库' }
+          {
+            path: 'question-management',
+            name: 'QuestionManagement',
+            component: () => import('./components/PHQuestionManagement.vue')
+          },
+          {
+            path: 'paper-management',
+            name: 'PaperManagement',
+            component: () => import('./components/PHPaperManagement.vue')
+          },
+          {
+            path: 'exam-management',
+            name: 'ExamManagement',
+            component: () => import('./components/PHExamManagement.vue')
+          },
+          {
+            path: '3d-data-management',
+            name: '3DDataManagement',
+            component: () => import('./components/PH3DDataManagement.vue')
+          },
+          {
+            path: 'document-management',
+            name: 'DocumentManagement',
+            component: () => import('./components/PHDocumentManagement.vue')
           }
         ]
       },
