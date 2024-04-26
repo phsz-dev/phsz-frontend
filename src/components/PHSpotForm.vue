@@ -55,8 +55,8 @@
             >
               描述
             </label>
-            <div class="mt-2 dark:text-white">
-              <PHQuill v-model="spot.description" class="" />
+            <div class="mt-2">
+              <PHQuill v-model="spot.description" class="dark:text-white" />
             </div>
           </div>
         </div>
