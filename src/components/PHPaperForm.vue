@@ -20,23 +20,68 @@
           autocomplete="off"
         />
 
+        <div class="mt-10 space-y-10">
+          <fieldset>
+            <legend class="text-sm font-semibold leading-6 text-gray-900">试卷内容</legend>
+            <div v-for="(paperQuestion, index) in paper.questions" :key="index" class="mt-2">
+              <label for="paperQuestion" class="block text-sm font-medium leading-6 text-gray-900">
+                {{ paperQuestion.sequence }}. 
+              </label>
+              <select
+                class="rounded-base flex-1 rounded-md border border-gray-300 px-4 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+                v-model="paperQuestion.question.id"
+              >
+                <option
+                  v-for="question in questionList"
+                  :key="question.id"
+                  :value="question.id"
+                >
+                  {{ question.text.slice(0, 10) }}
+                </option>
+              </select>
+              <PHFormInput
+                v-model="paperQuestion.score"
+                name="paperQuestionScore"
+                label="分数"
+                type="number"
+                placeholder="请输入分数"
+                autocomplete="off"
+                class="mt-0"
+              />
+              <button
+                class="rounded-md border border-red-500 mt-3 px-2 py-2 text-red-500  text-xs dark:border-dark-block-500 dark:text-gray-200"
+                @click.prevent="removeQuestion(index)"
+              >
+                删除题目
+              </button>
+            </div>
+            <button
+              class="rounded-md border border-primary-600 mt-3 px-2 py-2 text-primary-600  text-xs dark:border-dark-block-500 dark:text-gray-200"
+              @click.prevent="addQuestion"
+            >
+             增加题目
+            </button>
+          </fieldset>
+        </div>
+
         <PHFormInput
           v-model="paper.durationSeconds"
           name="paperDurationSeconds"
-          label="考试时长"
+          label="考试时长（秒）"
           type="number"
           placeholder="请输入考试时长"
           autocomplete="off"
         />
 
-        <PHFormInput
+        <!-- <PHFormInput
           v-model="paper.totalScore"
           name="paperTotalScore"
           label="总分"
           type="number"
           placeholder="请输入总分"
           autocomplete="off"
-        />
+          :disabled="true"
+        /> -->
 
         <PHFormInput
           v-model="paper.deadline"
@@ -54,15 +99,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import PHFormInput from './PHFormInput.vue'
-import { Paper } from '../types/paper'
+import { Paper, Question } from '../types/paper'
 import ApiService from '../http'
 import { usePaperStore } from '../stores/paper'
 
 const store = usePaperStore()
 
+const currentQuestionId = ref<number | undefined>(undefined)
+const questionList = ref<Question[]>([])
+
 onMounted(async () => {
-  const res = store.getAllQuestions()
-  console.log(res)
+  questionList.value = await store.getAllQuestions()
+  console.log(questionList)
 })
 
 const apiService = new ApiService('')
@@ -86,7 +134,22 @@ const paper = ref<Paper>({
   questions: []
 })
 
+const addQuestion = () => {
+  console.log(currentQuestionId.value)
+  paper.value.questions.push({ sequence: paper.value.questions.length + 1, score: 0,
+    question: { id: 0 }
+   })
+}
+
+const removeQuestion = (index: number) => {
+  paper.value.questions.splice(index, 1)
+}
+
 const submit = async () => {
+  paper.value.totalScore = 0
+  for (const q of paper.value.questions) {
+    paper.value.totalScore += q.score
+  }
   await apiService.post('/api/test/paper', paper.value)
   emit('submit')
 }
