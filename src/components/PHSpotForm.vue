@@ -51,11 +51,11 @@
           <div class="sm:col-span-4">
             <label
               for="spotDescription"
-              class="block text-sm font-medium leading-6 text-gray-900"
+              class="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
               描述
             </label>
-            <div class="mt-2">
+            <div class="mt-2 dark:text-white">
               <PHQuill v-model="spot.description" class="" />
             </div>
           </div>
@@ -73,7 +73,7 @@
           <div class="col-span-full">
             <label
               for="photo"
-              class="block text-sm font-medium leading-6 text-gray-900"
+              class="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >视频
             </label>
             <div class="mt-2 flex items-center gap-x-3">

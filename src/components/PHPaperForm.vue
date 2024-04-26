@@ -49,14 +49,14 @@
                 class="mt-0"
               />
               <button
-                class="rounded-md border border-red-500 mt-3 px-2 py-2 text-red-500  text-xs dark:border-dark-block-500 dark:text-gray-200"
+                class="rounded-md border border-red-500 mt-3 px-2 py-2 text-red-500  text-xs"
                 @click.prevent="removeQuestion(index)"
               >
                 删除题目
               </button>
             </div>
             <button
-              class="rounded-md border border-primary-600 mt-3 px-2 py-2 text-primary-600  text-xs dark:border-dark-block-500 dark:text-gray-200"
+              class="rounded-md border border-primary-600 mt-3 px-2 py-2 text-primary-600  text-xs "
               @click.prevent="addQuestion"
             >
              增加题目

@@ -13,17 +13,17 @@
 
         <div class="mt-10 space-y-10">
           <fieldset>
-            <legend class="text-sm font-semibold leading-6 text-gray-900">类型</legend>
-            <p class="mt-1 text-sm leading-6 text-gray-600">选择题或文本题</p>
+            <legend class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">类型</legend>
+            <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-white">选择题或文本题</p>
             <div class="mt-6 space-y-6">
               <div class="flex items-center gap-x-3">
                 <input id="mcq" v-model="question.type" value="mcq" name="questionType" type="radio" class="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-600">
-                <label for="mcq" class="block text-sm font-medium leading-6 text-gray-900">选择题</label>
+                <label for="mcq" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">选择题</label>
               </div>
         
               <div class="flex items-center gap-x-3">
                 <input id="text" v-model="question.type" value="text" name="questionType" type="radio" class="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-600 checked">
-                <label for="text" class="block text-sm font-medium leading-6 text-gray-900">文本题</label>
+                <label for="text" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">文本题</label>
               </div>
             </div>
           </fieldset>
@@ -31,7 +31,7 @@
         
         <div v-if="question.type === 'mcq'" class="mt-10 space-y-10">
           <fieldset>
-            <legend class="text-sm font-semibold leading-6 text-gray-900">选项</legend>
+            <legend class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">选项</legend>
             <div v-for="(option, index) in question.options" :key="index" class="mt-2">
                 <PHFormInput
                   v-model="option.text"
@@ -42,14 +42,14 @@
                   autocomplete="off"
                 />
                 <button
-                  class="rounded-md border border-red-500 mt-3 px-2 py-2 text-red-500  text-xs dark:border-dark-block-500 dark:text-gray-200"
+                  class="rounded-md border border-red-500 mt-3 px-2 py-2 text-red-500  text-xs"
                   @click.prevent="removeOption(index)"
                 >
                   删除选项
                 </button>
             </div>
             <button
-              class="rounded-md border border-primary-600 mt-3 px-2 py-2 text-primary-600  text-xs dark:border-dark-block-500 dark:text-gray-200"
+              class="rounded-md border border-primary-600 mt-3 px-2 py-2 text-primary-600  text-xs"
               @click.prevent="addOption"
             >
              增加选项
