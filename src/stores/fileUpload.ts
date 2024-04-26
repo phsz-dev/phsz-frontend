@@ -5,6 +5,7 @@ import { ref } from 'vue'
 const apiService = new ApiService('')
 
 export const useFileUploadStore = defineStore('fileUpload', () => {
+    const videoUrl = ref<string>('')
     const uploadImage = async (file: File) => {
         try {
             const formData = new FormData()
@@ -21,6 +22,7 @@ export const useFileUploadStore = defineStore('fileUpload', () => {
             const formData = new FormData()
             formData.append('file', file)
             const res = await apiService.postFile('/oss/video', formData, localStorage.getItem('token')!)
+            videoUrl.value = res;
             return res
         } catch (e) {
             console.log(e)
@@ -29,7 +31,8 @@ export const useFileUploadStore = defineStore('fileUpload', () => {
 
     return {
         uploadImage,
-        uploadVideo
+        uploadVideo,
+        videoUrl
     }
 
 

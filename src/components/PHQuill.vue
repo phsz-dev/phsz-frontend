@@ -67,6 +67,7 @@ const imageHandler = (image:any) => {
   store.uploadImage(image).then((res) => {
     console.log(res)
     insertImg(res,'image')
+    messageStore.addMessage(Message.partialMessage('图片上传成功', 'success', 'top'))
   }).catch((err) => {
     console.log(err)
     messageStore.addMessage(Message.partialMessage('图片上传失败', 'error', 'top'))
@@ -78,6 +79,7 @@ const videoHandler = (video: any) => {
   store.uploadVideo(video).then((res) => {
     console.log(res)
     insertImg(res,'video')
+    messageStore.addMessage(Message.partialMessage('视频上传成功', 'success', 'top'))
   }).catch((err) => {
     console.log(err)
     messageStore.addMessage(Message.partialMessage('视频上传失败', 'error', 'top'))
@@ -95,17 +97,7 @@ const insertImg = (url,type) => {
   if(type == 'image'){
     quill.insertEmbed(length,'image',url);
   }else{
-    //插入视频,并展示在编辑器中
-    // 获取editor元素
-    var editor = document.querySelector('.editor');
-    // 创建video元素
-    var video = document.createElement('video');
-    // 设置video元素的属性
-    video.src = url;
-    video.controls = true;
-    video.width = 300;
-    // 插入video元素
-    editor.appendChild(video);
+    quill.insertEmbed(length,'video',url);
   }
   quill.setSelection(length+1);
 }
