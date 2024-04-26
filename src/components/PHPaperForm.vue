@@ -14,21 +14,21 @@
         <PHFormInput
           v-model="paper.content"
           name="paperContent"
-          label="试卷内容"
+          label="试卷介绍"
           type="text"
-          placeholder="请输入试卷内容"
+          placeholder="请输入试卷介绍"
           autocomplete="off"
         />
 
         <div class="mt-10 space-y-10">
           <fieldset>
-            <legend class="text-sm font-semibold leading-6 text-gray-900">试卷内容</legend>
+            <legend class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">试卷内容</legend>
             <div v-for="(paperQuestion, index) in paper.questions" :key="index" class="mt-2">
               <label for="paperQuestion" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ paperQuestion.sequence }}. 
               </label>
               <select
-                class="rounded-base flex-1 rounded-md border border-gray-300 px-4 text-lg dark:bg-dark-block-400 dark:text-gray-200"
+                class="rounded-base flex-1 rounded-md border border-gray-300 dark:border-white px-4 text-lg dark:bg-dark-block-400 dark:text-white"
                 v-model="paperQuestion.question.id"
               >
                 <option
