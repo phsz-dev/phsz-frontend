@@ -11,7 +11,7 @@ interface Exam {
 }
 
 interface Paper {
-  id: number
+  id?: number
   name: string
   content: string
   durationSeconds: number

@@ -14,12 +14,12 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://192.168.31.140:10010',
+        target: 'http://172.30.49.127:10010',
         ws: true,
         changeOrigin: true
       },
       '/oss': {
-        target: 'http://192.168.31.140:10010',
+        target: 'http://172.30.49.127:10010',
         ws: true,
         changeOrigin: true
       }
