@@ -11,7 +11,7 @@ interface Exam {
 }
 
 interface Paper {
-  id: number
+  id?: number
   name: string
   content: string
   durationSeconds: number
@@ -26,16 +26,17 @@ interface PaperQuestion {
   question: Question
 }
 
+type QuestionType = 'text' | 'mcq'
 interface Question {
-  id: number
+  id: number | undefined
   text: string
-  type: string
+  type: QuestionType
   options?: Option[]
   answer: string
 }
 
 interface Option {
-  id: number
+  id: number | undefined
   text: string
 }
 
