@@ -13,7 +13,7 @@
 
         <div class="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="col-span-full">
-            <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">头像
+            <label for="photo" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">头像
             </label>
             <div class="mt-2 flex items-center gap-x-3">
               <img class="h-12 w-12 text-gray-300 rounded-full" aria-hidden="true" :src="avatar || defaultAvatar"/>
@@ -57,15 +57,15 @@
 
         <div class="mt-10 space-y-10">
           <fieldset>
-            <legend class="text-sm font-semibold leading-6 text-gray-900">权限</legend>
+            <legend class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">权限</legend>
             <div class="mt-6 space-y-6">
               <div class="relative flex gap-x-3">
                 <div class="flex h-6 items-center">
                   <input id="user" v-model="user" name="user" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                 </div>
                 <div class="text-sm leading-6">
-                  <label for="user" class="font-medium text-gray-900">普通用户</label>
-                  <p class="text-gray-500">宠物医院实习生，在平台中浏览和学习。</p>
+                  <label for="user" class="font-medium text-gray-900 dark:text-white">普通用户</label>
+                  <p class="text-gray-500 dark:text-white">宠物医院实习生，在平台中浏览和学习。</p>
                 </div>
               </div>
               <div class="relative flex gap-x-3">
@@ -73,8 +73,8 @@
                   <input id="admin" v-model="admin" name="admin" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                 </div>
                 <div class="text-sm leading-6">
-                  <label for="admin" class="font-medium text-gray-900">管理员</label>
-                  <p class="text-gray-500">系统管理员，负责平台的各种功能管理。</p>
+                  <label for="admin" class="font-medium text-gray-900 dark:text-white">管理员</label>
+                  <p class="text-gray-500 dark:text-white">系统管理员，负责平台的各种功能管理。</p>
                 </div>
               </div>
             </div>
