@@ -45,12 +45,18 @@ export const usePaperStore = defineStore('paper', () => {
     const res = await apiService.put(`/api/test/exam/end`, examinationId, token)
     return res
   }
-  
+
+  const getAllQuestions = async () => {
+    const res = await apiService.get(`/api/test/question?pageNum=0&pageSize=1000`)
+    return res.content
+  }
+
   return {
     getExam,
     getPaperInfo,
     startExam,
     saveAnswer,
-    submitExam
+    submitExam,
+    getAllQuestions
   }
 })
