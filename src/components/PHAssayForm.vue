@@ -31,11 +31,11 @@
         
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 ">
           <div class="sm:col-span-4">
-            <label for="assayDescription" class="block text-sm font-medium leading-6 text-gray-900">
+            <label for="assayDescription" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">
               描述
             </label>
             <div class="mt-2">
-              <PHQuill v-model="assay.description" class=""/>
+              <PHQuill v-model="assay.description" class="dark:text-white"/>
             </div>
           </div>
         </div>
