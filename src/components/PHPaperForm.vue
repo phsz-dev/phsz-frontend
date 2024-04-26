@@ -61,7 +61,7 @@ import { usePaperStore } from '../stores/paper'
 const store = usePaperStore()
 
 onMounted(async () => {
-  const res = store.getAllQuestions()
+  const res = await store.getAllQuestions()
   console.log(res)
 })
 
