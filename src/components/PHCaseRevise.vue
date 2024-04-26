@@ -451,6 +451,7 @@ import { useAssayStore } from '../stores/assay'
 import { useMedicineStore } from '../stores/medicine'
 import { useVaccineStore } from '../stores/vaccine'
 import { useMessageStore } from '../stores/message'
+import { useFileUploadStore } from '../stores/fileUpload'
 import ChargeLineItem from '../types/ChargeLineItem'
 import Message from '../types/message'
 import router from '../router'
@@ -458,6 +459,7 @@ const messageStore = useMessageStore()
 const store = useCaseStore()
 const medicineStore = useMedicineStore()
 const vaccineStore = useVaccineStore()
+const fileUploadStore = useFileUploadStore()
 const assayStore = useAssayStore()
 const props = defineProps<{
   case_id: number
@@ -505,7 +507,12 @@ const newCharge = reactive({
 })
 
 const saveCase = async () => {
+  if(fileUploadStore.videoUrl!=''&&fileUploadStore.videoUrl!=undefined){
+    store.detailedCase!.description = store.detailedCase!.description + '<video src="'+fileUploadStore.videoUrl+'" controls="controls" width="100%" height="100%"></video>'
+    fileUploadStore.videoUrl = ''
+  }
   await store.updateCase(store.detailedCase!)
+  
   messageStore.addMessage(Message.partialMessage('保存成功', 'success', 'top'))
   router.go(-1)
 }
