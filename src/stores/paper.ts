@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 import ApiService from '../http'
-import { Exam, Paper } from '../types/paper'
+import { Exam, Paper, Question } from '../types/paper'
 
 const apiService = new ApiService('')
 
@@ -45,12 +45,34 @@ export const usePaperStore = defineStore('paper', () => {
     const res = await apiService.put(`/api/test/exam/end`, examinationId, token)
     return res
   }
+
+  const saveQuestion = async (question: Question) => {
+    try {
+      const res = await apiService.post('/api/test/question', question)
+      return res
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
+  const getQuestion = async (id: number) => {
+    try {
+      const res = await apiService.get(`/api/test/question/${id}`)
+      return res
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
   
   return {
     getExam,
     getPaperInfo,
     startExam,
     saveAnswer,
-    submitExam
+    submitExam,
+    saveQuestion,
+    getQuestion
   }
 })
