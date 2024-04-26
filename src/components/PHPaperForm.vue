@@ -156,6 +156,7 @@ const submit = async () => {
 
 const revise = async (id: number) => {
   const data = await apiService.get(`/api/test/paper/${id}`)
+  data.deadline = data.deadline.split('T')[0]
   paper.value = data
 }
 
