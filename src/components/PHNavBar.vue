@@ -5,14 +5,14 @@
         <RouterLink to="/" class="text-2xl font-bold dark:text-gray-100"
           >PHSZ</RouterLink
         >
-        <div
+        <!-- <div
           class="mx-5 flex h-full rounded-md bg-gray-100 px-2 leading-8 text-gray-500 hover:cursor-pointer dark:bg-zinc-900 dark:text-gray-300"
         >
           <div class="h-8">
             <div class="phi-search my-2 h-4 w-4 bg-gray-500"></div>
           </div>
           <div class="text-nowrap px-4 text-sm leading-8">搜索</div>
-        </div>
+        </div> -->
       </div>
 
       <nav class="flex shrink-0">
