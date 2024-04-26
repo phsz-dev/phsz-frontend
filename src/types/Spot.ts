@@ -18,7 +18,7 @@
 // }
 
 export default interface Spot{
-    id: number,
+    id?: number,
     x: number,
     y: number,
     z: number,
@@ -26,5 +26,4 @@ export default interface Spot{
     name: string,
     description: string,
     videoUrl: string
-
 }
