@@ -8,7 +8,7 @@ const apiService = new ApiService('')
 
 export const use3dNavigationStore = defineStore('_3dNavigation', () => {
     const sceneInfo = ref<PHScene[]>()
-    const spotInfo = ref<Spot>()
+    const spotInfo = ref<Spot[]>()
     const getAllScene = async () => {
         try {
             const res = await apiService.get('/api/3d/scene/all/noPage')

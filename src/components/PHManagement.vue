@@ -41,7 +41,10 @@
             {{ item[header.value] }}
           </template>
         </td>
-        <button class=" text-red-500 text-base font-bold py-4 mr-2 rounded" @click.stop="showDialogue(item.id)" >
+        <button
+          class="mr-2 rounded py-4 text-base font-bold text-red-500"
+          @click.stop="showDialogue(item.id)"
+        >
           删除
         </button>
       </tr>
@@ -61,13 +64,19 @@ import { useDialogueStore } from '../stores/dialogue'
 import { useMessageStore } from '../stores/message'
 import Message from '../types/message'
 import ApiService from '../http'
+import HTTPError from '../types/error'
 
 const searchStore = useSearchStore()
 
 const props = defineProps<{
   title: string
   buttonName?: string
-  tableHeaders: { text: string; value: string; type?: string; transform?: (value: any) => string }[]
+  tableHeaders: {
+    text: string
+    value: string
+    type?: string
+    transform?: (value: any) => string
+  }[]
   url: string
 }>()
 
@@ -97,7 +106,7 @@ const itemModal = defineModel<{
 }>()
 
 defineEmits<{
-  'add-item': [],
+  'add-item': []
   'revise-item': [number]
 }>()
 
@@ -107,14 +116,16 @@ const msgStore = useMessageStore()
 const deleteItem = async (id: number) => {
   try {
     await apiService.delete(`${props.url}/${id}`)
-    page.value.content = page.value.content.filter((item: any) => item.id !== id)
-    msgStore.addMessage(
-      Message.topSuccess('删除成功')
+    page.value.content = page.value.content.filter(
+      (item: any) => item.id !== id
     )
+    msgStore.addMessage(Message.topSuccess('删除成功'))
   } catch (error) {
-    msgStore.addMessage(
-      Message.topError(`删除失败: ${error}`)
-    )
+    if (error instanceof HTTPError) {
+      msgStore.addMessage(Message.topError(error.message))
+    } else {
+      msgStore.addMessage(Message.topError(`未知失败: ${error}`))
+    }
   }
 }
 

@@ -40,7 +40,7 @@
           <div class="p-4 overflow-scroll size-full">
             <h2 class="text-lg font-bold">{{ marksList[modelId-1].find(item => item.name == selected)?.name }}</h2>
             <p class="text-sm mt-2" v-html="marksList[modelId-1].find(item => item.name == selected)?.description"></p>
-            <video class="mt-2" :src="store.spotInfo[0]!.videoUrl" controls></video>
+            <video class="mt-2" :src="marksList[modelId-1].find(item => item.name == selected)?.videoUrl" controls></video>
           </div>
         </div>
       </Transition>
@@ -157,7 +157,8 @@ const marksList:Marker[][] = [
         id: scene.id,
         name: scene.name,
         description: scene.description,
-        position: [scene.x, scene.y, scene.z]
+        position: [scene.x, scene.y, scene.z],
+        videoUrl: scene.videoUrl
       })
     }
   

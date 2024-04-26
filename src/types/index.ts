@@ -1,5 +1,5 @@
 interface Document {
-    id: number;
+    id?: number;
     page_content: string;
 }
 
